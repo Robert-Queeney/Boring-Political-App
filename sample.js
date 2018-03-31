@@ -1,6 +1,18 @@
 'use strict';
 $(document).ready(function(){
 
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw",
+    authDomain: "boringpoliticalapp.firebaseapp.com",
+    databaseURL: "https://boringpoliticalapp.firebaseio.com",
+    projectId: "boringpoliticalapp",
+    storageBucket: "",
+    messagingSenderId: "944272526743"
+  };
+firebase.initializeApp(config);
+
+
 
 // senator search
 // $.ajax({
