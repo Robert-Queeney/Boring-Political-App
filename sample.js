@@ -1,6 +1,18 @@
 'use strict';
 $(document).ready(function(){
 
+  // Initialize Firebase
+//   var config = {
+//     apiKey: "AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw",
+//     authDomain: "boringpoliticalapp.firebaseapp.com",
+//     databaseURL: "https://boringpoliticalapp.firebaseio.com",
+//     projectId: "boringpoliticalapp",
+//     storageBucket: "",
+//     messagingSenderId: "944272526743"
+//   };
+// firebase.initializeApp(config);
+
+
 
 // senator search
 // $.ajax({
@@ -40,7 +52,6 @@ $(document).ready(function(){
       let party = results.results[0].bills[i].sponsor_party;  
       let summary = results.results[0].bills.title; 
       let status = results.results[0].bills.latest_major_action; 
-
     
       const billInfo = {
         title: title, 
@@ -56,27 +67,27 @@ $(document).ready(function(){
 
 
 //check for capabilities
-if ("geolocation" in navigator){
-  console.log("capable");
-} else{
-  console.log("incapable");
-};
+// if ("geolocation" in navigator){
+//   console.log("capable");
+// } else{
+//   console.log("incapable");
+// };
 
-//geolocation functions
-function success(pos){
-  let coords = pos.coords;
-  console.log(coords.latitude);
-  console.log(coords.longitude);
-};
+// //geolocation functions
+// function success(pos){
+//   let coords = pos.coords;
+//   console.log(coords.latitude);
+//   console.log(coords.longitude);
+// };
 
-function error (err){
-  $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
-  // have pop up screen asking for location then in order to 
-  // display relevant results
-};
+// function error (err){
+//   $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+//   // have pop up screen asking for location then in order to 
+//   // display relevant results
+// };
 
 
-navigator.geolocation.getCurrentPosition(success, error);
+// navigator.geolocation.getCurrentPosition(success, error);
 
 
 
