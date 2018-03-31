@@ -1,4 +1,4 @@
-
+'use strict';
 
 // $.ajax({
 //     url: "https://api.propublica.org/congress/v1/members/senate/MN/current.json",
@@ -9,13 +9,13 @@
 //   // console.log(data)
 //   });
 
-  $.ajax({
-    url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=1263%20Pacific%20Ave.%20Kansas%20City%20KS",
-    method: "GET"
-  }).then(function(response){
+$.ajax({
+  url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=1890 Buford Ave., St. Paul, MN",
+  method: "GET"
+}).then(function(response){
   console.log(response)
-  });
-  
+});
+
 // searching for upcoming bills
 // search terms
 // "https://api.propublica.org/congress/v1/bills/search.json?query=${input}"
@@ -48,7 +48,7 @@
   
   }});
 
-  // append info on bills to new element on second page
-  // Bill name, voting date, summary
+// append info on bills to new element on second page
+// Bill name, voting date, summary
 
-  //   https://projects.propublica.org/api-docs/congress-api/bills/#search-bills
+//   https://projects.propublica.org/api-docs/congress-api/bills/#search-bills
