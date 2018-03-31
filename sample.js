@@ -34,7 +34,6 @@ $.ajax({
       let party = results.results[0].bills[i].sponsor_party;  
       let summary = results.results[0].bills.title; 
       let status = results.results[0].bills.latest_major_action; 
-
     
       const billInfo = {
         title: title, 
