@@ -4,3 +4,7 @@ body {
 h1 {
   font-family: 'Raleway', sans-serif;
 }
+.title {
+  font-size: 3em;
+  font-family: 'Raleway', sans-serif;
+}
