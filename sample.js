@@ -67,27 +67,27 @@ firebase.initializeApp(config);
 
 
 //check for capabilities
-if ("geolocation" in navigator){
-  console.log("capable");
-} else{
-  console.log("incapable");
-};
+// if ("geolocation" in navigator){
+//   console.log("capable");
+// } else{
+//   console.log("incapable");
+// };
 
-//geolocation functions
-function success(pos){
-  let coords = pos.coords;
-  console.log(coords.latitude);
-  console.log(coords.longitude);
-};
+// //geolocation functions
+// function success(pos){
+//   let coords = pos.coords;
+//   console.log(coords.latitude);
+//   console.log(coords.longitude);
+// };
 
-function error (err){
-  $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
-  // have pop up screen asking for location then in order to 
-  // display relevant results
-};
+// function error (err){
+//   $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+//   // have pop up screen asking for location then in order to 
+//   // display relevant results
+// };
 
 
-navigator.geolocation.getCurrentPosition(success, error);
+// navigator.geolocation.getCurrentPosition(success, error);
 
 
 
