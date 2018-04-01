@@ -1,17 +1,24 @@
 // Variables
 @background-color: #f9f9f9;
 @primary-element-color: #2e71f2;
+@primary-element-color-dark: #0c32c9;
 @secondary-element-color: #01d6c4;
 @tertiary-element-color: #9425e9;
 @light-text: #ffffff;
+@dark-text: #4d4d4d;
+@input-background: #bbbbbb;
+@input-focus: #aeaeae;
 
-@drop-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+// @drop-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+// @drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+@drop-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.13);
 @drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 @drop-shadow-active: inset 0 10px 10px rgba(0,0,0,0.22);
 @drop-shadow-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 @topic-button-color: #ffffff;
 @topic-button-color-hover: @tertiary-element-color;
 @color-gradient: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
+@color-gradient-2: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
 @transition-time: 0.5s;
 
 
@@ -19,6 +26,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: @background-color;
+    color: @dark-text;
 }
 
 h1 {
@@ -33,50 +41,119 @@ h1 {
 
 // Button Styling
 
-.btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.topic-btn-style {
+.btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.topic-btn-style,.submit-btn-style {
     border-radius:23px;
 }
 
-.topic-btn-style {
-    // background-image: @light-text;
+.btn-styling {
     font-family: 'Raleway', sans-serif;
-    font-weight: bolder;
+    font-size: 13px;
+    font-weight: normal;
     letter-spacing: .05rem;
     text-transform: uppercase;
     border: 0px;
-    margin: 5px 15px;
-    min-width: 175px;
-    padding: 10px 25px;
+    padding: 10px 0px;
     box-shadow: @drop-shadow;
     transition: @transition-time;
 }
 
-.topic-btn-style:focus { 
+.submit-btn-style {
+    background-color: @primary-element-color;
+    color: @light-text;
+    min-width: 150px;
+}
+
+.topic-btn-style {
+    min-width: 150px;
+    margin: 5px 15px;
+}
+
+.btn-styling:focus {
     outline:0; 
-    // padding: 5px 20px;
-    box-shadow: inset 0 0 0 4px @topic-button-color-hover;
-    // border: 5px solid @topic-button-color-hover;
     transition: @transition-time;
 }
 
-.topic-btn-style:hover {
-    background-image: @color-gradient;
+.submit-btn-style:focus { 
+    box-shadow: inset 0 0 0 4px @primary-element-color-dark, @drop-shadow;
+}
+
+.topic-btn-style:focus { 
+    box-shadow: inset 0 0 0 4px @topic-button-color-hover, @drop-shadow;
+}
+
+.btn-styling:hover {
     color: @light-text;
     // transition: 0.5s; 
     box-shadow: @drop-shadow-hover;
     transition: @transition-time;
 }
 
-.topic-btn-style:active {
+.submit-btn-style:hover {
+    background-image: @color-gradient-2;
+}
+
+.topic-btn-style:hover {
     background-image: @color-gradient;
+}
+
+.btn-styling:active {
     color: @light-text;
-    border: 0px;
-    padding: 10px 25px;
     -moz-box-shadow: @drop-shadow-active;
     -webkit-box-shadow: @drop-shadow-active;
     box-shadow: @drop-shadow-active;
     transition: @transition-time;
+
+}
+
+.submit-btn-style:active {
+    background-image: @color-gradient-2;
+}
+
+
+.topic-btn-style:active {
+    background-image: @color-gradient;
 }
 
 
 
+// Input Styling
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: @light-text;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: @light-text;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: @light-text;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: @light-text;
+  }
+
+.input-styling {
+    background-color: @input-background;
+    color: @light-text;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    width: 98%;
+    height: 45px;
+    border: 0px;
+    border-radius:5px;
+    padding: 5px 20px;
+    box-shadow: @drop-shadow;
+
+}
+
+.input-styling:focus {
+    outline:0; 
+    transition: @transition-time;
+    box-shadow: inset 0 0 20px 4px @input-focus, @drop-shadow;
+}
+
+.input-styling:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px @primary-element-color inset, @drop-shadow;
+    box-shadow: 0 0 0px 30px @primary-element-color inset, @drop-shadow;
+    -webkit-text-fill-color: @light-text !important;
+}
