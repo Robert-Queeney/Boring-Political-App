@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,24 @@
     <title>Boring Political App Search Results</title>
 
     <!-- Links -->
-        <!-- Bootstrap Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Bootstrap Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
-        <!-- CSS -->
-        <link rel="stylesheet" href="assets/styling/styles.css">
+    <!-- interact.js -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.3/dist/interact.min.js"></script>
+    <!-- Bootstrap Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Bootstrap Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/styling/styles.css">
 </head>
+
 <body>
     <div class="wrapper">
 
-            <!-- <div class="container">
+        <!-- <div class="container">
                 <header class="header">
                     <div class="jumbotron text-center">
                         <h1>Boring Political App</h1>
@@ -28,55 +34,70 @@
                 </header>
             </div> -->
 
-            <div class="container">
-                <main class="main">
-                    <div class="row">
+        <div class="container">
+            <main class="main">
+                <div class="row">
 
-                        <div class="col-md-6">
-                            <div class="title">Boring Political App</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <form>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Topic of Interest" id="searchTopicInput">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit" id="searchTopicButton">Search</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
+                    <div class="col-md-6">
+                        <div class="title">Boring Political App</div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-primary panel-styling">
-                                <div class="panel-heading">
-                                    <h2>Bills</h2>
-                                </div>
-                                <div class="panel-body" id="billsPanel">
 
-                                    <!-- Append JS Bill Cards here -->
-
+                    <div class="col-md-6">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Topic of Interest" id="searchTopicInput">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit" id="searchTopicButton">Search</span>
+                                    </span>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary panel-styling">
+                            <div class="panel-heading">
+                                <h2>Bills</h2>
+                            </div>
+                            <!-- interact draggables -->
+                            <div class="holder">
+                                <div class="col-md-12">
+                                        <div id="box-one" class="draggable">
+                                                <p> Bill </p>
+                                            </div>
+                                            <div id="box-two" class="draggable">
+                                                <p> Bill </p>
+                                            </div>
+                                </div>
+                                        <div id="dropzone" class="dropzone">You can drop the bills here</div>
+                               
+
+                            </div>
+                            <!-- Append JS Bill Cards here -->
+
                         </div>
                     </div>
-                </main>
-            </div>
-
+                </div>
         </div>
+        </main>
+    </div>
+
+    </div>
 
 
 
-        <!-- Scripts -->
-        <!-- Jquery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!-- javascript -->
-        <script type="text/javascript" src="sample.js"></script>
+    <!-- Scripts -->
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <!-- javascript -->
+    <script type="text/javascript" src="sample.js"></script>
 </body>
+
 </html>
