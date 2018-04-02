@@ -8,8 +8,20 @@ h1 {
   font-weight: bolder;
 }
 .title {
-  font-size: 3em;
+  font-size: 2em;
   font-family: 'Raleway', sans-serif;
+}
+.nav-links {
+  display: inline-block;
+  font-size: 1.5em;
+  font-family: 'Raleway', sans-serif;
+  padding-top: .4em;
+}
+.font-awesome-icons {
+  padding-right: .3em;
+}
+.top-row {
+  margin-top: 3em;
 }
 .btn-default,
 .btn-primary,
