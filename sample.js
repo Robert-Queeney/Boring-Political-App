@@ -48,6 +48,7 @@ $.ajax({
   
   }});
 
+
 // append info on bills to new element on second page
 // Bill name, voting date, summary
 
