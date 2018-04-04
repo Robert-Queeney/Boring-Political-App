@@ -15,6 +15,12 @@
 
 <script>
 
+let lat;
+let long;
+let addressString;
+let comResult;
+
+
 //propublica
 $.ajax({
          url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
@@ -23,23 +29,21 @@ $.ajax({
          headers: {'X-API-Key': 'EbKrPCacXBdCHM0WxqoH2lIe1JtWCtHqOOEZtQEQ'}
        }).done(function(data){
 
-        for (let i=0; i < 20; i++){
+    for (let i=0; i < 20; i++){
         console.log(data.results[0].bills[i].committees);
-        let comResult = data.results[0].bills[i].committees;
+        comResult = data.results[0].bills[i].committees;
         //console.log(comResult.includes('House'));
 
         //check if bill sent to house or senate committee
             if (comResult.includes('House')){
                 console.log('House');
+                comResult = 'House';
             } else if (comResult.includes('Senate')){
                 console.log('Senate');
+                comResult = 'Senate';
             };
-        };
-    });
-
-let lat;
-let long;
-let addressString;
+    };
+});
 
 //check for geoloc capabilities
 if ("geolocation" in navigator){
@@ -57,15 +61,12 @@ function success(pos){
     long = coords.longitude;
     // console.log(lat);
     // console.log(long);
+
+    //convert lat and long to a string
     $.ajax({
     url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
     method: 'GET'
     }).then(function(response){
-        // console.log(response.results[0].locations[0])
-        // console.log(response.results[0].locations[0].street)
-        // console.log(response.results[0].locations[0].adminArea5)
-        // console.log(response.results[0].locations[0].adminArea3)
-        // console.log(response.results[0].locations[0].postalCode)
         let street = response.results[0].locations[0].street
         let city = response.results[0].locations[0].adminArea5
         let state = response.results[0].locations[0].adminArea3
@@ -88,38 +89,54 @@ function error (err){
 
 $('#second').click(function() {
     navigator.geolocation.getCurrentPosition(success, error);
-})
+});
+
 
 
 $('#target').click(function (){
     console.log(addressString);
+    let urlHouse = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString + "&roles=legislatorLowerBody";
+    let urlSenate = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString + "&roles=legislatorUpperBody";
 
-    $.ajax({
-        url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody",
-        method: "GET"
-        }).then(function(response){
-        console.log(response);
-        // console.log(response.officials[2].address[0])
-        // let repName = response.officials[2].name;
-        // let repPhoto = response.officials[2].photoUrl;
-        // let repPhone = response.officials[2].phones;
-        // let repSteet = response.officials[2].address[0].line1;
-        // let repCity =  response.officials[2].address[0].city;
-        // let repState = response.officials[2].address[0].state;
-        // let repZip = response.officials[2].address[0].zip;
-        // console.log(repSteet, repCity, repState, repZip)
-        // let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-        // $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
-    });
-
+    if (comResult === 'House'){
+        $.ajax({
+            url: urlHouse,
+            method: "GET"
+            }).then(function(response){
+            console.log(response);
+            console.log(response.officials[0].address[0])
+            let repName = response.officials[0].name;
+            let repPhoto = response.officials[0].photoUrl;
+            let repPhone = response.officials[0].phones;
+            let repSteet = response.officials[0].address[0].line1;
+            let repCity =  response.officials[0].address[0].city;
+            let repState = response.officials[0].address[0].state;
+            let repZip = response.officials[0].address[0].zip;
+            console.log(repSteet, repCity, repState, repZip)
+            let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+            $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+        });
+    };
+    //    else if(comResult === 'Senate'){
+    //     $.ajax({
+    //         url: urlSenate,
+    //         method: "GET"
+    //         }).then(function(response){
+    //         console.log(response);
+    //         // console.log(response.officials[2].address[0])
+    //         // let repName = response.officials[2].name;
+    //         // let repPhoto = response.officials[2].photoUrl;
+    //         // let repPhone = response.officials[2].phones;
+    //         // let repSteet = response.officials[2].address[0].line1;
+    //         // let repCity =  response.officials[2].address[0].city;
+    //         // let repState = response.officials[2].address[0].state;
+    //         // let repZip = response.officials[2].address[0].zip;
+    //         // console.log(repSteet, repCity, repState, repZip)
+    //         // let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+    //         // $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+    //     });
+    // };
 });
-
-//convert lat and long
-//https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location=39.755695%2C-104.995986&outFormat=json&thumbMaps=false
-
-
-
-
 
 </script>
 </body>
