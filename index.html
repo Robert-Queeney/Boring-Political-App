@@ -168,7 +168,124 @@
                                 <div class="panel-body">
                                     <!-- START OF PAGE 3 INTERNAL CONTENT -->
 
+                                    <header class="header">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="title">Boring Political App</div>
+                                            </div>
+                        
+                                            <div class="col-md-2 nav-links">
+                                                <a href="index.html"><i class="fas fa-home font-awesome-icons"></i>Home</a>
+                                            </div>
+                    
+                                            <div class="col-md-6">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <input type="text" class="input-styling" placeholder="Topic of Interest" id="searchTopicInput">
+                                                            <span class="input-group-btn">
+                                                                <!-- Use .btn-styling and .submit-btn-style class for final input design -->
+                                                                <button class="btn-styling submit-btn-style" type="submit" id="searchTopicButton">Search</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </header>
 
+                                    <main class="main">
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-primary panel-styling">
+                                                        <div class="panel-heading">
+                                                            <h2>Contact Your Elected Officials</h2>
+                                                        </div>
+                                                        <div class="panel-body" id="electedOfficialsPanel">
+                        
+                                                            <!-- Append JS elected officials headshot and title cards here -->
+                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-primary panel-styling">
+                                                            <div class="panel-heading">
+                                                                <h2>
+                                                                    More About This Bill:
+                                                                    <div id="billTitle">
+                                                                        
+                                                                        <!-- Append JS bill title here -->
+                        
+                                                                    </div>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="panel-body">
+                        
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Sponsor Party</div>
+                                                                            <div class="panel-body" id="billSponsorParty">
+                        
+                                                                                <!-- Append JS bill's sponsor parter (Republican/Democratic) here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Introduced</div>
+                                                                            <div class="panel-body" id="billIntroDate">
+                        
+                                                                                <!-- Append JS bill's introduced date here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Last Action</div>
+                                                                            <div class="panel-body" id="billLastActionDate">
+                        
+                                                                                <!-- Append JS last bill's major action date here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                            
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-author-panel">
+                                                                            <div class="panel-heading">Author</div>
+                                                                            <div class="panel-body" id="billAuthorInfo">
+                        
+                                                                                <!-- Append JS bill author headshot and title card here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="panel panel-primary bill-extended-summary-panel">
+                                                                            <div class="panel-heading">Summary</div>
+                                                                            <div class="panel-body" id="billExtendedSummary">
+                        
+                                                                                <!-- Append JS bill extended summary, if available -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </main>
 
 
 
@@ -191,12 +308,11 @@
 
 
         <!-- Scripts -->
-
-        <!-- Jquery -->
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!-- javascript -->
-        <script type="text/javascript" src="sample.js"></script>
+            <!-- Jquery -->
+            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <!-- javascript -->
+            <script type="text/javascript" src="sample.js"></script>
     </body>
 </html>
