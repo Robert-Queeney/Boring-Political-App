@@ -70,7 +70,6 @@ function error (err){
     // display relevant results
 };
 
-
 navigator.geolocation.getCurrentPosition(success, error);
 
 $('#target').click(function (){
@@ -80,6 +79,7 @@ $('#target').click(function (){
         url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString,
         method: "GET"
         }).then(function(response){
+        console.log(response.officials[2][3]);
         console.log(response.officials[2].address[0])
         let repName = response.officials[2].name;
         let repPhoto = response.officials[2].photoUrl;
@@ -94,8 +94,6 @@ $('#target').click(function (){
     });
 
 });
-
-
 
 //convert lat and long
 //https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location=39.755695%2C-104.995986&outFormat=json&thumbMaps=false
