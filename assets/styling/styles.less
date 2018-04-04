@@ -3,6 +3,7 @@
 @primary-element-color: #2e71f2;
 @primary-element-color-dark: #0c32c9;
 @secondary-element-color: #01d6c4;
+@secondary-element-color-dark: #0db2c4;
 @tertiary-element-color: #9425e9;
 @light-text: #ffffff;
 @dark-text: #4d4d4d;
@@ -17,8 +18,9 @@
 @drop-shadow-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 @topic-button-color: #ffffff;
 @topic-button-color-hover: @tertiary-element-color;
-@color-gradient: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
-@color-gradient-2: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
+@color-gradient: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
+@color-gradient-2: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
+@color-gradient-3: linear-gradient(45deg, @secondary-element-color-dark  0%, @secondary-element-color 100%);
 @transition-time: 0.5s;
 
 
@@ -58,7 +60,7 @@ h1 {
 
 // Button Styling
 
-.btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.topic-btn-style,.submit-btn-style {
+.btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.btn-styling {
     border-radius:23px;
 }
 
@@ -69,7 +71,7 @@ h1 {
     letter-spacing: .05rem;
     text-transform: uppercase;
     border: 0px;
-    padding: 10px 0px;
+    padding: 10px 20px;
     box-shadow: @drop-shadow;
     transition: @transition-time;
 }
@@ -85,6 +87,12 @@ h1 {
     margin: 5px 15px;
 }
 
+.get-involved-btn-style {
+    background-color: @secondary-element-color;
+    color: @light-text;
+    min-width: 150px;
+}
+
 .btn-styling:focus {
     outline:0; 
     transition: @transition-time;
@@ -98,6 +106,10 @@ h1 {
     box-shadow: inset 0 0 0 4px @topic-button-color-hover, @drop-shadow;
 }
 
+.get-involved-btn-style:focus { 
+    box-shadow: inset 0 0 0 4px @secondary-element-color-dark, @drop-shadow;
+}
+
 .btn-styling:hover {
     color: @light-text;
     // transition: 0.5s; 
@@ -106,11 +118,15 @@ h1 {
 }
 
 .submit-btn-style:hover {
-    background-image: @color-gradient-2;
+    background-image: @color-gradient;
 }
 
 .topic-btn-style:hover {
-    background-image: @color-gradient;
+    background-image: @color-gradient-2;
+}
+
+.get-involved-btn-style:hover {
+    background-image: @color-gradient-3;
 }
 
 .btn-styling:active {
@@ -123,12 +139,12 @@ h1 {
 }
 
 .submit-btn-style:active {
-    background-image: @color-gradient-2;
+    background-image: @color-gradient;
 }
 
 
 .topic-btn-style:active {
-    background-image: @color-gradient;
+    background-image: @color-gradient-2;
 }
 
 
@@ -176,7 +192,23 @@ h1 {
 }
 
 
-// Drag and Drop
+/* Bill Cards Styling */
+
+.bill-cards-styling {
+    box-shadow: @drop-shadow;
+    transition: @transition-time;
+}
+
+.bill-cards-styling:hover {
+    box-shadow: @drop-shadow-hover;
+    transition: @transition-time;
+}
+
+// .bill-cards-styling > .panel-body {
+//     padding: 1em 3em;
+// }
+
+/* Drag and Drop */
 
 .holder {
     width: 100%;
@@ -211,3 +243,4 @@ h1 {
   border-color: #fff;
   border-style: solid;
 }
+

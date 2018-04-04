@@ -188,8 +188,8 @@ interact('.dropzone').dropzone({
     //  console.log("bill-info", billInfo); 
     
   }});
-  return billInfoArray;
 
+  return billInfoArray;
 
   $("#searchTopicButton").on("click", function(event){
     event.preventDefault(); 
