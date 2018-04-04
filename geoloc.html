@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>where u at?</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <button type="button" class="btn btn-info" id="target">click me!</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+// $.ajax({
+//          url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
+//          type: "GET",
+//          dataType: 'json',
+//          headers: {'X-API-Key': 'EbKrPCacXBdCHM0WxqoH2lIe1JtWCtHqOOEZtQEQ'}
+//        }).done(function(data){
+//        console.log(data)
+// });
+let lat;
+let long;
+let addressString;
+
+//check for capabilities
+if ("geolocation" in navigator){
+    console.log("capable");
+} else{
+    console.log("incapable");
+};
+
+//geolocation functions
+function success(pos){
+    let coords = pos.coords;
+    // console.log(coords.latitude);
+    // console.log(coords.longitude);
+    lat = coords.latitude;
+    long = coords.longitude;
+    console.log(lat);
+    console.log(long);
+    $.ajax({
+    url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+    method: 'GET'
+    }).then(function(response){
+        // console.log(response.results[0].locations[0])
+        // console.log(response.results[0].locations[0].street)
+        // console.log(response.results[0].locations[0].adminArea5)
+        // console.log(response.results[0].locations[0].adminArea3)
+        // console.log(response.results[0].locations[0].postalCode)
+        let street = response.results[0].locations[0].street
+        let city = response.results[0].locations[0].adminArea5
+        let state = response.results[0].locations[0].adminArea3
+        let zip = response.results[0].locations[0].postalCode
+        //console.log(street,city,state,zip);
+        addressString = (street + "," + city + "," + state + ","+ zip);
+        console.log(addressString)
+    }).catch(function(error){
+        console.error('oh boy its broken', error);
+});
+
+};
+
+function error (err){
+    $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+    // have pop up screen asking for location then in order to 
+    // display relevant results
+};
+
+
+navigator.geolocation.getCurrentPosition(success, error);
+
+$('#target').click(function (){
+    console.log(addressString);
+
+    $.ajax({
+        url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString,
+        method: "GET"
+        }).then(function(response){
+        console.log(response.officials[2].address[0])
+        let repName = response.officials[2].name;
+        let repPhoto = response.officials[2].photoUrl;
+        let repPhone = response.officials[2].phones;
+        let repSteet = response.officials[2].address[0].line1;
+        let repCity =  response.officials[2].address[0].city;
+        let repState = response.officials[2].address[0].state;
+        let repZip = response.officials[2].address[0].zip;
+        console.log(repSteet, repCity, repState, repZip)
+        let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+        $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+    });
+
+});
+
+
+
+//convert lat and long
+//https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location=39.755695%2C-104.995986&outFormat=json&thumbMaps=false
+
+
+
+
+
+</script>
+</body>
+</html>
