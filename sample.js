@@ -93,18 +93,64 @@ interact('.dropzone').dropzone({
 
   }
 
-  // Initialize Firebase
-//   var config = {
-//     apiKey: "AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw",
-//     authDomain: "boringpoliticalapp.firebaseapp.com",
-//     databaseURL: "https://boringpoliticalapp.firebaseio.com",
-//     projectId: "boringpoliticalapp",
-//     storageBucket: "",
-//     messagingSenderId: "944272526743"
-//   };
-// firebase.initializeApp(config);
+// Initialize Firebase
 
+let config = {
+  apiKey: "AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw",
+  authDomain: "boringpoliticalapp.firebaseapp.com",
+  databaseURL: "https://boringpoliticalapp.firebaseio.com",
+  projectId: "boringpoliticalapp",
+  storageBucket: "",
+  messagingSenderId: "944272526743"
+};
 
+firebase.initializeApp(config);
+
+// Variables
+
+const database = firebase.database();
+const buttonsPanel = $('#buttonsPanel');
+let button;
+let searchTopicInput = $("#searchTopicInput");
+let issueSearch;
+
+// Function Declarations
+
+// Function Calls
+
+database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    button = $('<button>');
+    button.addClass('btn btn-primary');
+    button.attr('data-name', `topic${childSnapshot.val().query}`);
+    button.text(childSnapshot.val().query);
+    buttonsPanel.append(button);
+  });
+});
+
+$("#searchTopicButton").on("click", function(event) {
+  event.preventDefault(); 
+  issueSearch = searchTopicInput.val().trim(); 
+  searchTopicInput.val('');
+  let databaseHasTopic = false;
+  database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot){
+      if (childSnapshot.val().query === issueSearch) {
+        databaseHasTopic = true;
+      };
+    });
+    setTimeout(function() {
+      if (!databaseHasTopic) {
+        database.ref().push({
+          query: issueSearch,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+      };
+    }, 1000);
+  });
+});
+
+// API notes, tests, misc.
 
 // senator search
 // $.ajax({
@@ -123,6 +169,8 @@ interact('.dropzone').dropzone({
 // }).then(function(response){
 //   console.log(response)
 // });
+
+
 
 
 // searching for upcoming bills
@@ -241,5 +289,4 @@ interact('.dropzone').dropzone({
   // append info on bills to new element on second page
   // Bill name, voting date, summary
 
-  //   https://projects.propublica.org/api-docs/congress-api/bills/#search-bills
 }); 
