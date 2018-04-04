@@ -2,94 +2,94 @@
 
 var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
- 
+   
 
 
 // target elements with the "draggable" class
 interact('.draggable')
-  .draggable({
-    // enable inertial throwing
-    inertia: true,
-    // keep the element within the area of it's parent
-    restrict: {
-      restriction: "parent",
-      endOnly: true,
-      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-    },
-    // enable autoScroll
-    autoScroll: true,
-    // call this function on every dragmove event
-    onmove: dragMoveListener,
-  });
-
-  function dragMoveListener (event) {
-    var target = event.target,
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-    // translate the element
-    target.style.webkitTransform =
-    target.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)';
-
-    // update the posiion attributes
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
-  }
-
-  // enable draggables to be dropped into this
-interact('.dropzone').dropzone({
-  // Require a 50% element overlap for a drop to be possible
-  overlap: 0.50,
-
-  // listen for drop related events:
-
-  ondropactivate: function (event) {
-    // add active dropzone feedback
-    event.target.classList.add('drop-active');
-    
+.draggable({
+  // enable inertial throwing
+  inertia: true,
+  // keep the element within the area of it's parent
+  restrict: {
+    restriction: "parent",
+    endOnly: true,
+    elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
   },
-  ondragenter: function (event) {
-    var draggableElement = event.relatedTarget,
-        dropzoneElement = event.target;
-
-    // feedback the possibility of a drop
-    dropzoneElement.classList.add('drop-target');
-  },
-  ondragleave: function (event) {
-    // remove the drop feedback style
-    event.target.classList.remove('drop-target');
-  },
-  ondrop: function (event) {
-    //scoping issue needs resolution
-    
-    billValue = event.relatedTarget.getAttribute('value');
-    console.log(billInfoArray);
-    //Empty dropzone content and append bill info to dropzone
-    $('#dropzone').empty().append(billInfoArray[billValue].party);
-    //remove draggable after drop
-    $(event.relatedTarget).remove();
-    //Reappend
-
-  },
-  ondropdeactivate: function (event) {
-    // remove active dropzone feedback
-    event.target.classList.remove('drop-active');
-    event.target.classList.remove('drop-target');
-  }
+  // enable autoScroll
+  autoScroll: true,
+  // call this function on every dragmove event
+  onmove: dragMoveListener,
 });
 
+function dragMoveListener (event) {
+  var target = event.target,
+      // keep the dragged position in the data-x/data-y attributes
+      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+  // translate the element
+  target.style.webkitTransform =
+  target.style.transform =
+    'translate(' + x + 'px, ' + y + 'px)';
+
+  // update the posiion attributes
+  target.setAttribute('data-x', x);
+  target.setAttribute('data-y', y);
+}
+
+// enable draggables to be dropped into this
+interact('.dropzone').dropzone({
+// Require a 50% element overlap for a drop to be possible
+overlap: 0.50,
+
+// listen for drop related events:
+
+ondropactivate: function (event) {
+  // add active dropzone feedback
+  event.target.classList.add('drop-active');
   
+},
+ondragenter: function (event) {
+  var draggableElement = event.relatedTarget,
+      dropzoneElement = event.target;
+
+  // feedback the possibility of a drop
+  dropzoneElement.classList.add('drop-target');
+},
+ondragleave: function (event) {
+  // remove the drop feedback style
+  event.target.classList.remove('drop-target');
+},
+ondrop: function (event) {
+  //scoping issue needs resolution
+  
+  billValue = event.relatedTarget.getAttribute('value');
+  console.log(billInfoArray);
+  //Empty dropzone content and append bill info to dropzone
+  $('#dropzone').empty().append(billInfoArray[billValue].party);
+  //remove draggable after drop
+  $(event.relatedTarget).remove();
+  //Reappend
+
+},
+ondropdeactivate: function (event) {
+  // remove active dropzone feedback
+  event.target.classList.remove('drop-active');
+  event.target.classList.remove('drop-target');
+}
+});
+
+
 
 
   // creating initial search buttons on doc ready
   for (var i = 0; i < topics.length; i++) {
-    var a = $("<button class='btn btn-primary'>"); 
+    var a = $("<button class='btn-styling topic-btn-style providedSearchButton'>"); 
     a.attr('data-name', topics[i]); 
     a.text(topics[i]); 
     a.attr('id', 'butt'); 
-    $("#buttonsPanel").append(a);
+    $("#buttonsPanel1").append(a);
 
   }
 
@@ -109,7 +109,7 @@ firebase.initializeApp(config);
 // Variables
 
 const database = firebase.database();
-const buttonsPanel = $('#buttonsPanel');
+const buttonsPanel2 = $('#buttonsPanel2');
 let button;
 let searchTopicInput = $("#searchTopicInput");
 let issueSearch;
@@ -121,10 +121,10 @@ let issueSearch;
 database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     button = $('<button>');
-    button.addClass('btn btn-primary');
-    button.attr('data-name', `topic${childSnapshot.val().query}`);
+    button.addClass('btn-styling topic-btn-style providedSearchButton');
+    button.attr('data-name', `${childSnapshot.val().query}`);
     button.text(childSnapshot.val().query);
-    buttonsPanel.append(button);
+    buttonsPanel2.append(button);
   });
 });
 
@@ -148,6 +148,17 @@ $("#searchTopicButton").on("click", function(event) {
       };
     }, 1000);
   });
+  // Code for hiding 'Page 1' div goes here
+  // Code for displaying 'Page 2' div goes here
+  // Code for API Call goes here
+});
+
+$(document).on("click", ".providedSearchButton", function() {
+  issueSearch = $(this).attr("data-name");
+  console.log(issueSearch);
+  // Code for hiding 'Page 1' div goes here
+  // Code for displaying 'Page 2' div goes here
+  // Code for API Call goes here
 });
 
 // API notes, tests, misc.
