@@ -126,3 +126,38 @@ h1 {
   box-shadow: 0 0 0px 30px #2e71f2 inset, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* Drag and Drop  */
+
+.holder {
+  width: 100%;
+  height: 500px;
+}
+.dropzone {
+  background-color: #ccc;
+  padding: 10px;
+  width: 500px;
+  height: 90%;
+  border: dashed 4px transparent;
+  float: right;
+}
+
+.draggable {
+  width: 200px;
+  height: 100px;
+  float:left;
+  background-color: #2196F3;
+  color: white;
+  padding:10px;
+  margin: 10px;
+}
+
+.drop-active {
+  border-color: #aaa;
+}
+
+.drop-target {
+  background-color: #000;
+  color: #FFF;
+  border-color: #fff;
+  border-style: solid;
