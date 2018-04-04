@@ -1,5 +1,18 @@
 'use strict';
+
+var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
+
+
+  // creating initial search buttons on doc ready
+  for (var i = 0; i < topics.length; i++) {
+    var a = $("<button class='btn btn-primary'>"); 
+    a.attr('data-name', topics[i]); 
+    a.text(topics[i]); 
+    a.attr('id', 'butt'); 
+    $("#buttonsPanel").append(a);
+
+  }
 
   // Initialize Firebase
 //   var config = {
