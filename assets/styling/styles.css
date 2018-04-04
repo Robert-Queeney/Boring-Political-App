@@ -181,3 +181,11 @@ h1 {
   border-color: #fff;
   border-style: solid;
 }
+
+#page2 {
+  display: none;
+}
+
+#page3 {
+  display: none;
+}
