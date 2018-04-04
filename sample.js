@@ -1,7 +1,6 @@
-// 'use strict';
-//Interact js from npm
+'use strict';
 
-
+var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
  
 
@@ -82,6 +81,17 @@ interact('.dropzone').dropzone({
 });
 
   
+
+
+  // creating initial search buttons on doc ready
+  for (var i = 0; i < topics.length; i++) {
+    var a = $("<button class='btn btn-primary'>"); 
+    a.attr('data-name', topics[i]); 
+    a.text(topics[i]); 
+    a.attr('id', 'butt'); 
+    $("#buttonsPanel").append(a);
+
+  }
 
   // Initialize Firebase
 //   var config = {
