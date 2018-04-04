@@ -12,11 +12,11 @@ interact('.draggable')
     // enable inertial throwing
     inertia: true,
     // keep the element within the area of it's parent
-    // restrict: {
-    //   restriction: "parent",
-    //   endOnly: true,
-    //   elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-    // },
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
     // enable autoScroll
     autoScroll: true,
     // call this function on every dragmove event
@@ -49,6 +49,7 @@ interact('.dropzone').dropzone({
   ondropactivate: function (event) {
     // add active dropzone feedback
     event.target.classList.add('drop-active');
+    
   },
   ondragenter: function (event) {
     var draggableElement = event.relatedTarget,
@@ -62,7 +63,16 @@ interact('.dropzone').dropzone({
     event.target.classList.remove('drop-target');
   },
   ondrop: function (event) {
-    event.relatedTarget.textContent = 'Dropped';
+    //scoping issue needs resolution
+    
+    billValue = event.relatedTarget.getAttribute('value');
+    console.log(billInfoArray);
+    //Empty dropzone content and append bill info to dropzone
+    $('#dropzone').empty().append(billInfoArray[billValue].party);
+    //remove draggable after drop
+    $(event.relatedTarget).remove();
+    //Reappend
+
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -109,6 +119,7 @@ interact('.dropzone').dropzone({
 // search terms
 // "https://api.propublica.org/congress/v1/bills/search.json?query=${input}"
 
+ var billInfoArray = [];
 
   $.ajax({
     url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
@@ -117,7 +128,9 @@ interact('.dropzone').dropzone({
     headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
   }).then(function(results){
     console.log("results====>", results); 
-    for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
+
+
+    for(let i = 0 ; i  < 8; i++ ){
       // creating const to use bill data for second page
       let title = results.results[0].bills[i].short_title; 
       let id = results.results[0].bills[i].bill_id; 
@@ -132,11 +145,13 @@ interact('.dropzone').dropzone({
         summary: summary, 
         status: status
       }
-
-     console.log("bill-info", billInfo); 
-  
+      $('#billHolder').append(`<div value=${i} class="draggable"> <p> ${title} </p> </div> `);
+      billInfoArray.push(billInfo);
+    
+    //  console.log("bill-info", billInfo); 
+    
   }});
-
+  return billInfoArray;
 
 //check for capabilities
 // if ("geolocation" in navigator){
