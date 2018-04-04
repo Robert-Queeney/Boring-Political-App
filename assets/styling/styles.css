@@ -29,8 +29,7 @@ h1 {
 .btn-info,
 .btn-warning,
 .btn-danger,
-.topic-btn-style,
-.submit-btn-style {
+.btn-styling {
   border-radius: 23px;
 }
 .btn-styling {
@@ -40,7 +39,7 @@ h1 {
   letter-spacing: .05rem;
   text-transform: uppercase;
   border: 0px;
-  padding: 10px 0px;
+  padding: 10px 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   transition: 0.5s;
 }
@@ -53,6 +52,11 @@ h1 {
   min-width: 150px;
   margin: 5px 15px;
 }
+.get-involved-btn-style {
+  background-color: #01d6c4;
+  color: #ffffff;
+  min-width: 150px;
+}
 .btn-styling:focus {
   outline: 0;
   transition: 0.5s;
@@ -62,6 +66,9 @@ h1 {
 }
 .topic-btn-style:focus {
   box-shadow: inset 0 0 0 4px #9425e9, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+}
+.get-involved-btn-style:focus {
+  box-shadow: inset 0 0 0 4px #0db2c4, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
 }
 .btn-styling:hover {
   color: #ffffff;
@@ -73,6 +80,9 @@ h1 {
 }
 .topic-btn-style:hover {
   background-image: linear-gradient(45deg, #8725e9 0%, #bf25e9 100%);
+}
+.get-involved-btn-style:hover {
+  background-image: linear-gradient(45deg, #0db2c4 0%, #01d6c4 100%);
 }
 .btn-styling:active {
   color: #ffffff;
@@ -126,3 +136,48 @@ h1 {
   box-shadow: 0 0 0px 30px #2e71f2 inset, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   -webkit-text-fill-color: #ffffff !important;
 }
+
+.bill-cards-styling {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+  transition: 0.5s;
+}
+.bill-cards-styling:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transition: 0.5s;
+}
+
+/* Drag and Drop  */
+
+.holder {
+  width: 100%;
+  height: 500px;
+}
+.dropzone {
+  background-color: #ccc;
+  padding: 10px;
+  width: 500px;
+  height: 90%;
+  border: dashed 4px transparent;
+  float: right;
+}
+
+.draggable {
+  width: 200px;
+  height: 100px;
+  float:left;
+  background-color: #2196F3;
+  color: white;
+  padding:10px;
+  margin: 10px;
+}
+
+.drop-active {
+  border-color: #aaa;
+}
+
+.drop-target {
+  background-color: #000;
+  color: #FFF;
+  border-color: #fff;
+  border-style: solid;
+
