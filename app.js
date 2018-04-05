@@ -25,11 +25,17 @@ $(document).ready(function(){
   let searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
+  let title;
+  let id;
+  let party;
+  let summary;
+  let status;
+  let branch;
   let billsPanel = $('#billsPanel');
   let page1 = $('#page1');
   let page2 = $('#page2');
   let page3 = $('#page3');
-  let billInfoArray = [];
+  let billInfoObject = {};
 
   // Function Declarations
 
@@ -43,32 +49,17 @@ $(document).ready(function(){
       // console.log(results); 
       for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
         // creating const to use bill data for second page
-        let title = results.results[0].bills[i].short_title; 
-        let id = results.results[0].bills[i].bill_id; 
-        let party = results.results[0].bills[i].sponsor_party;  
-        let summary = results.results[0].bills[i].title; 
-        let status = results.results[0].bills[i].latest_major_action; 
-
-      
-        const billInfo = {
-          title: title, 
-          id: id, 
-          party: party, 
-          summary: summary, 
-          status: status
-        }
-
-        // appending the bills to a new element surrently set to the div on pg 2 (not working) but it
-        // worked in a test div on pg 1
-        $('#billsPanel').append(`<div id=billWrapper${i}/>`);
+        title = results.results[0].bills[i].short_title; 
+        id = results.results[0].bills[i].bill_id; 
+        party = results.results[0].bills[i].sponsor_party;  
+        summary = results.results[0].bills[i].title; 
+        status = results.results[0].bills[i].latest_major_action; 
+        branch = results.results[0].bills.sponsor_title;
+        billsPanel.append(`<div id=billWrapper${i}/>`);
         $(`#billWrapper${i}`).append(
-            `<div class="theBill"/>
-            <p class="rating">Title :${title}</p>
-            <p class="rating">Bill id =${id}</p>
-            <p class="rating">Party that introduced it :${party}</p>
-            <p class="rating">Summary :${summary}</p>
-            <p class="rating">Status :${status}</p>`
+            `<p class="rating">Title :${title}</p>`
         );
+        
       };
     });
     // append info on bills to new element on second page
