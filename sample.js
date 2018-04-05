@@ -3,7 +3,30 @@
 var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
  
-
+  $('#electedOfficialsPanel').click(function (){
+    //console.log(addressString);
+    let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102~" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
+   
+        $.ajax({
+            url: urlCiv,
+            method: "GET"
+            }).then(function(response){
+            console.log(response);
+            for (let i=0; i<5;i++){
+            console.log(response.officials[i].address[0])
+            let repName = response.officials[i].name;
+            let repPhoto = response.officials[i].photoUrl;
+            let repPhone = response.officials[i].phones;
+            let repSteet = response.officials[i].address[0].line1;
+            let repCity =  response.officials[i].address[0].city;
+            let repState = response.officials[i].address[0].state;
+            let repZip = response.officials[i].address[0].zip;
+            console.log(repSteet, repCity, repState, repZip)
+            let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+            $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+            };
+        });
+    });
 
 // target elements with the "draggable" class
 interact('.draggable')
