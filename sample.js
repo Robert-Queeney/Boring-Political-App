@@ -176,7 +176,7 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const buttonsPanel2 = $('#buttonsPanel2');
 let button;
-let searchTopicInput = $("#searchTopicInput");
+let searchTopicInput1 = $("#searchTopicInput1");
 let issueSearch;
 
 // Function Declarations
@@ -193,10 +193,10 @@ database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(s
   });
 });
 
-$("#searchTopicButton").on("click", function(event) {
+$("#searchTopicButton1").on("click", function(event) {
   event.preventDefault(); 
-  issueSearch = searchTopicInput.val().trim(); 
-  searchTopicInput.val('');
+  issueSearch = searchTopicInput1.val().trim(); 
+  searchTopicInput1.val('');
   let databaseHasTopic = false;
   database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot){
