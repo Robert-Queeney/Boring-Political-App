@@ -1,6 +1,6 @@
 'use strict';
 
-var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
+var topics = ["school shootings", "gerrymandering", "DACA",] 
 $(document).ready(function(){
 
   $('#electedOfficialsPanel').click(function (){
@@ -313,7 +313,28 @@ $(document).on("click", ".providedSearchButton", function() {
     console.log("bill-info", billInfo);
     
   }});
- });
+// senate call example
+// need to dynamically add senate vs congress via bill info and state via geo locator
+  $.ajax({
+    url: "https://api.propublica.org/congress/v1/members/senate/RI/current.json",
+    type: "GET",
+    dataType: 'json',
+    headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+  }).then(function(results){
+    console.log("results====>", results); 
+
+
+    for(let i = 0 ; i  < 8; i++ ){
+      // creating const to use bill data for second page
+      let senName = results.results[0].name; 
+      let senParty = results.results[0].party; 
+      let senName2 = results.results[1].name; 
+      let senParty2 = results.results[1].party; 
+      console.log("moreresults======>", senName, senParty, senName2, senParty2);  
+    }
+    
+  });  
+
   return billInfoArray;
 
   // $("#searchTopicButton").on("click", function(event){
@@ -368,4 +389,4 @@ $(document).on("click", ".providedSearchButton", function() {
   // append info on bills to new element on second page
   // Bill name, voting date, summary
 
-}); 
+})}); 
