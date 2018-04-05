@@ -3,10 +3,10 @@
 var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
 
-  $('#electedOfficialsPanel').click(function (){
+
+ $('#electedOfficialsPanel').click(function (){
     //console.log(addressString);
     let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102~" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
-   
         $.ajax({
             url: urlCiv,
             method: "GET"
@@ -69,34 +69,6 @@ $(document).ready(function(){
 // $('#searchTopicButton').click(function() {
 //   navigator.geolocation.getCurrentPosition(success, error);
 // });
-
-$('#electedOfficialsPanel').click(function() {
-  //console.log(addressString);
-  //console.log(comResult)
-let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
-      $.ajax({
-          url: urlCiv,
-          method: "GET"
-          }).then(function(response){
-          console.log(response);
-          for(let i=0; i<5; i++){
-          let names = (response.officials[i].name);
-          //console.log(names);
-          let repPhotos = response.officials[i].photoUrl;
-          //console.log(repPhotos);
-          let repPhones = response.officials[i].phones;
-          //console.log(repPhones)
-          let repSteet = response.officials[i].address[0].line1;
-          let repCity =  response.officials[i].address[0].city;
-          let repState = response.officials[i].address[0].state;
-          let repZip = response.officials[i].address[0].zip;
-          let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-          console.log(repAddress)
-          $('#electedOfficialsPanel').append(`<div> <img src='${repPhotos}' style='height:200px'</img> <p>${names}</p> <p>${repPhones}</p> <p> ${repAddress} </p></div>`);
-          };
-      });
-  });
-
 
 // target elements with the "draggable" class
 interact('.draggable')
