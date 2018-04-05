@@ -14,9 +14,9 @@ $(document).ready(function(){
             url: urlCiv,
             method: "GET"
             }).then(function(response){
-            console.log(response);
+            //console.log(response);
             for (let i=0; i<5;i++){
-            console.log(response.officials[i].address[0])
+            //console.log(response.officials[i].address[0])
             let repName = response.officials[i].name;
             let repPhoto = response.officials[i].photoUrl;
             let repPhone = response.officials[i].phones;
@@ -24,7 +24,7 @@ $(document).ready(function(){
             let repCity =  response.officials[i].address[0].city;
             let repState = response.officials[i].address[0].state;
             let repZip = response.officials[i].address[0].zip;
-            console.log(repSteet, repCity, repState, repZip)
+            //console.log(repSteet, repCity, repState, repZip)
             let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
             $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
             };
@@ -265,6 +265,7 @@ $(document).on("click", ".providedSearchButton", function() {
 
     for(let i = 0 ; i  < 8; i++ ){
       // creating const to use bill data for second page
+      
       let title = results.results[0].bills[i].short_title; 
       let id = results.results[0].bills[i].bill_id; 
       let party = results.results[0].bills[i].sponsor_party;  
@@ -352,14 +353,16 @@ $(document).on("click", ".providedSearchButton", function() {
   //           <p class="rating">Party that introduced it :${party}</p>
   //           <p class="rating">Summary :${summary}</p>
   //           <p class="rating">Status :${status}</p>`
-  //       ); 
-
-        
-
-    
+  //       );     
   //   }});
   // })
   // append info on bills to new element on second page
   // Bill name, voting date, summary
+  $('#billSponsorParty').append(party);
+  $('#billIntroDate').append();
+  $('#billLastActionDate').append(status);
+  $('#billAuthorInfo').append();
+  $('#billExtendedSummary').append();
+
 
 })}); 
