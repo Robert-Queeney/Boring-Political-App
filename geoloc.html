@@ -22,29 +22,29 @@ let comResult;
 
 
 //propublica
-$.ajax({
-         url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
-         type: "GET",
-         dataType: 'json',
-         headers: {'X-API-Key': 'EbKrPCacXBdCHM0WxqoH2lIe1JtWCtHqOOEZtQEQ'}
-       }).done(function(data){
+// $.ajax({
+//          url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
+//          type: "GET",
+//          dataType: 'json',
+//          headers: {'X-API-Key': 'EbKrPCacXBdCHM0WxqoH2lIe1JtWCtHqOOEZtQEQ'}
+//        }).done(function(data){
 
-    for (let i=0; i < 20; i++){
-        console.log(data.results[0].bills[i].committees);
-        comResult = data.results[0].bills[i].committees;
-        console.log(comResult.includes('Senate'));
+//     for (let i=0; i < 20; i++){
+//         console.log(data.results[0].bills[i].committees);
+//         comResult = data.results[0].bills[i].committees;
+//         console.log(comResult.includes('Senate'));
 
-        //check if bill sent to house or senate committee
-            // if (comResult.includes('House')){
-            //     console.log('House');
-            //     comResult = 'House';
-            // } 
-             if (comResult.includes('Senate')){
-                console.log('Senate');
-                comResult = 'Senate';
-            };
-    };
-});
+//         //check if bill sent to house or senate committee
+//             // if (comResult.includes('House')){
+//             //     console.log('House');
+//             //     comResult = 'House';
+//             // } 
+//              if (comResult.includes('Senate')){
+//                 console.log('Senate');
+//                 comResult = 'Senate';
+//             };
+//     };
+// });
 
 //check for geoloc capabilities
 // if ("geolocation" in navigator){

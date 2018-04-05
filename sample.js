@@ -32,44 +32,44 @@ $(document).ready(function(){
     });
 
 //geolocation functions
-// function success(pos){
-//   let coords = pos.coords;
-//   // console.log(coords.latitude);
-//   // console.log(coords.longitude);
-//   lat = coords.latitude;
-//   long = coords.longitude;
-//   // console.log(lat);
-//   // console.log(long);
+function success(pos){
+  let coords = pos.coords;
+  // console.log(coords.latitude);
+  // console.log(coords.longitude);
+  lat = coords.latitude;
+  long = coords.longitude;
+  // console.log(lat);
+  // console.log(long);
 
-//   //convert lat and long to a string
-//   $.ajax({
-//   url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
-//   method: 'GET'
-//   }).then(function(response){
-//       let street = response.results[0].locations[0].street
-//       let city = response.results[0].locations[0].adminArea5
-//       let state = response.results[0].locations[0].adminArea3
-//       let zip = response.results[0].locations[0].postalCode
-//       //console.log(street,city,state,zip);
-//       addressString = (street + "," + city + "," + state + ","+ zip);
-//       console.log(addressString)
-//   }).catch(function(error){
-//       console.error('oh boy its broken', error);
-// });
+  //convert lat and long to a string
+  $.ajax({
+  url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+  method: 'GET'
+  }).then(function(response){
+      let street = response.results[0].locations[0].street
+      let city = response.results[0].locations[0].adminArea5
+      let state = response.results[0].locations[0].adminArea3
+      let zip = response.results[0].locations[0].postalCode
+      //console.log(street,city,state,zip);
+      addressString = (street + "," + city + "," + state + ","+ zip);
+      console.log(addressString)
+  }).catch(function(error){
+      console.error('oh boy its broken', error);
+  });
 
-// };
+};
 
 //display div to ask for address explaining need for it
-// function error (err){
-//   $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
-//   // have pop up screen asking for location then in order to 
-//   // display relevant results
-// };
+function error (err){
+  $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+  // have pop up screen asking for location then in order to 
+  // display relevant results
+};
 
 //trigger geolocation on 'get involved' click ?
-// $('#searchTopicButton').click(function() {
-//   navigator.geolocation.getCurrentPosition(success, error);
-// });
+$('#electedOfficialsPanel').click(function() {
+  navigator.geolocation.getCurrentPosition(success, error);
+});
 
 // target elements with the "draggable" class
 interact('.draggable')
@@ -265,7 +265,7 @@ $(document).on("click", ".providedSearchButton", function() {
 
     for(let i = 0 ; i  < 8; i++ ){
       // creating const to use bill data for second page
-      
+    
       let title = results.results[0].bills[i].short_title; 
       let id = results.results[0].bills[i].bill_id; 
       let party = results.results[0].bills[i].sponsor_party;  
