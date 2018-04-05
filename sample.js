@@ -1,19 +1,22 @@
 'use strict';
 
-var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
+var topics = ["school shootings", "gerrymandering", "DACA",] 
 $(document).ready(function(){
 
 
  $('#electedOfficialsPanel').click(function (){
     //console.log(addressString);
+
+    //if else statement needed to display house or senate members
+
     let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102~" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
         $.ajax({
             url: urlCiv,
             method: "GET"
             }).then(function(response){
-            console.log(response);
+            //console.log(response);
             for (let i=0; i<5;i++){
-            console.log(response.officials[i].address[0])
+            //console.log(response.officials[i].address[0])
             let repName = response.officials[i].name;
             let repPhoto = response.officials[i].photoUrl;
             let repPhone = response.officials[i].phones;
@@ -21,14 +24,12 @@ $(document).ready(function(){
             let repCity =  response.officials[i].address[0].city;
             let repState = response.officials[i].address[0].state;
             let repZip = response.officials[i].address[0].zip;
-            console.log(repSteet, repCity, repState, repZip)
+            //console.log(repSteet, repCity, repState, repZip)
             let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
             $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
             };
         });
     });
-
-
 
 //geolocation functions
 // function success(pos){
@@ -264,6 +265,7 @@ $(document).on("click", ".providedSearchButton", function() {
 
     for(let i = 0 ; i  < 8; i++ ){
       // creating const to use bill data for second page
+      
       let title = results.results[0].bills[i].short_title; 
       let id = results.results[0].bills[i].bill_id; 
       let party = results.results[0].bills[i].sponsor_party;  
@@ -285,7 +287,28 @@ $(document).on("click", ".providedSearchButton", function() {
     console.log("bill-info", billInfo);
     
   }});
- });
+// senate call example
+// need to dynamically add senate vs congress via bill info and state via geo locator
+  $.ajax({
+    url: "https://api.propublica.org/congress/v1/members/senate/RI/current.json",
+    type: "GET",
+    dataType: 'json',
+    headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+  }).then(function(results){
+    console.log("results====>", results); 
+
+
+    for(let i = 0 ; i  < 8; i++ ){
+      // creating const to use bill data for second page
+      let senName = results.results[0].name; 
+      let senParty = results.results[0].party; 
+      let senName2 = results.results[1].name; 
+      let senParty2 = results.results[1].party; 
+      console.log("moreresults======>", senName, senParty, senName2, senParty2);  
+    }
+    
+  });  
+
   return billInfoArray;
 
   // $("#searchTopicButton").on("click", function(event){
@@ -330,14 +353,16 @@ $(document).on("click", ".providedSearchButton", function() {
   //           <p class="rating">Party that introduced it :${party}</p>
   //           <p class="rating">Summary :${summary}</p>
   //           <p class="rating">Status :${status}</p>`
-  //       ); 
-
-        
-
-    
+  //       );     
   //   }});
   // })
   // append info on bills to new element on second page
   // Bill name, voting date, summary
+  $('#billSponsorParty').append(party);
+  $('#billIntroDate').append();
+  $('#billLastActionDate').append(status);
+  $('#billAuthorInfo').append();
+  $('#billExtendedSummary').append();
 
-}); 
+
+})}); 
