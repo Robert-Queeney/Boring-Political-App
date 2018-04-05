@@ -30,6 +30,8 @@ $.ajax({
     
 // senate call example
 // need to dynamically add senate vs congress via bill info and state via geo locator
+// this will be used from the bill objects
+// need to add branch to bill info and create a variable (if statement?) that creates senate or congress call 
 $.ajax({
     url: "https://api.propublica.org/congress/v1/members/senate/RI/current.json",
     type: "GET",
@@ -47,5 +49,5 @@ $.ajax({
       let senParty2 = results.results[1].party; 
       console.log("moreresults======>", senName, senParty, senName2, senParty2);  
     }
-    
+    // https://api.propublica.org/congress/v1/members/{chamber}/{state}/{district}/current.json
 })}})})  
