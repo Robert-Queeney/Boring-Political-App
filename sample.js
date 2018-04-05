@@ -366,3 +366,23 @@ $(document).on("click", ".providedSearchButton", function() {
 
 
 })}); 
+
+  //       console.log(billInfo);
+
+  //        window.location.assign("page2.html")
+
+  //       // appending the bills to a new element surrently set to the div on pg 2 (not working) but it
+  //       // worked in a test div on pg 1
+  //       $('#billsPanel').append(`<div id=billWrapper${i}/>`);
+  //       $(`#billWrapper${i}`).append(
+  //           `<div class="theBill"/>
+  //           <p class="rating">Title :${title}</p>
+  //           <p class="rating">Bill id =${id}</p>
+  //           <p class="rating">Party that introduced it :${party}</p>
+  //           <p class="rating">Summary :${summary}</p>
+  //           <p class="rating">Status :${status}</p>`
+  //       );     
+  //   }});
+  // })
+  // append info on bills to new element on second page
+  // Bill name, voting date, summary
