@@ -6,6 +6,9 @@ $(document).ready(function(){
 
  $('#electedOfficialsPanel').click(function (){
     //console.log(addressString);
+
+    //if else statement needed to display house or senate members
+
     let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102~" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
         $.ajax({
             url: urlCiv,
@@ -27,8 +30,6 @@ $(document).ready(function(){
             };
         });
     });
-
-
 
 //geolocation functions
 // function success(pos){
