@@ -2,7 +2,75 @@
 
 var topics = ["school shootings", "taxes", "gerrymandering", "bump stocks", "DACA",] 
 $(document).ready(function(){
-   
+
+
+
+//geolocation functions
+// function success(pos){
+//   let coords = pos.coords;
+//   // console.log(coords.latitude);
+//   // console.log(coords.longitude);
+//   lat = coords.latitude;
+//   long = coords.longitude;
+//   // console.log(lat);
+//   // console.log(long);
+
+//   //convert lat and long to a string
+//   $.ajax({
+//   url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+//   method: 'GET'
+//   }).then(function(response){
+//       let street = response.results[0].locations[0].street
+//       let city = response.results[0].locations[0].adminArea5
+//       let state = response.results[0].locations[0].adminArea3
+//       let zip = response.results[0].locations[0].postalCode
+//       //console.log(street,city,state,zip);
+//       addressString = (street + "," + city + "," + state + ","+ zip);
+//       console.log(addressString)
+//   }).catch(function(error){
+//       console.error('oh boy its broken', error);
+// });
+
+// };
+
+//display div to ask for address explaining need for it
+// function error (err){
+//   $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+//   // have pop up screen asking for location then in order to 
+//   // display relevant results
+// };
+
+//trigger geolocation on 'get involved' click ?
+// $('#searchTopicButton').click(function() {
+//   navigator.geolocation.getCurrentPosition(success, error);
+// });
+
+$('#electedOfficialsPanel').click(function() {
+  //console.log(addressString);
+  //console.log(comResult)
+let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
+      $.ajax({
+          url: urlCiv,
+          method: "GET"
+          }).then(function(response){
+          console.log(response);
+          for(let i=0; i<5; i++){
+          let names = (response.officials[i].name);
+          //console.log(names);
+          let repPhotos = response.officials[i].photoUrl;
+          //console.log(repPhotos);
+          let repPhones = response.officials[i].phones;
+          //console.log(repPhones)
+          let repSteet = response.officials[i].address[0].line1;
+          let repCity =  response.officials[i].address[0].city;
+          let repState = response.officials[i].address[0].state;
+          let repZip = response.officials[i].address[0].zip;
+          let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+          console.log(repAddress)
+          $('#electedOfficialsPanel').append(`<div> <img src='${repPhotos}' style='height:200px'</img> <p>${names}</p> <p>${repPhones}</p> <p> ${repAddress} </p></div>`);
+          };
+      });
+  });
 
 
 // target elements with the "draggable" class
@@ -79,9 +147,6 @@ ondropdeactivate: function (event) {
   event.target.classList.remove('drop-target');
 }
 });
-
-
-
 
   // creating initial search buttons on doc ready
   for (var i = 0; i < topics.length; i++) {
@@ -190,33 +255,7 @@ $(document).on("click", ".providedSearchButton", function() {
 
  var billInfoArray = [];
 
- 
-
-
-// //check for capabilities
-// if ("geolocation" in navigator){
-//   console.log("capable");
-// } else{
-//   console.log("incapable");
-// };
-
-// //geolocation functions
-// function success(pos){
-//   let coords = pos.coords;
-//   console.log(coords.latitude);
-//   console.log(coords.longitude);
-// };
-
-// function error (err){
-//   $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
-//   // have pop up screen asking for location then in order to 
-//   // display relevant results
-// };
-
-
-// navigator.geolocation.getCurrentPosition(success, error);
-
-
+ $("#searchTopicButton").on("click", function(event){
   $.ajax({
     url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
     type: "GET",
@@ -233,70 +272,74 @@ $(document).on("click", ".providedSearchButton", function() {
       let party = results.results[0].bills[i].sponsor_party;  
       let summary = results.results[0].bills.title; 
       let status = results.results[0].bills.latest_major_action; 
+      let committee = results.results[0].bills[i].committees;
     
       const billInfo = {
         title: title, 
         id: id, 
         party: party, 
         summary: summary, 
-        status: status
+        status: status,
+        committee: committee,
       }
       $('#billHolder').append(`<div value=${i} class="draggable"> <p> ${title} </p> </div> `);
       billInfoArray.push(billInfo);
     
-    //  console.log("bill-info", billInfo); 
+    console.log("bill-info", billInfo);
     
   }});
-
+ });
   return billInfoArray;
 
-  $("#searchTopicButton").on("click", function(event){
-    event.preventDefault(); 
-    let issueSearch = $("#searchTopicInput").val(); 
-    console.log(issueSearch); 
-    $.ajax({
-      url: "https://api.propublica.org/congress/v1/bills/search.json?query="+issueSearch,
-      type: "GET",
-      dataType: 'json',
-      headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
-    }).then(function(results){
-      // console.log(results); 
-      for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
-        // creating const to use bill data for second page
-        let title = results.results[0].bills[i].short_title; 
-        let id = results.results[0].bills[i].bill_id; 
-        let party = results.results[0].bills[i].sponsor_party;  
-        let summary = results.results[0].bills[i].title; 
-        let status = results.results[0].bills[i].latest_major_action; 
-
+  // $("#searchTopicButton").on("click", function(event){
+  //   event.preventDefault(); 
+  //   let issueSearch = $("#searchTopicInput").val(); 
+  //   console.log(issueSearch); 
+  //   $.ajax({
+  //     url: "https://api.propublica.org/congress/v1/bills/search.json?query="+issueSearch,
+  //     type: "GET",
+  //     dataType: 'json',
+  //     headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+  //   }).then(function(results){
+  //     console.log(results); 
+  //     for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
+  //       // creating const to use bill data for second page
+  //       let title = results.results[0].bills[i].short_title; 
+  //       let id = results.results[0].bills[i].bill_id; 
+  //       let party = results.results[0].bills[i].sponsor_party;  
+  //       let summary = results.results[0].bills[i].title; 
+  //       let status = results.results[0].bills[i].latest_major_action; 
+        
       
-        const billInfo = {
-          title: title, 
-          id: id, 
-          party: party, 
-          summary: summary, 
-          status: status
-        }
+  //       const billInfo = {
+  //         title: title, 
+  //         id: id, 
+  //         party: party, 
+  //         summary: summary, 
+  //         status: status,
+  //       }
 
-         window.location.assign("page2.html")
+  //       console.log(billInfo);
 
-        // appending the bills to a new element surrently set to the div on pg 2 (not working) but it
-        // worked in a test div on pg 1
-        $('#billsPanel').append(`<div id=billWrapper${i}/>`);
-        $(`#billWrapper${i}`).append(
-            `<div class="theBill"/>
-            <p class="rating">Title :${title}</p>
-            <p class="rating">Bill id =${id}</p>
-            <p class="rating">Party that introduced it :${party}</p>
-            <p class="rating">Summary :${summary}</p>
-            <p class="rating">Status :${status}</p>`
-        ); 
+  //        window.location.assign("page2.html")
+
+  //       // appending the bills to a new element surrently set to the div on pg 2 (not working) but it
+  //       // worked in a test div on pg 1
+  //       $('#billsPanel').append(`<div id=billWrapper${i}/>`);
+  //       $(`#billWrapper${i}`).append(
+  //           `<div class="theBill"/>
+  //           <p class="rating">Title :${title}</p>
+  //           <p class="rating">Bill id =${id}</p>
+  //           <p class="rating">Party that introduced it :${party}</p>
+  //           <p class="rating">Summary :${summary}</p>
+  //           <p class="rating">Status :${status}</p>`
+  //       ); 
 
         
 
     
-    }});
-  })
+  //   }});
+  // })
   // append info on bills to new element on second page
   // Bill name, voting date, summary
 
