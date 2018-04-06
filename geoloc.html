@@ -105,8 +105,8 @@ function success(pos){
             url: urlCiv,
             method: "GET"
             }).then(function(response){
-            //console.log(response);
-            //console.log('hi');
+            console.log(response);
+            console.log('hi');
             for (let i=0; i< 3;i++){
                 console.log(response.officials[i])
                 let repName = response.officials[i].name;
