@@ -47,11 +47,12 @@ $(document).ready(function(){
   let repState;
   let repZip;
   let repAddress;
+  let inputAddressString;
   let row;
   let col;
   let tableBody = $('#tableBody');
   let table = $('#table');
-  let linputA;
+  let inputA;
   let inputC;
   let inputS;
   let billValue;
@@ -84,9 +85,9 @@ $(document).ready(function(){
   };
 
   const saveSearchAndGetBillInfo = function(input, page) {
-    issueSearch = input.val().trim(); 
-    input.val('');
-    if (issueSearch !== '') {
+    if (input.val().trim() !== '') {
+      issueSearch = input.val().trim(); 
+      input.val('');
       databaseHasTopic = false;
       database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot){
@@ -103,15 +104,15 @@ $(document).ready(function(){
           };
         }, 1000);
       });
+      if (page !== page1) {
+        billHolder.empty();
+      };
+      if (page !== page2) {
+        page.hide();
+        page2.show();
+      };
+      propublicaAPICall();
     };
-    if (page !== page1) {
-      billHolder.empty();
-    };
-    if (page !== page2) {
-      page.hide();
-      page2.show();
-    };
-    propublicaAPICall();
   };
 
   const onGeolocationSuccess = function(pos){
@@ -328,7 +329,7 @@ $(document).ready(function(){
 
   $('#button11111').click(function () {
     event.preventDefault();
-    linputA = $('#inputAddress1').val();
+    inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
     $('#inputAddress1').val('');
