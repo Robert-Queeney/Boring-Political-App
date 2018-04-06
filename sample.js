@@ -1,31 +1,36 @@
 // 'use strict';
 //Interact js from npm
 
+  //Accordion 
+  
+
 
 $(document).ready(function () {
 
-  interact.dynamicDrop(true);
+
+
+
   // target elements with the "draggable" class
-  interact('.draggable')
-    .draggable({
-      // enable inertial throwing
-      inertia: true,
-      // keep the element within the area of it's parent
-      restrict: {
-        restriction: "#billContainer",
-        endOnly: true,
-        elementRect: {
-          top: 0,
-          left: 0,
-          bottom: 1,
-          right: 1
-        }
-      },
-      // enable autoScroll
-      // autoScroll: false,
-      // call this function on every dragmove event
-      onmove: dragMoveListener,
-    });
+  // interact('.draggable')
+  //   .draggable({
+  //     // enable inertial throwing
+  //     inertia: true,
+  //     // keep the element within the area of it's parent
+  //     restrict: {
+  //       restriction: ".panel",
+  //       endOnly: true,
+  //       elementRect: {
+  //         top: 0,
+  //         left: 0,
+  //         bottom: 1,
+  //         right: 1
+  //       }
+  //     },
+  //     // enable autoScroll
+  //     // autoScroll: false,
+  //     // call this function on every dragmove event
+  //     onmove: dragMoveListener,
+  //   });
 
   function dragMoveListener(event) {
 
@@ -68,20 +73,20 @@ $(document).ready(function () {
       // remove the drop feedback style
       event.target.classList.remove('drop-target');
     },
-    ondrop: function (event) {
+    // ondrop: function (event) {
 
 
-      billValue = event.relatedTarget.getAttribute('value');
-      console.log(billInfoArray);
-      //Empty dropzone content and append bill info to dropzone
-      $('#dropzone').empty().append(`${billInfoArray[billValue].summary} <br> Sponsor: ${billInfoArray[billValue].sponsor}<br> Party: ${billInfoArray[billValue].party} 
-      <br> URL: <a href="${billInfoArray[billValue].govtrack_url}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoArray[billValue].latest_major_action} <br> 
-      Latest Action Date: ${billInfoArray[billValue].date}`);
-      //remove draggable after drop
-      $(event.relatedTarget).remove();
-      //Reappend
+    //  let billValue = event.relatedTarget.getAttribute('value');
+    //   console.log(billInfoArray);
+    //   //Empty dropzone content and append bill info to dropzone
+    //   $('#dropzone').empty().append(`${billInfoArray[billValue].summary} <br> Sponsor: ${billInfoArray[billValue].sponsor}<br> Party: ${billInfoArray[billValue].party} 
+    //   <br> URL: <a href="${billInfoArray[billValue].govtrack_url}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoArray[billValue].latest_major_action} <br> 
+    //   Latest Action Date: ${billInfoArray[billValue].date}`);
+    //   //remove draggable after drop
+    //   $(event.relatedTarget).remove();
+    //   //Reappend
 
-    },
+    // },
     ondropdeactivate: function (event) {
       // remove active dropzone feedback
       event.target.classList.remove('drop-active');
@@ -137,7 +142,7 @@ $(document).ready(function () {
       'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'
     }
   }).then(function (results) {
-    console.log("results====>", results);
+    // console.log("results====>", results);
 
 
     for (let i = 0; i < results.results[0].bills.length; i++) {
@@ -153,24 +158,61 @@ $(document).ready(function () {
       let sponsor = results.results[0].bills[i].sponsor_name;
 
       const billInfo = {
-        title: title,
-        id: id,
-        party: party,
-        summary: summary,
-        status: status,
-        govtrack_url: govtrack_url,
-        latest_major_action: latest_major_action,
-        date: date,
-        sponsor: sponsor
-      }
-      $('#billHolder').append(`<div value=${i} class="draggable"> <p> ${title} </p> </div>`);
-      billInfoArray.push(billInfo);
+          title: title,
+          id: id,
+          party: party,
+          summary: summary,
+          status: status,
+          govtrack_url: govtrack_url,
+          latest_major_action: latest_major_action,
+          date: date,
+          sponsor: sponsor
+        }
+        // $('#billHolder').append(`<div value=${i} class="draggable"> <p> ${title} </p> </div>`);
+        // billInfoArray.push(billInfo);
 
-      //  console.log("bill-info", billInfo); 
-
+        //  console.log("bill-info", billInfo); 
+        $('#billHolder').append(`<button class="accordion">${billInfo.title} </button> <div class="panel"> <p> ${billInfo.summary} <br> Sponsor: ${billInfo.sponsor}<br> Party: ${billInfo.party} 
+        <br> URL: <a href="${billInfo.govtrack_url}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfo.latest_major_action} <br> 
+        Latest Action Date: ${billInfo.date} </p> </div>`);
+        
     }
+
+    var acc = document.getElementsByClassName("accordion");
+    var arr = Array.prototype.slice.call(acc)
+    // var arr = [].slice.call(acc);
+    // var arr = Array.from(acc);
+    console.log("arr", arr);
+    console.log('hello', acc);
+    console.log('hello', acc.length);
+  
+    var j;
+  
+  
+  for (j = 0; j < 10; j++) {
+    
+    console.log('loop');
+      arr[j].addEventListener("click", function() {
+        
+          /* Toggle between adding and removing the "active" class,
+          to highlight the button that controls the panel */
+          this.classList.toggle("active");
+  
+          /* Toggle between hiding and showing the active panel */
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      });
+  }
+
+    
   });
-  return billInfoArray;
+  // return billInfoArray;
+
+
 
   //check for capabilities
   // if ("geolocation" in navigator){
