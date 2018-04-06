@@ -25,13 +25,9 @@ $(document).ready(function(){
   let searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
-  let title;
-  let id;
-  let party;
-  let summary;
-  let status;
-  let branch;
-  let billsPanel = $('#billsPanel');
+  let billHolder = $('#billHolder');
+  let billValue;
+  let value;
   let page1 = $('#page1');
   let page2 = $('#page2');
   let page3 = $('#page3');
@@ -49,21 +45,19 @@ $(document).ready(function(){
       // console.log(results); 
       for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
         // creating const to use bill data for second page
-        title = results.results[0].bills[i].short_title; 
-        id = results.results[0].bills[i].bill_id; 
-        party = results.results[0].bills[i].sponsor_party;  
-        summary = results.results[0].bills[i].title; 
-        status = results.results[0].bills[i].latest_major_action; 
-        branch = results.results[0].bills.sponsor_title;
-        billsPanel.append(`<div id=billWrapper${i}/>`);
-        $(`#billWrapper${i}`).append(
-            `<p class="rating">Title :${title}</p>`
-        );
-        
+        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
+        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
+        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;  
+        billInfoObject[`summary${i}`] = results.results[0].bills[i].title; 
+        billInfoObject[`status${i}`] = results.results[0].bills[i].latest_major_action; 
+        billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
+        billInfoObject[`govtrack_url${i}`] = results.results[0].bills[i].govtrack_url;
+        billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
+        billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
+        billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
+        billHolder.append(`<p  value=${i} class="draggable">${billInfoObject[`title${i}`]}</p>`);
       };
     });
-    // append info on bills to new element on second page
-    // Bill name, voting date, summary
   };
 
   const saveSearchAndGetBillInfo = function(input, page) {
@@ -103,8 +97,7 @@ $(document).ready(function(){
     let button = $("<button>"); 
     button.addClass('btn-styling topic-btn-style providedSearchButton');
     button.attr('data-name', hotTopics[i]); 
-    button.text(hotTopics[i]); 
-    button.attr('id', 'butt'); // What?
+    button.text(hotTopics[i]);
     $("#buttonsPanel1").append(button);
   };
 
@@ -159,6 +152,94 @@ $(document).ready(function(){
   $("#searchTopicButton3").on("click", function(event) {
     event.preventDefault(); 
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
+  });
+
+  // Code for dropzone
+
+  interact.dynamicDrop(true);
+  // Target elements with the "draggable" class
+  interact('.draggable')
+    .draggable({
+      // Enable inertial throwing
+      inertia: true,
+      // Keep the element within the area of it's parent
+      restrict: {
+        restriction: "#billContainer",
+        endOnly: true,
+        elementRect: {
+          top: 0,
+          left: 0,
+          bottom: 1,
+          right: 1
+        }
+      },
+      // Enable autoScroll
+      // AutoScroll: false,
+      // Call this function on every dragmove event
+      onmove: dragMoveListener,
+    });
+
+  function dragMoveListener(event) {
+
+    var target = event.target,
+
+      // Keep the dragged position in the data-x/data-y attributes
+      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+
+    // Translate the element
+    target.style.webkitTransform =
+      target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // Update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+
+  };
+
+  // Enable draggables to be dropped into this
+  interact('.dropzone').dropzone({
+    // Require a 50% element overlap for a drop to be possible
+    overlap: 0.50,
+
+    // Listen for drop related events:
+
+    ondropactivate: function (event) {
+      // Add active dropzone feedback
+      event.target.classList.add('drop-active');
+
+    },
+    ondragenter: function (event) {
+      var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+      // Feedback the possibility of a drop
+      dropzoneElement.classList.add('drop-target');
+    },
+    ondragleave: function (event) {
+      // Remove the drop feedback style
+      event.target.classList.remove('drop-target');
+    },
+    ondrop: function (event) {
+
+
+      billValue = event.relatedTarget.getAttribute('value');
+      //Empty dropzone content and append bill info to dropzone
+      $('#dropzone').empty().append(`${billInfoObject[`summary${billValue}`]} <br> Sponsor: ${billInfoObject[`sponsor${billValue}`]}<br> Party: ${billInfoObject[`party${billValue}`]} 
+      <br> URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${billValue}`]} <br> 
+      Latest Action Date: ${billInfoObject[`date${billValue}`]} <br> <button class="btn-styling topic-btn-style providedSearchButton">Get Involved</button>`);
+      //remove draggable after drop
+      $(event.relatedTarget).remove();
+      //Reappend
+
+    },
+    ondropdeactivate: function (event) {
+      // remove active dropzone feedback
+      event.target.classList.remove('drop-active');
+      event.target.classList.remove('drop-target');
+    }
   });
   
 });
