@@ -31,6 +31,22 @@
         <button type="submit" class="btn btn-default" id="button11111">Submit</button>
       </form>
     </div>
+</div><div class="col-xs-12 col-md-4">
+    <form>
+        <div class="form-group">
+          <label for="inputAddress">Street Address:</label>
+          <input type="address" class="form-control" id="inputAddress1" placeholder="Street Address">
+        </div>
+        <div class="form-group">
+            <label for="inputCity">City:</label>
+            <input type="city" class="form-control" id="inputCity1" placeholder="City">
+          </div>
+        <div class="form-group">
+            <label for="inputState">State:</label>
+            <input type="state" class="form-control" id="inputState1" placeholder="State">
+        <button type="submit" class="btn btn-default" id="button11111">Submit</button>
+      </form>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -118,7 +134,7 @@ function success(pos){
                 let repZip = response.officials[i].address[0].zip;
                 //console.log(repSteet, repCity, repState, repZip)
                 let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-                $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+                $('#tarrget').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
             };
         });
     }).catch(function(error){
