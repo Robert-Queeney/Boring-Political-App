@@ -31,9 +31,62 @@ $(document).ready(function () {
   //     onmove: dragMoveListener,
   //   });
 
-  function dragMoveListener(event) {
+//geolocation functions
+function success(pos){
+  let coords = pos.coords;
+  // console.log(coords.latitude);
+  // console.log(coords.longitude);
+  lat = coords.latitude;
+  long = coords.longitude;
+  // console.log(lat);
+  // console.log(long);
 
-    var target = event.target,
+  //convert lat and long to a string
+  $.ajax({
+  url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+  method: 'GET'
+  }).then(function(response){
+      let street = response.results[0].locations[0].street
+      let city = response.results[0].locations[0].adminArea5
+      let state = response.results[0].locations[0].adminArea3
+      let zip = response.results[0].locations[0].postalCode
+      //console.log(street,city,state,zip);
+      addressString = (street + "," + city + "," + state + ","+ zip);
+      console.log(addressString)
+  }).catch(function(error){
+      console.error('oh boy its broken', error);
+  });
+
+};
+
+//display div to ask for address explaining need for it
+function error (err){
+  $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+  // have pop up screen asking for location then in order to 
+  // display relevant results
+};
+
+//trigger geolocation on 'get involved' click ?
+$('#electedOfficialsPanel').click(function() {
+  navigator.geolocation.getCurrentPosition(success, error);
+});
+
+// target elements with the "draggable" class
+interact('.draggable')
+.draggable({
+  // enable inertial throwing
+  inertia: true,
+  // keep the element within the area of it's parent
+  restrict: {
+    restriction: "parent",
+    endOnly: true,
+    elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+  },
+  // enable autoScroll
+  autoScroll: true,
+  // call this function on every dragmove event
+  onmove: dragMoveListener,
+});
 
       // keep the dragged position in the data-x/data-y attributes
       x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,

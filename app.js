@@ -25,11 +25,32 @@ $(document).ready(function(){
   let searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
-  let billsPanel = $('#billsPanel');
+  let billHolder = $('#billHolder');
   let page1 = $('#page1');
   let page2 = $('#page2');
   let page3 = $('#page3');
-  let billInfoArray = [];
+  let billInfoObject = {};
+  let coords;
+  let lat;
+  let long;
+  let street;
+  let city;
+  let state;
+  let zip;
+  let addressString;
+  let urlCiv;
+  let repName;
+  let repPhoto;
+  let repPhone;
+  let repSteet;
+  let repCity;
+  let repState;
+  let repZip;
+  let repAddress; 
+  let linputA;
+  let inputC;
+  let inputS;
+  let billValue;
 
   // Function Declarations
 
@@ -40,39 +61,22 @@ $(document).ready(function(){
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
-      // console.log(results); 
       for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
-        // creating const to use bill data for second page
-        let title = results.results[0].bills[i].short_title; 
-        let id = results.results[0].bills[i].bill_id; 
-        let party = results.results[0].bills[i].sponsor_party;  
-        let summary = results.results[0].bills[i].title; 
-        let status = results.results[0].bills[i].latest_major_action; 
-
-      
-        const billInfo = {
-          title: title, 
-          id: id, 
-          party: party, 
-          summary: summary, 
-          status: status
-        }
-
-        // appending the bills to a new element surrently set to the div on pg 2 (not working) but it
-        // worked in a test div on pg 1
-        $('#billsPanel').append(`<div id=billWrapper${i}/>`);
-        $(`#billWrapper${i}`).append(
-            `<div class="theBill"/>
-            <p class="rating">Title :${title}</p>
-            <p class="rating">Bill id =${id}</p>
-            <p class="rating">Party that introduced it :${party}</p>
-            <p class="rating">Summary :${summary}</p>
-            <p class="rating">Status :${status}</p>`
-        );
+        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
+        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
+        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;  
+        billInfoObject[`summary${i}`] = results.results[0].bills[i].title; 
+        billInfoObject[`status${i}`] = results.results[0].bills[i].latest_major_action; 
+        billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
+        billInfoObject[`govtrack_url${i}`] = results.results[0].bills[i].govtrack_url;
+        billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
+        billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
+        billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
+        billHolder.append(`<p  value=${i} class="draggable">${billInfoObject[`title${i}`]}</p>`);
       };
+    }).catch(function(error){
+      console.error('Oh boy, its broken:', error);
     });
-    // append info on bills to new element on second page
-    // Bill name, voting date, summary
   };
 
   const saveSearchAndGetBillInfo = function(input, page) {
@@ -95,13 +99,55 @@ $(document).ready(function(){
       }, 1000);
     });
     if (page !== page1) {
-      billsPanel.empty();
+      billHolder.empty();
     };
     if (page !== page2) {
       page.hide();
       page2.show();
     };
     propublicaAPICall();
+  };
+
+  const success = function(pos){
+    coords = pos.coords;
+    lat = coords.latitude;
+    long = coords.longitude;
+    $.ajax({
+      url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+      method: 'GET'
+    }).then(function(response){
+      street = response.results[0].locations[0].street;
+      city = response.results[0].locations[0].adminArea5;
+      state = response.results[0].locations[0].adminArea3;
+      zip = response.results[0].locations[0].postalCode;
+      addressString = (street + "," + city + "," + state + ","+ zip);
+      urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
+      $.ajax({
+        url: urlCiv,
+        method: "GET"
+      }).then(function(response){
+        for (let i=0; i< 3; i++){
+          repName = response.officials[i].name;
+          repPhoto = response.officials[i].photoUrl;
+          repPhone = response.officials[i].phones;
+          repSteet = response.officials[i].address[0].line1;
+          repCity =  response.officials[i].address[0].city;
+          repState = response.officials[i].address[0].state;
+          repZip = response.officials[i].address[0].zip;
+          repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+          $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+        };
+      }).catch(function(error){
+        console.error('Oh boy, its broken:', error);
+      });
+    }).catch(function(error){
+      console.error('Oh boy, its broken:', error);
+    });
+  };
+
+  const error = function(){
+    $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
+    $('#addressPopup').show();
   };
     
   // Function Calls
@@ -112,8 +158,7 @@ $(document).ready(function(){
     let button = $("<button>"); 
     button.addClass('btn-styling topic-btn-style providedSearchButton');
     button.attr('data-name', hotTopics[i]); 
-    button.text(hotTopics[i]); 
-    button.attr('id', 'butt'); // What?
+    button.text(hotTopics[i]);
     $("#buttonsPanel1").append(button);
   };
 
@@ -160,6 +205,103 @@ $(document).ready(function(){
     saveSearchAndGetBillInfo(searchTopicInput2, page2);
   });
 
+  // Code for dropzone
+
+  interact.dynamicDrop(true);
+  // Target elements with the "draggable" class
+  interact('.draggable')
+    .draggable({
+      // Enable inertial throwing
+      inertia: true,
+      // Keep the element within the area of it's parent
+      restrict: {
+        restriction: "#billContainer",
+        endOnly: true,
+        elementRect: {
+          top: 0,
+          left: 0,
+          bottom: 1,
+          right: 1
+        }
+      },
+      // Enable autoScroll
+      // AutoScroll: false,
+      // Call this function on every dragmove event
+      onmove: dragMoveListener,
+    });
+
+  function dragMoveListener(event) {
+
+    var target = event.target,
+
+      // Keep the dragged position in the data-x/data-y attributes
+      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+
+    // Translate the element
+    target.style.webkitTransform =
+      target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // Update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+
+  };
+
+  // Enable draggables to be dropped into this
+  interact('.dropzone').dropzone({
+    // Require a 50% element overlap for a drop to be possible
+    overlap: 0.50,
+
+    // Listen for drop related events:
+
+    ondropactivate: function (event) {
+      // Add active dropzone feedback
+      event.target.classList.add('drop-active');
+
+    },
+    ondragenter: function (event) {
+      var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+      // Feedback the possibility of a drop
+      dropzoneElement.classList.add('drop-target');
+    },
+    ondragleave: function (event) {
+      // Remove the drop feedback style
+      event.target.classList.remove('drop-target');
+    },
+    ondrop: function (event) {
+
+
+      billValue = event.relatedTarget.getAttribute('value');
+      // Empty dropzone content and append bill info to dropzone
+      $('#dropzone').empty().append(`${billInfoObject[`summary${billValue}`]} <br> Sponsor: ${billInfoObject[`sponsor${billValue}`]}<br> Party: ${billInfoObject[`party${billValue}`]} 
+      <br> URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${billValue}`]} <br> 
+      Latest Action Date: ${billInfoObject[`date${billValue}`]} <br> <button class="btn-styling topic-btn-style getInvolvedButton">Get Involved</button>`);
+      // Remove draggable after drop
+      $(event.relatedTarget).remove();
+      // Reappend
+
+    },
+    ondropdeactivate: function (event) {
+      // Remove active dropzone feedback
+      event.target.classList.remove('drop-active');
+      event.target.classList.remove('drop-target');
+    }
+  });
+
+  // On click of "Get Involved" button, navigate to page 3 and call the geolocation 
+  // API
+
+  $(document).on("click", ".getInvolvedButton", function() {
+    page2.hide();
+    page3.show();
+    navigator.geolocation.getCurrentPosition(success, error);
+  });
+
   // On click of search button (third page), save the topic searched for 
   // in Firebase if it is not already one of the three most recent searches 
   // there AND hide 'Page 3' div AND display 'Page 2' div AND empty the 
@@ -168,6 +310,39 @@ $(document).ready(function(){
   $("#searchTopicButton3").on("click", function(event) {
     event.preventDefault(); 
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
+  });
+
+  // Submit Address Button
+
+  $('#button11111').click(function () {
+    event.preventDefault();
+    linputA = $('#inputAddress1').val();
+    inputC = $('#inputCity1').val();
+    inputS = $('#inputState1').val();
+    $('#inputAddress1').val('');
+    $('#inputCity1').val('');
+    $('#inputState1').val('');
+    $('#addressPopup').hide();
+    $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
+    inputAddressString = (inputA + ", " + inputC + ", " + inputS);
+    $.ajax({
+      url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + inputAddressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody",
+      method: "GET"
+    }).then(function(response){
+      for (let i=0; i< 3;i++){
+        repName = response.officials[i].name;
+        repPhoto = response.officials[i].photoUrl;
+        repPhone = response.officials[i].phones;
+        repSteet = response.officials[i].address[0].line1;
+        repCity =  response.officials[i].address[0].city;
+        repState = response.officials[i].address[0].state;
+        repZip = response.officials[i].address[0].zip;
+        repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+        $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+      };
+    }).catch(function(error){
+      console.error('Oh boy, its broken:', error);
+    });
   });
   
 });

@@ -189,7 +189,6 @@ h1 {
   border-style: solid;
 }
 
-<<<<<<< HEAD
 .accordion {
   background-color: #eee;
   color: #444;
@@ -220,4 +219,8 @@ h1 {
 #page3 {
   display: none;
 
+}
+
+#addressPopup {
+  display: none;
 }
