@@ -97,7 +97,7 @@ interact('.draggable')
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 
-  }
+  
 
   // enable draggables to be dropped into this
   interact('.dropzone').dropzone({
@@ -172,7 +172,7 @@ interact('.draggable')
             </div>
         </div>
         <div class="col-md-8">
-            <div class="panel panel-primary bill-extended-summary-panel">
+            <div class="panel panel-primarybill-extended-summary-panel">
                 <div class="panel-heading">Summary</div>
                 <div class="panel-body" id="billExtendedSummary">
                   ${billInfoArray[billValue].summary}
