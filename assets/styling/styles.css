@@ -136,7 +136,7 @@ h1 {
   box-shadow: 0 0 0px 30px #2e71f2 inset, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   -webkit-text-fill-color: #ffffff !important;
 }
-
+/* Bill Cards Styling */
 .bill-cards-styling {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   transition: 0.5s;
@@ -145,55 +145,57 @@ h1 {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   transition: 0.5s;
 }
-
-/* Drag and Drop  */
-
+/* Drag and Drop */
 .holder {
   width: 100%;
-  
 }
 .dropzone {
-  background-color: #ccc;
+  background-color: #bbbbbb;
   padding: 10px;
-  width: 400px;
-  height: 90%;
+  width: 500px;
+  height: 100%;
   border: dashed 4px transparent;
-  float: right;
   height: 500px;
+  position: fixed;
+  right: 0px;
+  display: block;
+  z-index: 1;
 }
-
 .draggable {
   display: inline-grid;
   width: 150px;
   height: 100px;
-  background-color: #2196F3;
-  color: white;
-  padding:10px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+  color: #4d4d4d;
+  overflow: hidden;
+  padding: 10px;
   margin: 10px;
-  
+  border-left: 6px solid #01d6c4;
+  border-radius: 3px;
+}
+.draggable:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.draggable:active {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 #billHolder {
   float: left;
   width: 400px;
-
-  
 }
-
 .drop-active {
   border-color: #aaa;
 }
-
 .drop-target {
-  background-color: #000;
+  background-color: #2e71f2;
   color: #FFF;
   border-color: #fff;
   border-style: solid;
 }
-
 #page2 {
   display: none;
 }
-
 #page3 {
   display: none;
 }
