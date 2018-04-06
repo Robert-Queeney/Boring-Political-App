@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Boring Political App</title>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+
+        <!-- Links -->
+        <!-- Bootstrap Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Bootstrap Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+         <!-- Font Awesome -->
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+        <!-- CSS -->
+        <link rel="stylesheet" href="assets/styling/styles.css">
+
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container">
+
+                <!-- START OF PAGE 1 DIV -->
+                
+                <div id="page1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3>Page 1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- START OF PAGE 1 INTERNAL CONTENT -->
+
+                                    <header class="header">
+                                        <div class="row">
+                                            <div class="col-md-2 col-xs-0"></div>
+                                            <div class="col-md-8 col-xs-12">
+                                                <div class="page-1-title text-center">
+                                                    <h1>Boring Political App</h1>
+                                                    <h2>Description: Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-xs-0"></div>
+                                        </div>
+                                    </header>
+                                    <main class="main">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <!-- Use .input-styling class for final design step -->
+                                                            <input type="text" class="input-styling" placeholder="Topic of Interest" id="searchTopicInput1">
+                                                            <span class="input-group-btn">
+                                                                <!-- Use .btn-styling and .submit-btn-style for final input design step -->
+                                                                <button class="btn-styling submit-btn-style" type="submit" id="searchTopicButton1">Search</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <div class="panel panel-primary panel-styling">
+                                                    <div class="panel-heading">
+                                                        <h2 class="text-center">Hot Topics</h2>
+                                                    </div>
+                                                    <div class="panel-body text-center" id="buttonsPanel1">
+                                                        <!-- Use classes .btn-styling and .topic-btn-style for final topic button designs -->
+                                                        <!-- Append JS Hot Topic buttons here. To #buttonsPanel1-->
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-primary panel-styling">
+                                                    <div class="panel-heading">
+                                                        <h2 class="text-center">Recent Searches</h2>
+                                                    </div>
+                                                    <div class="panel-body text-center" id="buttonsPanel2">
+                                                        <!-- Use classes .btn-styling and .topic-btn-style for final topic button designs -->
+                                                        <!-- Append JS Recent Search buttons here. To #buttonsPanel2-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </main>
+
+                                    <!-- END OF PAGE 1 INTERNAL CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF PAGE 1 DIV -->
+
+                <!-- START OF PAGE 2 DIV -->
+                <div id="page2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h3>Page 2</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- START OF PAGE 2 INTERNAL CONTENT -->
+
+                                    <header class="header">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="title">Boring Political App</div>
+                                            </div>
+                        
+                                            <div class="col-md-2 nav-links">
+                                                <a href="index.html"><i class="fas fa-home font-awesome-icons"></i>Home</a>
+                                            </div>
+                    
+                                            <div class="col-md-6">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <input type="text" class="input-styling" placeholder="Topic of Interest" id="searchTopicInput2">
+                                                            <span class="input-group-btn">
+                                                                <!-- Use .btn-styling and .submit-btn-style class for final input design -->
+                                                                <button class="btn-styling submit-btn-style" type="submit" id="searchTopicButton2">Search</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <main class="main">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-primary panel-styling">
+                                                    <div class="panel-heading">
+                                                        <h2>Bills (Bills append on left, drop zone on right)</h2>
+                                                    </div>
+
+                                                    <div class="panel-body" id="billsPanel">
+                    
+                                                        <!-- Append JS Bill Cards here -->
+                    
+                    
+                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </main>
+
+
+
+
+
+
+                                    <!-- END OF PAGE 2 INTERNAL CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF PAGE 2 DIV -->
+
+                <!-- START OF PAGE 3 DIV -->
+                <div id="page3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3>Page 3</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!-- START OF PAGE 3 INTERNAL CONTENT -->
+
+                                    <header class="header">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="title">Boring Political App</div>
+                                            </div>
+                        
+                                            <div class="col-md-2 nav-links">
+                                                <a href="index.html"><i class="fas fa-home font-awesome-icons"></i>Home</a>
+                                            </div>
+                    
+                                            <div class="col-md-6">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <input type="text" class="input-styling" placeholder="Topic of Interest" id="searchTopicInput3">
+                                                            <span class="input-group-btn">
+                                                                <!-- Use .btn-styling and .submit-btn-style class for final input design -->
+                                                                <button class="btn-styling submit-btn-style" type="submit" id="searchTopicButton3">Search</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <main class="main">
+                                        <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-primary panel-styling">
+                                                        <div class="panel-heading">
+                                                            <h2>Contact Your Elected Officials</h2>
+                                                        </div>
+                                                        <div class="panel-body" id="electedOfficialsPanel">
+                        
+                                                            <!-- Append JS elected officials headshot and title cards here -->
+                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-primary panel-styling">
+                                                            <div class="panel-heading">
+                                                                <h2>
+                                                                    More About This Bill:
+                                                                    <div id="billTitle">
+                                                                        
+                                                                        <!-- Append JS bill title here -->
+                        
+                                                                    </div>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="panel-body">
+                        
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Sponsor Party</div>
+                                                                            <div class="panel-body" id="billSponsorParty">
+                        
+                                                                                <!-- Append JS bill's sponsor parter (Republican/Democratic) here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Introduced</div>
+                                                                            <div class="panel-body" id="billIntroDate">
+                        
+                                                                                <!-- Append JS bill's introduced date here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-info-mini-panel text-center">
+                                                                            <div class="panel-heading">Last Action</div>
+                                                                            <div class="panel-body" id="billLastActionDate">
+                        
+                                                                                <!-- Append JS last bill's major action date here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                            
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="panel panel-primary bill-author-panel">
+                                                                            <div class="panel-heading">Author</div>
+                                                                            <div class="panel-body" id="billAuthorInfo">
+                        
+                                                                                <!-- Append JS bill author headshot and title card here -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="panel panel-primary bill-extended-summary-panel">
+                                                                            <div class="panel-heading">Summary</div>
+                                                                            <div class="panel-body" id="billExtendedSummary">
+                        
+                                                                                <!-- Append JS bill extended summary, if available -->
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </main>
+
+
+
+                                    <!-- END OF PAGE 3 INTERNAL CONTENT -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF PAGE 3 DIV -->
+
+
+
+
+            </div>
+            <!-- END OF PAGE CONTAINER -->
+
+        </div>
+        <!-- END OF PAGE WRAPPER -->
+
+
+        <!-- Scripts -->
+            <!-- Jquery -->
+            <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <!-- javascript -->
+            <script type="text/javascript" src="sample.js"></script>
+    </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>where u at?</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <button type="button" class="btn btn-info" id="target">click me!</button>
+    <button type="button" class="btn btn-primary" id ="second">Click for geo</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+let lat;
+let long;
+let addressString;
+let comResult;
+
+
+//propublica
+$.ajax({
+         url: "https://api.propublica.org/congress/v1/bills/search.json?query=taxes",
+         type: "GET",
+         dataType: 'json',
+         headers: {'X-API-Key': 'EbKrPCacXBdCHM0WxqoH2lIe1JtWCtHqOOEZtQEQ'}
+       }).done(function(data){
+
+    for (let i=0; i < 20; i++){
+        console.log(data.results[0].bills[i].committees);
+        comResult = data.results[0].bills[i].committees;
+        console.log(comResult.includes('Senate'));
+
+        //check if bill sent to house or senate committee
+            // if (comResult.includes('House')){
+            //     console.log('House');
+            //     comResult = 'House';
+            // } 
+             if (comResult.includes('Senate')){
+                console.log('Senate');
+                comResult = 'Senate';
+            };
+    };
+});
+
+//check for geoloc capabilities
+// if ("geolocation" in navigator){
+//     console.log("capable");
+// } else{
+//     console.log("incapable");
+// };
+
+//geolocation functions
+function success(pos){
+    let coords = pos.coords;
+    // console.log(coords.latitude);
+    // console.log(coords.longitude);
+    lat = coords.latitude;
+    long = coords.longitude;
+    // console.log(lat);
+    // console.log(long);
+
+    //convert lat and long to a string
+    $.ajax({
+    url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
+    method: 'GET'
+    }).then(function(response){
+        let street = response.results[0].locations[0].street
+        let city = response.results[0].locations[0].adminArea5
+        let state = response.results[0].locations[0].adminArea3
+        let zip = response.results[0].locations[0].postalCode
+        //console.log(street,city,state,zip);
+        addressString = (street + "," + city + "," + state + ","+ zip);
+        console.log(addressString)
+    }).catch(function(error){
+        console.error('oh boy its broken', error);
+});
+
+};
+
+//display div to ask for address explaining need for it
+function error (err){
+    $('#target').append(`<div>Please enter your info so we can show you relevant info</div>`)
+    // have pop up screen asking for location then in order to 
+    // display relevant results
+};
+
+$('#second').click(function() {
+    navigator.geolocation.getCurrentPosition(success, error);
+});
+
+$('#target').click(function (){
+    console.log(addressString);
+    let urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + "794 Bayard Avenue, Saint Paul, MN, 55102" + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
+    console.log(comResult)
+        $.ajax({
+            url: urlCiv,
+            method: "GET"
+            }).then(function(response){
+            console.log(response);
+            for(let i=0; i<5; i++){
+            let names = (response.officials[i].name);
+            //console.log(names);
+            let repPhotos = response.officials[i].photoUrl;
+            //console.log(repPhotos);
+            let repPhones = response.officials[i].phones;
+            //console.log(repPhones)
+            let repSteet = response.officials[i].address[0].line1;
+            let repCity =  response.officials[i].address[0].city;
+            let repState = response.officials[i].address[0].state;
+            let repZip = response.officials[i].address[0].zip;
+            let repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+            //console.log(repAddress)
+            $('#target').append(`<div> <img src='${repPhotos}' style='height:200px'</img> <p>${names}</p> <p>${repPhones}</p> <p> ${repAddress} </p> </div>`);
+            };
+        });
+});
+
+</script>
+</body>
+</html>
