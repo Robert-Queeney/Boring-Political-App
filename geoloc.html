@@ -107,7 +107,7 @@ function success(pos){
             }).then(function(response){
             console.log(response);
             console.log('hi');
-            for (let i=0; i< 3;i++){
+            for (let i=0; i< 3; i++){
                 console.log(response.officials[i])
                 let repName = response.officials[i].name;
                 let repPhoto = response.officials[i].photoUrl;
@@ -136,8 +136,7 @@ function error (err){
     $('#addressPopup').show();
 };
 
- 
-    $('#button11111').click(function () {
+$('#button11111').click(function () {
         event.preventDefault();
         let inputA = $('#inputAddress1').val()
         let inputC = $('#inputCity1').val();
@@ -169,8 +168,8 @@ function error (err){
     }).catch(function(error){
        
         console.error('oh boy its broken', error);
-        });
     });
+});
 
 $('#second').click(function() {
     navigator.geolocation.getCurrentPosition(success, error);
