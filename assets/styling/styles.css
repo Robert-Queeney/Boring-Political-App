@@ -218,7 +218,10 @@ h1 {
 
 #page3 {
   display: none;
+}
 
+#table {
+  display: none;
 }
 
 #addressPopup {

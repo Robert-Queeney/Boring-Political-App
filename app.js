@@ -46,7 +46,11 @@ $(document).ready(function(){
   let repCity;
   let repState;
   let repZip;
-  let repAddress; 
+  let repAddress;
+  let row;
+  let col;
+  let tableBody = $('#tableBody');
+  let table = $('#table');
   let linputA;
   let inputC;
   let inputS;
@@ -82,22 +86,24 @@ $(document).ready(function(){
   const saveSearchAndGetBillInfo = function(input, page) {
     issueSearch = input.val().trim(); 
     input.val('');
-    databaseHasTopic = false;
-    database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot){
-        if (childSnapshot.val().query === issueSearch) {
-          databaseHasTopic = true;
-        };
+    if (issueSearch !== '') {
+      databaseHasTopic = false;
+      database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot){
+          if (childSnapshot.val().query === issueSearch) {
+            databaseHasTopic = true;
+          };
+        });
+        setTimeout(function() {
+          if (!databaseHasTopic) {
+            database.ref().push({
+              query: issueSearch,
+              dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+          };
+        }, 1000);
       });
-      setTimeout(function() {
-        if (!databaseHasTopic) {
-          database.ref().push({
-            query: issueSearch,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
-          });
-        };
-      }, 1000);
-    });
+    };
     if (page !== page1) {
       billHolder.empty();
     };
@@ -108,7 +114,7 @@ $(document).ready(function(){
     propublicaAPICall();
   };
 
-  const success = function(pos){
+  const onGeolocationSuccess = function(pos){
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -126,6 +132,7 @@ $(document).ready(function(){
         url: urlCiv,
         method: "GET"
       }).then(function(response){
+        row = $('<tr>');
         for (let i=0; i< 3; i++){
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -135,8 +142,12 @@ $(document).ready(function(){
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
           repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-          $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`)
+          row.append(col);
         };
+        tableBody.empty();
+        tableBody.append(row);
+        table.show();
       }).catch(function(error){
         console.error('Oh boy, its broken:', error);
       });
@@ -145,7 +156,7 @@ $(document).ready(function(){
     });
   };
 
-  const error = function(){
+  const onGeolocationError = function(){
     $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
     $('#addressPopup').show();
   };
@@ -299,7 +310,7 @@ $(document).ready(function(){
   $(document).on("click", ".getInvolvedButton", function() {
     page2.hide();
     page3.show();
-    navigator.geolocation.getCurrentPosition(success, error);
+    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
   });
 
   // On click of search button (third page), save the topic searched for 
@@ -310,6 +321,7 @@ $(document).ready(function(){
   $("#searchTopicButton3").on("click", function(event) {
     event.preventDefault(); 
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
+    table.hide();
   });
 
   // Submit Address Button
@@ -329,7 +341,8 @@ $(document).ready(function(){
       url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + inputAddressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody",
       method: "GET"
     }).then(function(response){
-      for (let i=0; i< 3;i++){
+      row = $('<tr>');
+      for (let i=0; i< 3; i++){
         repName = response.officials[i].name;
         repPhoto = response.officials[i].photoUrl;
         repPhone = response.officials[i].phones;
@@ -338,8 +351,12 @@ $(document).ready(function(){
         repState = response.officials[i].address[0].state;
         repZip = response.officials[i].address[0].zip;
         repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-        $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+        col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`)
+        row.append(col);
       };
+      tableBody.empty();
+      tableBody.append(row);
+      table.show();
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
