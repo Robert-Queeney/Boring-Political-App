@@ -142,7 +142,7 @@ $(document).ready(function(){
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
           repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`)
+          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
           row.append(col);
         };
         tableBody.empty();
@@ -351,7 +351,7 @@ $(document).ready(function(){
         repState = response.officials[i].address[0].state;
         repZip = response.officials[i].address[0].zip;
         repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-        col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`)
+        col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
         row.append(col);
       };
       tableBody.empty();
