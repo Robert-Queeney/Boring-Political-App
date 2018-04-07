@@ -59,6 +59,7 @@ $(document).ready(function(){
   let billValue;
   let homeState; 
   let repDistrict; 
+  let memberId; 
 
   // Function Declarations
 
@@ -174,6 +175,7 @@ $(document).ready(function(){
         url: urlCiv,
         method: "GET"
       }).then(function(response){
+        console.log("Google api", response); 
         row = $('<tr>');
         for (let i=0; i< 3; i++){
           repName = response.officials[i].name;
@@ -187,7 +189,33 @@ $(document).ready(function(){
           homeState = response.normalizedInput.state; 
           repDistrict = response.offices[i].name;
           repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-          
+          if(repDistrict.includes("United States Senate")){
+            $.ajax({
+                url:`https://api.propublica.org/congress/v1/members/senate/${homeState}/current.json`, 
+                type: "GET", 
+                dataType: 'json', 
+                headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+              }).then(function(results){
+                // console.log("results====>", results);
+                for  (let i=0; i<2; i++){
+                  memberId = results.results[i].id; 
+                  console.log(memberId); 
+                }
+                return memberId;
+                })} else { 
+                let lastTwoDistrict = repDistrict.split("-").pop(); 
+                $.ajax({
+                  url:`https://api.propublica.org/congress/v1/members/house/${homeState}/${lastTwoDistrict}/current.json`, 
+                  type: "GET", 
+                  dataType: 'json', 
+                  headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+                }).then(function(results){
+                    memberId = results.results[0].id; 
+                    console.log(memberId); 
+                    return memberId;
+          });  
+        }
+        console.log(memberId);
           col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
           row.append(col);
         };
