@@ -27,8 +27,8 @@ $(document).ready(function() {
   const billHolder = $('#billHolder');
   const dropZone = $('#dropzone');
   const accordianBillHolder = $('#accordianBillHolder');
-  const acc;
-  const arr;
+  let acc;
+  let arr;
   const page1 = $('#page1');
   const page2 = $('#page2');
   const page3 = $('#page3');
@@ -147,9 +147,7 @@ $(document).ready(function() {
   };
 
   const onGeolocationSuccess = function(pos) {
-    // hide load animation
     $('.loader').hide();
-
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -387,8 +385,8 @@ $(document).ready(function() {
     </br>
     </br>
     <div class="row">        
-      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
-    </div>
+      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>
+    </div>`);
       // Remove draggable after drop
       $(event.relatedTarget).remove();
       // Reappend
