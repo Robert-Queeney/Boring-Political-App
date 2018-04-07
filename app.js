@@ -24,7 +24,9 @@ $(document).ready(function() {
   const searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
+
   const billHolder = $('#billHolder');
+  const dropZone = $('#dropzone');
   const accordianBillHolder = $('#accordianBillHolder');
   const page1 = $('#page1');
   const page2 = $('#page2');
@@ -47,11 +49,12 @@ $(document).ready(function() {
   let repState;
   let repZip;
   let repAddress;
+  let body;
+  const inputRequired = $('#inputRequired');
   let inputAddressString;
-  let row;
-  let col;
-  const tableBody = $('#tableBody');
-  const table = $('#table');
+
+  let rep;
+  const reps = $('#reps');
   let inputA;
   let inputC;
   let inputS;
@@ -64,9 +67,9 @@ $(document).ready(function() {
       url: `https://api.propublica.org/congress/v1/bills/search.json?query=${issueSearch}`,
       type: 'GET',
       dataType: 'json',
+
       headers: { 'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ' },
     }).then(function(results) {
-      accordianBillHolder.empty();
       for (let i = 0; i < results.results[0].bills.length; i++) {
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title;
         billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id;
@@ -96,10 +99,11 @@ $(document).ready(function() {
       console.log('hello', acc);
       console.log('hello', acc.length);
 
+
       let j;
 
 
-      for (j = 0; j < 10; j++) {
+      for (j = 0; j < results.results[0].bills.length; j++) {
         console.log('loop');
         arr[j].addEventListener('click', function() {
           /* Toggle between adding and removing the "active" class,
@@ -142,6 +146,9 @@ $(document).ready(function() {
       });
       if (page !== page1) {
         billHolder.empty();
+
+        accordianBillHolder.empty();
+        dropZone.empty().append($('<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>'));
       }
       if (page !== page2) {
         page.hide();
@@ -172,7 +179,6 @@ $(document).ready(function() {
         url: urlCiv,
         method: 'GET',
       }).then(function(response) {
-        row = $('<tr>');
         for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -181,13 +187,16 @@ $(document).ready(function() {
           repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = `${repSteet}<br>${repCity}, ${repState}, ${repZip}`;
-          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
-          row.append(col);
+
+          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
+          if (i < 2) {
+            body = 'Senate';
+          } else {
+            body = 'House';
+          }
+          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
+          reps.append(rep);
         }
-        tableBody.empty();
-        tableBody.append(row);
-        table.show();
       }).catch(function(error) {
         console.error('Oh boy, its broken:', error);
       });
@@ -244,6 +253,7 @@ $(document).ready(function() {
   $(document).on('click', '.providedSearchButton', function() {
     issueSearch = $(this).attr('data-name');
     page1.hide();
+    searchTopicInput1.val('');
     page2.show();
     propublicaAPICall();
   });
@@ -326,7 +336,7 @@ $(document).ready(function() {
     ondrop: function (event) {
       billValue = event.relatedTarget.getAttribute('value');
       // Empty dropzone content and append bill info to dropzone
-      $('#dropzone').empty().append(`
+      dropZone.empty().append(`
       <div class="row">
         <div class="col-md-12">
             <div class="bill-title-style" id="billTitle">
@@ -424,7 +434,7 @@ $(document).ready(function() {
   $('#searchTopicButton3').on('click', function(event) {
     event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
-    table.hide();
+    reps.empty();
   });
 
   // Submit Address Button
@@ -434,22 +444,20 @@ $(document).ready(function() {
     inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
-
     if (inputA === '' || inputC === '' || inputS === '') {
-      $('#addressPopup').append('<div id="inputRequired" style="color:red; font-size:30px"> Input Required </div>');
+      inputRequired.append('<div style="color:red; font-size:30px">Input Required</div>');
     } else {
-      $('#inputRequired').empty();
+      inputRequired.empty();
       $('#inputAddress1').val('');
       $('#inputCity1').val('');
       $('#inputState1').val('');
       $('#addressPopup').hide();
       $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
-      inputAddressString = (`${inputA}, ${inputC}, ${inputS}`);
+      inputAddressString = (`${inputA  }, ${  inputC  }, ${  inputS}`);
       $.ajax({
-        url: `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=${inputAddressString}&roles=legislatorLowerBody&roles=legislatorUpperBody`,
+        url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=' + inputAddressString + '&roles=legislatorLowerBody&roles=legislatorUpperBody',
         method: 'GET',
       }).then(function(response) {
-        row = $('<tr>');
         for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -458,13 +466,15 @@ $(document).ready(function() {
           repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = `${repSteet}<br>${repCity}, ${repState}, ${repZip}`;
-          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
-          row.append(col);
+          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
+          if (i < 2) {
+            body = 'Senate';
+          } else {
+            body = 'House';
+          }
+          row = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
+          reps.append(row);
         }
-        tableBody.empty();
-        tableBody.append(row);
-        table.show();
       }).catch(function(error) {
         console.error('Oh boy, its broken:', error);
       });
