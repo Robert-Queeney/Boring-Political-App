@@ -434,6 +434,12 @@ $(document).ready(function(){
     inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
+
+    if (inputA ==="" || inputC === "" || inputS === ""){
+        $('#addressPopup').append(`<div id="inputRequired" style="color:red; font-size:30px"> Input Required </div>`)
+    }
+    else {
+    $('#inputRequired').empty();
     $('#inputAddress1').val('');
     $('#inputCity1').val('');
     $('#inputState1').val('');
@@ -463,7 +469,9 @@ $(document).ready(function(){
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
+    };
   });
+
   
 });
 
