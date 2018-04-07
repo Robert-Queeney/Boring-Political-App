@@ -432,7 +432,7 @@ $(document).ready(function() {
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
     if (inputA === '' || inputC === '' || inputS === '') {
-      inputRequired.append('<div style="color:red; font-size:30px">Input Required</div>');
+      inputRequired.append('<div style="color:black; font-size:30px">Input Required</div>');
     } else {
       inputRequired.empty();
       $('#inputAddress1').val('');
