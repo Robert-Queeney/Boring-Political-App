@@ -55,6 +55,7 @@ $(document).ready(function() {
   let inputAddressString;
   let rep;
   const reps = $('#reps');
+  const docBody = $(document.body);
   let inputA;
   let inputC;
   let inputS;
@@ -176,7 +177,6 @@ $(document).ready(function() {
           repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-
           repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
           if (i < 2) {
             body = 'Senate';
@@ -195,7 +195,6 @@ $(document).ready(function() {
   };
 
   const onGeolocationError = function() {
-    // hide loader animation
     $('.loader').hide();
     $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
     $('#addressPopup').show();
@@ -402,13 +401,21 @@ $(document).ready(function() {
     },
   });
 
+  // Dropzone affix
+
+  $('#sidebar').affix({
+    offset: {
+      top: 85,
+      bottom: 50
+    },
+  });
+
   // On click of "Get Involved" button, navigate to page 3 and call the geolocation
   // API
 
   $(document).on('click', '.getInvolvedButton', function() {
     page2.hide();
     page3.show();
-
     $('#electedOfficialsPanel').append('<div class="loader center-block"></div>');
     navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
   });
@@ -467,6 +474,9 @@ $(document).ready(function() {
       });
     }
   });
+<<<<<<< HEAD
+});
+=======
 });
 
 
@@ -493,3 +503,4 @@ $('#sidebar').affix({
 
 // Accordian Bills for Mobile
 
+>>>>>>> f7593445f88b49bef690360affb3137189072a2c
