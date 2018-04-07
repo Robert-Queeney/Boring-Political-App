@@ -24,10 +24,11 @@ $(document).ready(function() {
   const searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
-
   const billHolder = $('#billHolder');
   const dropZone = $('#dropzone');
   const accordianBillHolder = $('#accordianBillHolder');
+  const acc;
+  const arr;
   const page1 = $('#page1');
   const page2 = $('#page2');
   const page3 = $('#page3');
@@ -52,7 +53,6 @@ $(document).ready(function() {
   let body;
   const inputRequired = $('#inputRequired');
   let inputAddressString;
-
   let rep;
   const reps = $('#reps');
   let inputA;
@@ -67,59 +67,48 @@ $(document).ready(function() {
       url: `https://api.propublica.org/congress/v1/bills/search.json?query=${issueSearch}`,
       type: 'GET',
       dataType: 'json',
-
-      headers: { 'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ' },
-    }).then(function(results) {
-      for (let i = 0; i < results.results[0].bills.length; i++) {
-        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title;
-        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id;
-        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;
-        billInfoObject[`summary${i}`] = results.results[0].bills[i].title;
-        billInfoObject[`status${i}`] = results.results[0].bills[i].latest_major_action;
+      headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+    }).then(function(results){
+      for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
+        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
+        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
+        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;  
+        billInfoObject[`summary${i}`] = results.results[0].bills[i].title;  
         billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
         billInfoObject[`govtrack_url${i}`] = results.results[0].bills[i].govtrack_url;
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
-        billHolder.append(`<div  value=${i} class="col-md-5 col-xs-11 draggable"><div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
-        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p class="accordion-panel-subheaders">Summary:</p><p> ${billInfoObject[`summary${i}`]} <br><hr> <p class="accordion-panel-subheaders">Sponsor:</p> ${billInfoObject[`sponsor${i}`]}<br> <br><p class="accordion-panel-subheaders">Party:</p> ${billInfoObject[`party${i}`]} 
-        <br><br> <p class="accordion-panel-subheaders">Latest Action:</p> ${billInfoObject[`latest_major_action${i}`]} <br><br> 
-        <p class="accordion-panel-subheaders">Latest Action Date:</p> ${billInfoObject[`date${i}`]} </p> <p class="accordion-panel-subheaders">URL:</p> <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a><br>
-        <div class="row">
-          <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
-      }
+        billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
+        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button><div class="accordionPanel">
+        <p class="accordion-panel-subheaders">Summary:</p><p>${billInfoObject[`summary${i}`]}<br><hr>
+        <p class="accordion-panel-subheaders">Sponsor:</p>${billInfoObject[`sponsor${i}`]}<br><br>
+        <p class="accordion-panel-subheaders">Party:</p>${billInfoObject[`party${i}`]}<br><br>
+        <p class="accordion-panel-subheaders">Latest Action:</p>${billInfoObject[`latest_major_action${i}`]}<br><br>
+        <p class="accordion-panel-subheaders">Latest Action Date:</p>${billInfoObject[`date${i}`]}</p>
+        <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack</a>
+        <br><div class="row"><div class="col-md-12 text-center">
+        <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
+      };
 
       // Accordian Bill Functionality for Mobile
-
-      const acc = document.getElementsByClassName('accordion');
-      const arr = Array.prototype.slice.call(acc);
-      // var arr = [].slice.call(acc);
-      // var arr = Array.from(acc);
-      console.log('arr', arr);
-      console.log('hello', acc);
-      console.log('hello', acc.length);
-
-
-      let j;
-
-
-      for (j = 0; j < results.results[0].bills.length; j++) {
-        console.log('loop');
-        arr[j].addEventListener('click', function() {
-          /* Toggle between adding and removing the "active" class,
+      acc = $(".accordion");
+      arr = Array.prototype.slice.call(acc);
+      for (let i = 0; i < results.results[0].bills.length; i++) {
+          arr[i].addEventListener("click", function() {
+              /* Toggle between adding and removing the "active" class,
               to highlight the button that controls the panel */
-          this.classList.toggle('active');
-
-          /* Toggle between hiding and showing the active panel */
-          const panel = this.nextElementSibling;
-          if (panel.style.display === 'block') {
-            panel.style.display = 'none';
-          } else {
-            panel.style.display = 'block';
-          }
-        });
-      }
-    }).catch(function(error) {
+              this.classList.toggle("active");
+              /* Toggle between hiding and showing the active panel */
+              let panel = this.nextElementSibling;
+              if (panel.style.display === "block") {
+                  panel.style.display = "none";
+              } else {
+                  panel.style.display = "block";
+              }
+          });
+      };
+    }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
   };
@@ -398,12 +387,8 @@ $(document).ready(function() {
     </div>
     </br>
     </br>
-    <div class="row">
-        
-        <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
-      // $('#dropzone').empty().append(`${billInfoObject[`summary${billValue}`]} <br> Sponsor: ${billInfoObject[`sponsor${billValue}`]}<br> Party: ${billInfoObject[`party${billValue}`]}
-      // <br> URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${billValue}`]} <br>
-      // Latest Action Date: ${billInfoObject[`date${billValue}`]} <br> <button class="btn-styling topic-btn-style getInvolvedButton">Get Involved</button>`);
+    <div class="row">        
+      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
       // Remove draggable after drop
       $(event.relatedTarget).remove();
       // Reappend
@@ -471,11 +456,11 @@ $(document).ready(function() {
             body = 'Senate';
           } else {
             body = 'House';
-          }
-          row = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
-          reps.append(row);
-        }
-      }).catch(function(error) {
+          };
+          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
+          reps.append(rep);
+        };
+      }).catch(function(error){
         console.error('Oh boy, its broken:', error);
       });
     }
