@@ -26,6 +26,7 @@ $(document).ready(function(){
   let issueSearch;
   let databaseHasTopic;
   let billHolder = $('#billHolder');
+  let accordianBillHolder = $('#accordianBillHolder');
   let page1 = $('#page1');
   let page2 = $('#page2');
   let page3 = $('#page3');
@@ -66,6 +67,7 @@ $(document).ready(function(){
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
+      accordianBillHolder.empty();
       for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
         billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
@@ -77,8 +79,43 @@ $(document).ready(function(){
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
-        billHolder.append(`<p  value=${i} class="draggable">${billInfoObject[`title${i}`]}</p>`);
+        billHolder.append(`<div  value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
+        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p> ${billInfoObject[`summary${i}`]} <br> Sponsor: ${billInfoObject[`sponsor${i}`]}<br> Party: ${billInfoObject[`party${i}`]} 
+        <br> URL: <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${i}`]} <br> 
+        Latest Action Date: ${billInfoObject[`date${i}`]} </p> </div>`);
       };
+
+      // Accordian Bill Functionality for Mobile
+
+      var acc = document.getElementsByClassName("accordion");
+      var arr = Array.prototype.slice.call(acc)
+      // var arr = [].slice.call(acc);
+      // var arr = Array.from(acc);
+      console.log("arr", arr);
+      console.log('hello', acc);
+      console.log('hello', acc.length);
+    
+      var j;
+    
+    
+      for (j = 0; j < 10; j++) {
+        console.log('loop');
+          arr[j].addEventListener("click", function() {
+            
+              /* Toggle between adding and removing the "active" class,
+              to highlight the button that controls the panel */
+              this.classList.toggle("active");
+      
+              /* Toggle between hiding and showing the active panel */
+              var panel = this.nextElementSibling;
+              if (panel.style.display === "block") {
+                  panel.style.display = "none";
+              } else {
+                  panel.style.display = "block";
+              }
+          });
+      };
+
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
@@ -290,9 +327,74 @@ $(document).ready(function(){
 
       billValue = event.relatedTarget.getAttribute('value');
       // Empty dropzone content and append bill info to dropzone
-      $('#dropzone').empty().append(`${billInfoObject[`summary${billValue}`]} <br> Sponsor: ${billInfoObject[`sponsor${billValue}`]}<br> Party: ${billInfoObject[`party${billValue}`]} 
-      <br> URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${billValue}`]} <br> 
-      Latest Action Date: ${billInfoObject[`date${billValue}`]} <br> <button class="btn-styling topic-btn-style getInvolvedButton">Get Involved</button>`);
+      $('#dropzone').empty().append(`
+      <div class="row">
+        <div class="col-md-12">
+            <div class="bill-title-style" id="billTitle">
+              ${billInfoObject[`title${billValue}`]}
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div class="bill-info-mini-panel text-center">
+                <div class="mini-panel-heading-style">Sponsor Party</div>
+                <div class="panel-body" id="billSponsorParty">
+                  ${billInfoObject[`party${billValue}`]}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bill-info-mini-panel text-center">
+                <div class="mini-panel-heading-style">Introduced</div>
+                <div class="panel-body" id="billIntroDate">
+                  ${billInfoObject[`date${billValue}`]}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bill-info-mini-panel text-center">
+                <div class="mini-panel-heading-style">Last Action</div>
+                <div class="panel-body" id="billLastActionDate">
+                  ${billInfoObject[`date${billValue}`]}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="bill-author-panel">
+                <h3>Author</h3>
+                <hr>
+                <div class="bill-detail-text-style" id="billAuthorInfo">
+                  ${billInfoObject[`sponsor${billValue}`]}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="bill-extended-summary-panel">
+                <h3>Summary</h3>
+                <hr>
+                <div class="bill-detail-text-style" id="billExtendedSummary">
+                  ${billInfoObject[`summary${billValue}`]}
+                  </br>
+                  </br>
+                  Latest Action: ${billInfoObject[`latest_major_action${billValue}`]}
+                  </br>
+                  </br>
+                  URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank">Govtrack</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </br>
+    </br>
+    <div class="row">
+        
+        <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
+      // $('#dropzone').empty().append(`${billInfoObject[`summary${billValue}`]} <br> Sponsor: ${billInfoObject[`sponsor${billValue}`]}<br> Party: ${billInfoObject[`party${billValue}`]} 
+      // <br> URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${billValue}`]} <br> 
+      // Latest Action Date: ${billInfoObject[`date${billValue}`]} <br> <button class="btn-styling topic-btn-style getInvolvedButton">Get Involved</button>`);
       // Remove draggable after drop
       $(event.relatedTarget).remove();
       // Reappend
@@ -364,3 +466,27 @@ $(document).ready(function(){
   });
   
 });
+
+
+// Sidebar Test
+
+var $body   = $(document.body);
+// var navHeight = 50;
+
+$('#sidebar').affix({
+      offset: {
+        top: 85,
+        // bottom: navHeight
+      }
+});
+
+
+$body.scrollspy({
+	target: '#rightCol',
+	// offset: navHeight
+});
+
+
+
+// Accordian Bills for Mobile
+

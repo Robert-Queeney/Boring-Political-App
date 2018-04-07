@@ -102,7 +102,7 @@ interact('.draggable')
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 
-  }
+  
 
   // enable draggables to be dropped into this
   interact('.dropzone').dropzone({
@@ -130,15 +130,76 @@ interact('.draggable')
     // ondrop: function (event) {
 
 
-    //  let billValue = event.relatedTarget.getAttribute('value');
-    //   console.log(billInfoArray);
-    //   //Empty dropzone content and append bill info to dropzone
-    //   $('#dropzone').empty().append(`${billInfoArray[billValue].summary} <br> Sponsor: ${billInfoArray[billValue].sponsor}<br> Party: ${billInfoArray[billValue].party} 
-    //   <br> URL: <a href="${billInfoArray[billValue].govtrack_url}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoArray[billValue].latest_major_action} <br> 
-    //   Latest Action Date: ${billInfoArray[billValue].date}`);
-    //   //remove draggable after drop
-    //   $(event.relatedTarget).remove();
-    //   //Reappend
+// // Cavan commented out everything starting here
+//       let billValue = event.relatedTarget.getAttribute('value');
+//       console.log(billInfoArray);
+//       //Empty dropzone content and append bill info to dropzone
+//       $('#dropzone').empty().append(`
+//       <div class="row">
+//         <div class="col-md-12">
+//             <div id="billTitle">
+//               <h2>${billInfoArray[billValue].title}</h2>
+//             </div>
+//         </div>
+//       </div>
+//       <div class="row">
+//         <div class="col-md-4">
+//             <div class="panel panel-primary bill-info-mini-panel text-center">
+//                 <div class="panel-heading">Sponsor Party</div>
+//                 <div class="panel-body" id="billSponsorParty">
+//                   ${billInfoArray[billValue].party}
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="col-md-4">
+//             <div class="panel panel-primary bill-info-mini-panel text-center">
+//                 <div class="panel-heading">Introduced</div>
+//                 <div class="panel-body" id="billIntroDate">
+//                   ${billInfoArray[billValue].date}
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="col-md-4">
+//             <div class="panel panel-primary bill-info-mini-panel text-center">
+//                 <div class="panel-heading">Last Action</div>
+//                 <div class="panel-body" id="billLastActionDate">
+//                   ${billInfoArray[billValue].date}
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+//     <div class="row">
+//         <div class="col-md-4">
+//             <div class="panel panel-primary bill-author-panel">
+//                 <div class="panel-heading">Author</div>
+//                 <div class="panel-body" id="billAuthorInfo">
+//                   ${billInfoArray[billValue].sponsor}
+//                 </div>
+//             </div>
+//         </div>
+//         <div class="col-md-8">
+//             <div class="panel panel-primarybill-extended-summary-panel">
+//                 <div class="panel-heading">Summary</div>
+//                 <div class="panel-body" id="billExtendedSummary">
+//                   ${billInfoArray[billValue].summary}
+//                   </br>
+//                   </br>
+//                   Latest Action: ${billInfoArray[billValue].latest_major_action}
+//                   </br>
+//                   </br>
+//                   URL: <a href="${billInfoArray[billValue].govtrack_url}">GovTrack</a>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>`);
+//       // $('#dropzone').empty().append(`${billInfoArray[billValue].summary} <br> Sponsor: ${billInfoArray[billValue].sponsor}<br> Party: ${billInfoArray[billValue].party} 
+//       // <br> URL: <a href="${billInfoArray[billValue].govtrack_url}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoArray[billValue].latest_major_action} <br> 
+//       // Latest Action Date: ${billInfoArray[billValue].date}`);
+//       //remove draggable after drop
+//       $(event.relatedTarget).remove();
+//       //Reappend
+
+// Cavan commented out everything up to here
 
     // },
     ondropdeactivate: function (event) {
@@ -225,7 +286,7 @@ $(document).on("click", ".providedSearchButton", function() {
       let sponsor = results.results[0].bills[i].sponsor_name;
 
       const billInfo = {
-<<<<<<< HEAD
+
           title: title,
           id: id,
           party: party,

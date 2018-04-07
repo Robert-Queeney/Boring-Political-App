@@ -1,7 +1,15 @@
+html,
+body {
+  height: 100%;
+}
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f9f9f9;
   color: #4d4d4d;
+}
+.container,
+.row {
+  height: 100%;
 }
 h1 {
   font-family: 'Raleway', sans-serif;
@@ -22,6 +30,8 @@ h1 {
 }
 .top-row {
   margin-top: 3em;
+  margin-bottom: .5em;
+  padding: 0 20px;
 }
 .btn-default,
 .btn-primary,
@@ -136,7 +146,7 @@ h1 {
   box-shadow: 0 0 0px 30px #2e71f2 inset, 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   -webkit-text-fill-color: #ffffff !important;
 }
-
+/* Bill Cards Styling */
 .bill-cards-styling {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   transition: 0.5s;
@@ -145,47 +155,62 @@ h1 {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   transition: 0.5s;
 }
-
-/* Drag and Drop  */
-
-
-.dropzone {
-  background-color: #ccc;
-  padding: 10px;
-  width: 400px;
-  border: dashed 4px transparent;
-  float: right;
-  height: 300px;
-  position: fixed;
-  z-index: 1;
-  right: 10px;
+/* Drag and Drop */
+.sidebar-dropzone {
+  height: 100%;
 }
-
+.drop-here-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 4em;
+  font-weight: bolder;
+}
+.holder {
+  width: 100%;
+}
+.dropzone {
+  background-color: #ffffff;
+  padding: 10px;
+  width: 100%;
+  min-height: 600px;
+  height: 100%;
+  border: dashed 10px transparent;
+  display: block;
+  z-index: 1;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+}
 .draggable {
-  display: inline-grid;
-  width: 150px;
-  height: 100px;
-  background-color: #2196F3;
-  color: white;
-  padding:10px;
-  margin: 10px;
-  
+  height: 120px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+  color: #4d4d4d;
+  overflow: hidden;
+  padding: 2% 2.0833%;
+  margin: 2% 4.166%;
+  border-left: 10px solid #01d6c4;
+  border-radius: 3px;
+  font-size: 1.2em;
+}
+.draggable:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.draggable:active {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  z-index: 100;
 }
 #billHolder {
-  
+  float: left;
+  width: 100%;
 }
-
 .drop-active {
   border-color: #aaa;
 }
-
 .drop-target {
-  background-color: #000;
+  background-color: #2e71f2;
   color: #FFF;
-  border-color: #fff;
-  border-style: solid;
+  border-radius: 3px;
 }
-
+/* Accordion of bills for mobile */
 .accordion {
   background-color: #eee;
   color: #444;
@@ -198,10 +223,10 @@ h1 {
   transition: 0.4s;
 }
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
+.active,
+.accordion:hover {
   background-color: #ccc;
 }
-
 /* Style the accordion panel. Note: hidden by default */
 .accordionPanel {
   padding: 0 18px;
@@ -209,19 +234,119 @@ h1 {
   background-color: white;
   overflow: hidden;
 }
-
+/* Hide different pages div until activated */
 #page2 {
   display: none;
 }
-
 #page3 {
   display: none;
 }
-
 #table {
   display: none;
 }
-
 #addressPopup {
   display: none;
+}
+.bill-title-style {
+  font-size: 2.3em;
+  line-height: 1.1em;
+  font-weight: bolder;
+  padding: 0 0 20px 0;
+}
+.bill-info-mini-panel {
+  border: 1px solid #2e71f2;
+  border-radius: 3px;
+}
+.mini-panel-heading-style {
+  background-color: #2e71f2;
+  color: #ffffff;
+  padding: 5px;
+}
+.bill-detail-text-style {
+  font-size: 1.2em;
+}
+.affix-top,
+.affix {
+  position: static;
+}
+@media (max-width: 769px) {
+  header {
+    text-align: center;
+  }
+  #sidebar,
+  #billHolder {
+    display: none;
+  }
+  #accordianBillHolder {
+    display: block;
+  }
+}
+@media (min-width: 770px) {
+  #sidebar,
+  #billHolder {
+    display: none;
+  }
+  #accordianBillHolder {
+    display: block;
+  }
+  .nav-links {
+    text-align: right;
+  }
+}
+@media (min-width: 990px) {
+  #sidebar,
+  #billHolder {
+    display: block;
+  }
+  #accordianBillHolder {
+    display: none;
+  }
+  #sidebar.affix-top {
+    position: static;
+    margin-top: 0px;
+    margin-left: -40px;
+    width: 500px;
+  }
+  #sidebar.affix-bottom {
+    position: relative;
+  }
+  #sidebar.affix {
+    position: fixed;
+    top: 20px;
+    margin-left: -40px;
+    width: 500px;
+  }
+  .drop-here-text {
+    margin-top: 45%;
+  }
+  .nav-links {
+    text-align: center;
+  }
+}
+@media (min-width: 1200px) {
+  #sidebar,
+  #billHolder {
+    display: block;
+  }
+  #accordianBillHolder {
+    display: none;
+  }
+  #sidebar.affix-top {
+    position: static;
+    margin-top: 0px;
+    margin-left: -10px;
+    width: 555px;
+  }
+  #sidebar.affix-bottom {
+    position: relative;
+  }
+  #sidebar.affix {
+    position: fixed;
+    top: 20px;
+    margin-left: -10px;
+    width: 555px;
+  }
+  .drop-here-text {
+    margin-top: 40%;
+  }
 }
