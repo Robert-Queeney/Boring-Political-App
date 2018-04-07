@@ -50,12 +50,11 @@ What tech is used for testing.
 [MIT License](https://github.com/scoslo5512/Project1/blob/geolocation-work/LICENSE)
 
 ## Next Steps
+* When congressional people are shown - we would like to show how these people have previously voted on issues
+* Breaking data down to show more local representatives
+* Incorporate Tweets from politicians (able to obtain twitter handles from Google Civic API)
 
-My list of tasks if the project doesn't warrant the use of something like trello.
-
-
-
-### Group Members
+### Group Members' Responsibilities
 * Project Management & Information Architecture: Maddy
 * Interface/Experience Design: Majid
 * Web Content and Technology: Cavan
