@@ -57,6 +57,8 @@ $(document).ready(function(){
   let inputC;
   let inputS;
   let billValue;
+  let homeState; 
+  let repDistrict; 
 
   // Function Declarations
 
@@ -179,7 +181,11 @@ $(document).ready(function(){
           repCity =  response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
+          // robert added the foloowing 2 variables for attaching recent votes to the reps on pg 3
+          homeState = response.normalizedInput.state; 
+          repDistrict = response.offices[i].name;
           repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+          
           col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
           row.append(col);
         };
@@ -453,9 +459,20 @@ $(document).ready(function(){
         repCity =  response.officials[i].address[0].city;
         repState = response.officials[i].address[0].state;
         repZip = response.officials[i].address[0].zip;
+        repDistrict = response.offices[1].name;
         repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
         col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
         row.append(col);
+        let lastTwoDistrict = district.substr(district.length - 2); 
+        
+        $.ajax({
+          url: "GET https://api.propublica.org/congress/v1/members/{chamber}/{state}/{district}/current.json",
+          type: "GET",
+          dataType: 'json',
+          headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
+          }).then(function(results){
+            console.log("results====>", results);
+          })
       };
       tableBody.empty();
       tableBody.append(row);
