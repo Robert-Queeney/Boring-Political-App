@@ -56,13 +56,9 @@
 let lat;
 let long;
 let addressString;
-let comResult;
+
 $('#addressPopup').hide();
 //for googleciv on project
-    //console.log(addressString);
-
-    //if else statement needed to display house or senate members
-
 
 //propublica
 // $.ajax({
@@ -138,7 +134,6 @@ function success(pos){
             };
         });
     }).catch(function(error){
-       
         console.error('oh boy its broken', error);
 });
 
@@ -182,7 +177,6 @@ $('#button11111').click(function () {
                 $('#target').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
             };
     }).catch(function(error){
-       
         console.error('oh boy its broken', error);
     });
 });

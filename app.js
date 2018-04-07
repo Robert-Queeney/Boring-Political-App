@@ -82,9 +82,11 @@ $(document).ready(function(){
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
         billHolder.append(`<div  value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
-        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p> ${billInfoObject[`summary${i}`]} <br> Sponsor: ${billInfoObject[`sponsor${i}`]}<br> Party: ${billInfoObject[`party${i}`]} 
-        <br> URL: <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${i}`]} <br> 
-        Latest Action Date: ${billInfoObject[`date${i}`]} </p> </div>`);
+        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p class="accordion-panel-subheaders">Summary:</p><p> ${billInfoObject[`summary${i}`]} <br><hr> <p class="accordion-panel-subheaders">Sponsor:</p> ${billInfoObject[`sponsor${i}`]}<br> <br><p class="accordion-panel-subheaders">Party:</p> ${billInfoObject[`party${i}`]} 
+        <br><br> <p class="accordion-panel-subheaders">Latest Action:</p> ${billInfoObject[`latest_major_action${i}`]} <br><br> 
+        <p class="accordion-panel-subheaders">Latest Action Date:</p> ${billInfoObject[`date${i}`]} </p> <p class="accordion-panel-subheaders">URL:</p> <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a><br>
+        <div class="row">
+          <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
       };
 
       // Accordian Bill Functionality for Mobile
@@ -100,7 +102,7 @@ $(document).ready(function(){
       var j;
     
     
-      for (j = 0; j < 10; j++) {
+      for (j = 0; j < results.results[0].bills.length; j++) {
         console.log('loop');
           arr[j].addEventListener("click", function() {
             
@@ -440,6 +442,12 @@ $(document).ready(function(){
     inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
+
+    if (inputA ==="" || inputC === "" || inputS === ""){
+        $('#addressPopup').append(`<div id="inputRequired" style="color:red; font-size:30px"> Input Required </div>`)
+    }
+    else {
+    $('#inputRequired').empty();
     $('#inputAddress1').val('');
     $('#inputCity1').val('');
     $('#inputState1').val('');
@@ -480,7 +488,9 @@ $(document).ready(function(){
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
+    };
   });
+
   
 });
 
