@@ -94,7 +94,7 @@ h1 {
     // text-transform: uppercase;
 }
 
-hr {
+.topic-btn-area hr {
     margin-bottom:0px;
 }
 
@@ -344,27 +344,48 @@ border-radius: @card-round-edges;
 /* Accordion of bills for mobile */
 
 .accordion {
-    background-color: #eee;
-    color: #444;
+    background-color: @light;
+    box-shadow: @drop-shadow;
+    color: @dark-text;
+    font-size: 1.5em;
+    border: none;
+    border-left: 10px solid @secondary-element-color;
     cursor: pointer;
     padding: 18px;
+    margin-bottom:10px;
     width: 100%;
     text-align: left;
-    border: none;
     outline: none;
-    transition: 0.4s;
+    // transition: 0.4s;
 }
   /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .accordion:hover {
-    background-color: #ccc;
+.accordion:hover {
+    background-color: @input-background;
+    box-shadow: none;
 }
+
+.active {
+    background-color: rgb(216, 216, 216);
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+
   
   /* Style the accordion panel. Note: hidden by default */
 .accordionPanel {
-    padding: 0 18px;
+    padding: 20px 18px 10px 18px;
     display: none;
+    margin-bottom:10px;
     background-color: white;
+    border-left: 10px solid @secondary-element-color;
+    font-size: 1.1em;
     overflow: hidden;
+    box-shadow: @drop-shadow;
+}
+
+.accordion-panel-subheaders {
+    font-size: 1.3em;
 }
 
 
@@ -441,8 +462,9 @@ display: none;
         font-size: 1em;
     }
 
-
-
+    .nav-links {
+        padding-bottom: 1em;
+    }
 
     #sidebar, #billHolder {
         display: none;
@@ -476,7 +498,7 @@ display: none;
 
 }
 
-@media (min-width: 990px) {
+@media (min-width: 992px) {
     #sidebar, #billHolder {
         display: block;
     }
