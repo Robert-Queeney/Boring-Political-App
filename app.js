@@ -1,39 +1,38 @@
 'use strict';
 
-$(document).ready(function(){
-
+$(document).ready(function() {
   // Initialize Firebase
 
-  let config = {
-    apiKey: "AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw",
-    authDomain: "boringpoliticalapp.firebaseapp.com",
-    databaseURL: "https://boringpoliticalapp.firebaseio.com",
-    projectId: "boringpoliticalapp",
-    storageBucket: "",
-    messagingSenderId: "944272526743"
+  const config = {
+    apiKey: 'AIzaSyC_dXl43FWL5hA8u0-W-hozb1zTrmBJ3Tw',
+    authDomain: 'boringpoliticalapp.firebaseapp.com',
+    databaseURL: 'https://boringpoliticalapp.firebaseio.com',
+    projectId: 'boringpoliticalapp',
+    storageBucket: '',
+    messagingSenderId: '944272526743',
   };
 
   firebase.initializeApp(config);
 
   // Variables
 
-  const hotTopics = ["School shootings", "Taxes", "Gerrymandering", "Bump Stocks", "DACA",]; 
+  const hotTopics = ['School shootings', 'Taxes', 'Gerrymandering', 'Bump Stocks', 'DACA'];
   const database = firebase.database();
   let button;
-  let searchTopicInput1 = $('#searchTopicInput1');
-  let searchTopicInput2 = $('#searchTopicInput2');
-  let searchTopicInput3 = $('#searchTopicInput3');
+  const searchTopicInput1 = $('#searchTopicInput1');
+  const searchTopicInput2 = $('#searchTopicInput2');
+  const searchTopicInput3 = $('#searchTopicInput3');
   let issueSearch;
   let databaseHasTopic;
-  let billHolder = $('#billHolder');
-  let dropZone = $('#dropzone');
-  let accordianBillHolder = $('#accordianBillHolder');
-  let acc;
-  let arr;
-  let page1 = $('#page1');
-  let page2 = $('#page2');
-  let page3 = $('#page3');
-  let billInfoObject = {};
+  const billHolder = $('#billHolder');
+  const dropZone = $('#dropzone');
+  const accordianBillHolder = $('#accordianBillHolder');
+  const acc;
+  const arr;
+  const page1 = $('#page1');
+  const page2 = $('#page2');
+  const page3 = $('#page3');
+  const billInfoObject = {};
   let coords;
   let lat;
   let long;
@@ -52,10 +51,10 @@ $(document).ready(function(){
   let repZip;
   let repAddress;
   let body;
-  let inputRequired = $('#inputRequired');
+  const inputRequired = $('#inputRequired');
   let inputAddressString;
   let rep;
-  let reps = $('#reps');
+  const reps = $('#reps');
   let inputA;
   let inputC;
   let inputS;
@@ -65,8 +64,8 @@ $(document).ready(function(){
 
   const propublicaAPICall = function() {
     $.ajax({
-      url: "https://api.propublica.org/congress/v1/bills/search.json?query=" + issueSearch,
-      type: "GET",
+      url: `https://api.propublica.org/congress/v1/bills/search.json?query=${issueSearch}`,
+      type: 'GET',
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
@@ -115,96 +114,103 @@ $(document).ready(function(){
 
   const saveSearchAndGetBillInfo = function(input, page) {
     if (input.val().trim() !== '') {
-      issueSearch = input.val().trim(); 
+      issueSearch = input.val().trim();
       input.val('');
       databaseHasTopic = false;
       database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot){
+        snapshot.forEach(function(childSnapshot) {
           if (childSnapshot.val().query === issueSearch) {
             databaseHasTopic = true;
-          };
+          }
         });
         setTimeout(function() {
           if (!databaseHasTopic) {
             database.ref().push({
               query: issueSearch,
-              dateAdded: firebase.database.ServerValue.TIMESTAMP
+              dateAdded: firebase.database.ServerValue.TIMESTAMP,
             });
-          };
+          }
         }, 1000);
       });
       if (page !== page1) {
         billHolder.empty();
+
         accordianBillHolder.empty();
-        dropZone.empty().append($(`<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>`));
-      };
+        dropZone.empty().append($('<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>'));
+      }
       if (page !== page2) {
         page.hide();
         page2.show();
-      };
+      }
       propublicaAPICall();
-    };
+    }
   };
 
-  const onGeolocationSuccess = function(pos){
+  const onGeolocationSuccess = function(pos) {
+    // hide load animation
+    $('.loader').hide();
+
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
     $.ajax({
-      url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
-      method: 'GET'
-    }).then(function(response){
+      url: `https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location=${lat}%2C${long}&outFormat=json&thumbMaps=false`,
+      method: 'GET',
+    }).then(function(response) {
       street = response.results[0].locations[0].street;
       city = response.results[0].locations[0].adminArea5;
       state = response.results[0].locations[0].adminArea3;
       zip = response.results[0].locations[0].postalCode;
-      addressString = (street + "," + city + "," + state + ","+ zip);
-      urlCiv = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + addressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody";
+      addressString = (`${street},${city},${state},${zip}`);
+      urlCiv = `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=${addressString}&roles=legislatorLowerBody&roles=legislatorUpperBody`;
       $.ajax({
         url: urlCiv,
-        method: "GET"
-      }).then(function(response){
-        for (let i=0; i< 3; i++){
+        method: 'GET',
+      }).then(function(response) {
+        for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
           repPhone = response.officials[i].phones;
           repSteet = response.officials[i].address[0].line1;
-          repCity =  response.officials[i].address[0].city;
+          repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+
+          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
           if (i < 2) {
             body = 'Senate';
           } else {
             body = 'House';
-          };
+          }
           rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
           reps.append(rep);
-        };
-      }).catch(function(error){
+        }
+      }).catch(function(error) {
         console.error('Oh boy, its broken:', error);
       });
-    }).catch(function(error){
+    }).catch(function(error) {
       console.error('Oh boy, its broken:', error);
     });
   };
 
-  const onGeolocationError = function(){
+  const onGeolocationError = function() {
+    // hide loader animation
+    $('.loader').hide();
     $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
     $('#addressPopup').show();
   };
-    
+
   // Function Calls
 
   // Create Hot Topic search buttons (on load)
 
   for (let i = 0; i < hotTopics.length; i++) {
-    let button = $("<button>"); 
+    const button = $('<button>');
     button.addClass('btn-styling topic-btn-style providedSearchButton');
-    button.attr('data-name', hotTopics[i]); 
+    button.attr('data-name', hotTopics[i]);
     button.text(hotTopics[i]);
-    $("#buttonsPanel1").append(button);
-  };
+    $('#buttonsPanel1').append(button);
+  }
 
   // Create buttons for the three (different) most recent searches (on load)
 
@@ -218,35 +224,35 @@ $(document).ready(function(){
     });
   });
 
-  // On click of search button (first page), save the topic searched for 
-  // in Firebase if it is not already one of the three most recent searches 
-  // there AND hide 'Page 1' div AND display 'Page 2' div AND use the topic 
-  // in the Propublica API call 
+  // On click of search button (first page), save the topic searched for
+  // in Firebase if it is not already one of the three most recent searches
+  // there AND hide 'Page 1' div AND display 'Page 2' div AND use the topic
+  // in the Propublica API call
 
-  $("#searchTopicButton1").on("click", function(event) {
-    event.preventDefault(); 
+  $('#searchTopicButton1').on('click', function(event) {
+    event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput1, page1);
   });
 
-  // On click of a Hot Topic or Recent Search button, hide 'Page 1' div AND 
-  // display 'Page 2' div AND use the value of that button in the Propublica 
+  // On click of a Hot Topic or Recent Search button, hide 'Page 1' div AND
+  // display 'Page 2' div AND use the value of that button in the Propublica
   // API call
 
-  $(document).on("click", ".providedSearchButton", function() {
-    issueSearch = $(this).attr("data-name");
+  $(document).on('click', '.providedSearchButton', function() {
+    issueSearch = $(this).attr('data-name');
     page1.hide();
     searchTopicInput1.val('');
     page2.show();
     propublicaAPICall();
   });
 
-  // On click of search button (second page), save the topic searched for 
-  // in Firebase if it is not already one of the three most recent searches 
-  // there AND empty billsPanel of content AND use the topic in the Propublica 
-  // API call 
+  // On click of search button (second page), save the topic searched for
+  // in Firebase if it is not already one of the three most recent searches
+  // there AND empty billsPanel of content AND use the topic in the Propublica
+  // API call
 
-  $("#searchTopicButton2").on("click", function(event) {
-    event.preventDefault(); 
+  $('#searchTopicButton2').on('click', function(event) {
+    event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput2, page2);
   });
 
@@ -260,14 +266,14 @@ $(document).ready(function(){
       inertia: true,
       // Keep the element within the area of it's parent
       restrict: {
-        restriction: "#billContainer",
+        restriction: '#billContainer',
         endOnly: true,
         elementRect: {
           top: 0,
           left: 0,
           bottom: 1,
-          right: 1
-        }
+          right: 1,
+        },
       },
       // Enable autoScroll
       // AutoScroll: false,
@@ -276,8 +282,7 @@ $(document).ready(function(){
     });
 
   function dragMoveListener(event) {
-
-    var target = event.target,
+    let target = event.target,
 
       // Keep the dragged position in the data-x/data-y attributes
       x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -287,13 +292,12 @@ $(document).ready(function(){
     // Translate the element
     target.style.webkitTransform =
       target.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)';
+      `translate(${x}px, ${y}px)`;
 
     // Update the posiion attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
-
-  };
+  }
 
   // Enable draggables to be dropped into this
   interact('.dropzone').dropzone({
@@ -305,10 +309,9 @@ $(document).ready(function(){
     ondropactivate: function (event) {
       // Add active dropzone feedback
       event.target.classList.add('drop-active');
-
     },
     ondragenter: function (event) {
-      var draggableElement = event.relatedTarget,
+      let draggableElement = event.relatedTarget,
         dropzoneElement = event.target;
 
       // Feedback the possibility of a drop
@@ -319,8 +322,6 @@ $(document).ready(function(){
       event.target.classList.remove('drop-target');
     },
     ondrop: function (event) {
-
-
       billValue = event.relatedTarget.getAttribute('value');
       // Empty dropzone content and append bill info to dropzone
       dropZone.empty().append(`
@@ -387,34 +388,36 @@ $(document).ready(function(){
     </br>
     <div class="row">        
       <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
+    </div>
       // Remove draggable after drop
       $(event.relatedTarget).remove();
       // Reappend
-
     },
     ondropdeactivate: function (event) {
       // Remove active dropzone feedback
       event.target.classList.remove('drop-active');
       event.target.classList.remove('drop-target');
-    }
+    },
   });
 
-  // On click of "Get Involved" button, navigate to page 3 and call the geolocation 
+  // On click of "Get Involved" button, navigate to page 3 and call the geolocation
   // API
 
-  $(document).on("click", ".getInvolvedButton", function() {
+  $(document).on('click', '.getInvolvedButton', function() {
     page2.hide();
     page3.show();
+
+    $('#electedOfficialsPanel').append('<div class="loader center-block"></div>');
     navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
   });
 
-  // On click of search button (third page), save the topic searched for 
-  // in Firebase if it is not already one of the three most recent searches 
-  // there AND hide 'Page 3' div AND display 'Page 2' div AND empty the 
-  // billsPanel of content AND use the topic in the Propublica API call 
+  // On click of search button (third page), save the topic searched for
+  // in Firebase if it is not already one of the three most recent searches
+  // there AND hide 'Page 3' div AND display 'Page 2' div AND empty the
+  // billsPanel of content AND use the topic in the Propublica API call
 
-  $("#searchTopicButton3").on("click", function(event) {
-    event.preventDefault(); 
+  $('#searchTopicButton3').on('click', function(event) {
+    event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
     reps.empty();
   });
@@ -426,8 +429,8 @@ $(document).ready(function(){
     inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
-    if (inputA ==="" || inputC === "" || inputS === ""){
-        inputRequired.append(`<div style="color:red; font-size:30px">Input Required</div>`);
+    if (inputA === '' || inputC === '' || inputS === '') {
+      inputRequired.append('<div style="color:red; font-size:30px">Input Required</div>');
     } else {
       inputRequired.empty();
       $('#inputAddress1').val('');
@@ -435,20 +438,20 @@ $(document).ready(function(){
       $('#inputState1').val('');
       $('#addressPopup').hide();
       $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
-      inputAddressString = (inputA + ", " + inputC + ", " + inputS);
+      inputAddressString = (`${inputA  }, ${  inputC  }, ${  inputS}`);
       $.ajax({
-        url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + inputAddressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody",
-        method: "GET"
-      }).then(function(response){
-        for (let i=0; i< 3; i++){
+        url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=' + inputAddressString + '&roles=legislatorLowerBody&roles=legislatorUpperBody',
+        method: 'GET',
+      }).then(function(response) {
+        for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
           repPhone = response.officials[i].phones;
           repSteet = response.officials[i].address[0].line1;
-          repCity =  response.officials[i].address[0].city;
+          repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
+          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
           if (i < 2) {
             body = 'Senate';
           } else {
@@ -460,31 +463,28 @@ $(document).ready(function(){
       }).catch(function(error){
         console.error('Oh boy, its broken:', error);
       });
-    };
+    }
   });
-
-  
 });
 
 
 // Sidebar Test
 
-var $body   = $(document.body);
+const $body = $(document.body);
 // var navHeight = 50;
 
 $('#sidebar').affix({
-      offset: {
-        top: 85,
-        // bottom: navHeight
-      }
+  offset: {
+    top: 85,
+    // bottom: navHeight
+  },
 });
 
 
 $body.scrollspy({
-	target: '#rightCol',
-	// offset: navHeight
+  target: '#rightCol',
+  // offset: navHeight
 });
-
 
 
 // Accordian Bills for Mobile
