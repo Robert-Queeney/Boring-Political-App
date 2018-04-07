@@ -26,6 +26,7 @@ $(document).ready(function(){
   let issueSearch;
   let databaseHasTopic;
   let billHolder = $('#billHolder');
+  let accordianBillHolder = $('#accordianBillHolder');
   let page1 = $('#page1');
   let page2 = $('#page2');
   let page3 = $('#page3');
@@ -46,8 +47,13 @@ $(document).ready(function(){
   let repCity;
   let repState;
   let repZip;
-  let repAddress; 
-  let linputA;
+  let repAddress;
+  let inputAddressString;
+  let row;
+  let col;
+  let tableBody = $('#tableBody');
+  let table = $('#table');
+  let inputA;
   let inputC;
   let inputS;
   let billValue;
@@ -61,6 +67,7 @@ $(document).ready(function(){
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
+      accordianBillHolder.empty();
       for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
         billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
@@ -73,42 +80,79 @@ $(document).ready(function(){
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
         billHolder.append(`<div  value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
+        accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p> ${billInfoObject[`summary${i}`]} <br> Sponsor: ${billInfoObject[`sponsor${i}`]}<br> Party: ${billInfoObject[`party${i}`]} 
+        <br> URL: <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a> <br> Latest Action: ${billInfoObject[`latest_major_action${i}`]} <br> 
+        Latest Action Date: ${billInfoObject[`date${i}`]} </p> </div>`);
       };
+
+      // Accordian Bill Functionality for Mobile
+
+      var acc = document.getElementsByClassName("accordion");
+      var arr = Array.prototype.slice.call(acc)
+      // var arr = [].slice.call(acc);
+      // var arr = Array.from(acc);
+      console.log("arr", arr);
+      console.log('hello', acc);
+      console.log('hello', acc.length);
+    
+      var j;
+    
+    
+      for (j = 0; j < 10; j++) {
+        console.log('loop');
+          arr[j].addEventListener("click", function() {
+            
+              /* Toggle between adding and removing the "active" class,
+              to highlight the button that controls the panel */
+              this.classList.toggle("active");
+      
+              /* Toggle between hiding and showing the active panel */
+              var panel = this.nextElementSibling;
+              if (panel.style.display === "block") {
+                  panel.style.display = "none";
+              } else {
+                  panel.style.display = "block";
+              }
+          });
+      };
+
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
   };
 
   const saveSearchAndGetBillInfo = function(input, page) {
-    issueSearch = input.val().trim(); 
-    input.val('');
-    databaseHasTopic = false;
-    database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot){
-        if (childSnapshot.val().query === issueSearch) {
-          databaseHasTopic = true;
-        };
+    if (input.val().trim() !== '') {
+      issueSearch = input.val().trim(); 
+      input.val('');
+      databaseHasTopic = false;
+      database.ref().orderByChild('dateAdded').limitToLast(3).once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot){
+          if (childSnapshot.val().query === issueSearch) {
+            databaseHasTopic = true;
+          };
+        });
+        setTimeout(function() {
+          if (!databaseHasTopic) {
+            database.ref().push({
+              query: issueSearch,
+              dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+          };
+        }, 1000);
       });
-      setTimeout(function() {
-        if (!databaseHasTopic) {
-          database.ref().push({
-            query: issueSearch,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
-          });
-        };
-      }, 1000);
-    });
-    if (page !== page1) {
-      billHolder.empty();
+      if (page !== page1) {
+        billHolder.empty();
+      };
+      if (page !== page2) {
+        page.hide();
+        page2.show();
+      };
+      propublicaAPICall();
     };
-    if (page !== page2) {
-      page.hide();
-      page2.show();
-    };
-    propublicaAPICall();
   };
 
-  const success = function(pos){
+  const onGeolocationSuccess = function(pos){
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -126,6 +170,7 @@ $(document).ready(function(){
         url: urlCiv,
         method: "GET"
       }).then(function(response){
+        row = $('<tr>');
         for (let i=0; i< 3; i++){
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -135,8 +180,12 @@ $(document).ready(function(){
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
           repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-          $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+          col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
+          row.append(col);
         };
+        tableBody.empty();
+        tableBody.append(row);
+        table.show();
       }).catch(function(error){
         console.error('Oh boy, its broken:', error);
       });
@@ -145,7 +194,7 @@ $(document).ready(function(){
     });
   };
 
-  const error = function(){
+  const onGeolocationError = function(){
     $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
     $('#addressPopup').show();
   };
@@ -364,7 +413,7 @@ $(document).ready(function(){
   $(document).on("click", ".getInvolvedButton", function() {
     page2.hide();
     page3.show();
-    navigator.geolocation.getCurrentPosition(success, error);
+    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
   });
 
   // On click of search button (third page), save the topic searched for 
@@ -375,13 +424,14 @@ $(document).ready(function(){
   $("#searchTopicButton3").on("click", function(event) {
     event.preventDefault(); 
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
+    table.hide();
   });
 
   // Submit Address Button
 
   $('#button11111').click(function () {
     event.preventDefault();
-    linputA = $('#inputAddress1').val();
+    inputA = $('#inputAddress1').val();
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
     $('#inputAddress1').val('');
@@ -394,7 +444,8 @@ $(document).ready(function(){
       url: "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=" + inputAddressString + "&roles=legislatorLowerBody&roles=legislatorUpperBody",
       method: "GET"
     }).then(function(response){
-      for (let i=0; i< 3;i++){
+      row = $('<tr>');
+      for (let i=0; i< 3; i++){
         repName = response.officials[i].name;
         repPhoto = response.officials[i].photoUrl;
         repPhone = response.officials[i].phones;
@@ -403,8 +454,12 @@ $(document).ready(function(){
         repState = response.officials[i].address[0].state;
         repZip = response.officials[i].address[0].zip;
         repAddress = repSteet + '<br>' + repCity + ", " + repState + ", " + repZip;
-        $('#electedOfficialsPanel').append(`<div> <img src='${repPhoto}' style='height:200px'</img> <p>${repName}</p> <p>${repPhone}</p> <p> ${repAddress} </p> </div>`);
+        col = $(`<td><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></td>`);
+        row.append(col);
       };
+      tableBody.empty();
+      tableBody.append(row);
+      table.show();
     }).catch(function(error){
       console.error('Oh boy, its broken:', error);
     });
@@ -430,3 +485,8 @@ $body.scrollspy({
 	target: '#rightCol',
 	// offset: navHeight
 });
+
+
+
+// Accordian Bills for Mobile
+

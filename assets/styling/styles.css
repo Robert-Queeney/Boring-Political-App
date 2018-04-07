@@ -210,10 +210,38 @@ h1 {
   color: #FFF;
   border-radius: 3px;
 }
+/* Accordion of bills for mobile */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+/* Style the accordion panel. Note: hidden by default */
+.accordionPanel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+/* Hide different pages div until activated */
 #page2 {
   display: none;
 }
 #page3 {
+  display: none;
+}
+#table {
   display: none;
 }
 #addressPopup {
@@ -245,21 +273,33 @@ h1 {
   header {
     text-align: center;
   }
-  #sidebar {
+  #sidebar,
+  #billHolder {
     display: none;
+  }
+  #accordianBillHolder {
+    display: block;
   }
 }
 @media (min-width: 770px) {
-  #sidebar {
+  #sidebar,
+  #billHolder {
     display: none;
+  }
+  #accordianBillHolder {
+    display: block;
   }
   .nav-links {
     text-align: right;
   }
 }
 @media (min-width: 990px) {
-  #sidebar {
+  #sidebar,
+  #billHolder {
     display: block;
+  }
+  #accordianBillHolder {
+    display: none;
   }
   #sidebar.affix-top {
     position: static;
@@ -284,8 +324,12 @@ h1 {
   }
 }
 @media (min-width: 1200px) {
-  #sidebar {
+  #sidebar,
+  #billHolder {
     display: block;
+  }
+  #accordianBillHolder {
+    display: none;
   }
   #sidebar.affix-top {
     position: static;
