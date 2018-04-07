@@ -100,7 +100,7 @@ $(document).ready(function(){
       var j;
     
     
-      for (j = 0; j < 10; j++) {
+      for (j = 0; j < results.results[0].bills.length; j++) {
         console.log('loop');
           arr[j].addEventListener("click", function() {
             
