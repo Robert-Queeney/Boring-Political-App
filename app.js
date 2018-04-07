@@ -438,7 +438,7 @@ $(document).ready(function(){
     inputS = $('#inputState1').val();
 
     if (inputA ==="" || inputC === "" || inputS === ""){
-        $('#addressPopup').append(`<div id="inputRequired" style="color:red; font-size:30px"> Input Required </div>`)
+        $('#addressPopup').append(`<div id="inputRequired" style="color:black; font-size:26px;"> Input Required </div>`)
     }
     else {
     $('#inputRequired').empty();
