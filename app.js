@@ -27,8 +27,8 @@ $(document).ready(function() {
   const billHolder = $('#billHolder');
   const dropZone = $('#dropzone');
   const accordianBillHolder = $('#accordianBillHolder');
-  const acc;
-  const arr;
+  let acc;
+  let arr;
   const page1 = $('#page1');
   const page2 = $('#page2');
   const page3 = $('#page3');
@@ -79,7 +79,9 @@ $(document).ready(function() {
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
-        billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
+        billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
+        <div class="block-with-text">${billInfoObject[`title${i}`]}</div>
+        </div>`);
         accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button><div class="accordionPanel">
         <p class="accordion-panel-subheaders">Summary:</p><p>${billInfoObject[`summary${i}`]}<br><hr>
         <p class="accordion-panel-subheaders">Sponsor:</p>${billInfoObject[`sponsor${i}`]}<br><br>
@@ -148,9 +150,7 @@ $(document).ready(function() {
   };
 
   const onGeolocationSuccess = function(pos) {
-    // hide load animation
     $('.loader').hide();
-
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -388,7 +388,9 @@ $(document).ready(function() {
     </br>
     </br>
     <div class="row">        
-      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>`);
+
+      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>
+    </div>`);
       // Remove draggable after drop
       $(event.relatedTarget).remove();
       // Reappend
