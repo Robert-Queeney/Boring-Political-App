@@ -79,7 +79,9 @@ $(document).ready(function() {
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
-        billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
+        billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
+        <div class="block-with-text">${billInfoObject[`title${i}`]}</div>
+        </div>`);
         accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button><div class="accordionPanel">
         <p class="accordion-panel-subheaders">Summary:</p><p>${billInfoObject[`summary${i}`]}<br><hr>
         <p class="accordion-panel-subheaders">Sponsor:</p>${billInfoObject[`sponsor${i}`]}<br><br>
@@ -90,6 +92,7 @@ $(document).ready(function() {
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
       };
+
       // Accordian Bill Functionality for Mobile
       acc = $(".accordion");
       arr = Array.prototype.slice.call(acc);
@@ -359,7 +362,7 @@ $(document).ready(function() {
     <div class="row">
         <div class="col-md-4">
             <div class="bill-author-panel">
-                <h3>Author</h3>
+                <h3>Sponsor</h3>
                 <hr>
                 <div class="bill-detail-text-style" id="billAuthorInfo">
                   ${billInfoObject[`sponsor${billValue}`]}
@@ -385,6 +388,7 @@ $(document).ready(function() {
     </br>
     </br>
     <div class="row">        
+
       <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>
     </div>`);
       // Remove draggable after drop
@@ -479,10 +483,12 @@ $('#sidebar').affix({
 });
 
 
-$body.scrollspy({
-  target: '#rightCol',
-  // offset: navHeight
-});
+
+// $body.scrollspy({
+// 	target: '#rightCol',
+// 	// offset: navHeight
+// });
+
 
 
 // Accordian Bills for Mobile
