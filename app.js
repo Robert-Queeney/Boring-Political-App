@@ -153,6 +153,9 @@ $(document).ready(function(){
   };
 
   const onGeolocationSuccess = function(pos){
+    console.log('Got it!');
+    // $('#divGeoWait').hide()
+    
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -160,6 +163,7 @@ $(document).ready(function(){
       url: "https://www.mapquestapi.com/geocoding/v1/reverse?key=dvGY3tGwYi2vg1NIbCfJFG3w96p4MhgJ&location="+ lat + "%2C" + long + "&outFormat=json&thumbMaps=false",
       method: 'GET'
     }).then(function(response){
+      
       street = response.results[0].locations[0].street;
       city = response.results[0].locations[0].adminArea5;
       state = response.results[0].locations[0].adminArea3;
@@ -413,7 +417,12 @@ $(document).ready(function(){
   $(document).on("click", ".getInvolvedButton", function() {
     page2.hide();
     page3.show();
-    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
+
+      navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
+      console.log('Show!!!');
+      // $('#divGeoWait').show();
+    
+    
   });
 
   // On click of search button (third page), save the topic searched for 
