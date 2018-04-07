@@ -1,565 +1,63 @@
 // Variables
-@background-color: #f9f9f9;
-@primary-element-color: #2e71f2;
-@primary-element-color-dark: #0c32c9;
-@secondary-element-color: #01d6c4;
-@secondary-element-color-dark: #0db2c4;
-@tertiary-element-color: #9425e9;
-@light: #ffffff;
-@light-text: #ffffff;
-@dark-text: #4d4d4d;
-@input-background: #bbbbbb;
-@input-focus: #aeaeae;
-
-@font-titles: 'Raleway', sans-serif;
-@font-text: 'Roboto', sans-serif;
-
-// @drop-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-// @drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.13);
-@drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow-active: inset 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-@inset-fade: inset 0 -20px 40px rgb(0, 204, 255);
-@topic-button-color: #ffffff;
-@topic-button-color-hover: @tertiary-element-color;
-@color-gradient: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
-@color-gradient-2: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
-@color-gradient-3: linear-gradient(45deg, @secondary-element-color-dark  0%, @secondary-element-color 100%);
-@transition-time: 0.5s;
-@card-round-edges: 3px;
-
-html,body {
-	height:100%;
-}
 
 body {
-    font-family: @font-text;
-    background-color: @background-color;
-    color: @dark-text;
-}
-
-.container, .row {
-	height:100%;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-    font-family: @font-titles;
-    font-weight: bolder;
-    font-size: 5em;
+    font-family: 'Raleway', sans-serif;
 }
 
 .title {
-    font-size: 2em;
-    font-family: @font-titles;
-}
-
-.nav-links {
-    display: inline-block;
-    font-size: 1.5em;
-    font-family: @font-titles;
-    padding-top: .4em;
-    
-}
-
-.font-awesome-icons {
-    padding-right: .3em;
-}
-
-.top-row {
-    margin-top: 3em;
-    margin-bottom: .5em;
-    padding: 0 20px;
-    // margin: auto auto;
-}
-
-// #page1 {
-//     margin: auto;
-// }
-
-.page-1-title {
-    margin-top: 15%;
-}
-
-.page-1-description {
-    margin-bottom: 20px;
-}
-
-.panel-header-style {
-    font-size: 1.5em;
-    margin-top: 2em;
-    // font-style: italic;
-    font-family: @font-titles;
-    // color: @primary-element-color;
-    // text-transform: uppercase;
-}
-
-.topic-btn-area hr {
-    margin-bottom:0px;
-}
-
-// .topic-btn-area {
-//     margin-top: 50px;
-// }
-
-
-// Button Styling
-
-.btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.btn-styling {
-    border-radius:23px;
-}
-
-.btn-styling {
-    font-family: @font-titles;
-    font-size: 13px;
-    font-weight: normal;
-    letter-spacing: .05rem;
-    text-transform: uppercase;
-    border: 0px;
-    padding: 10px 20px;
-    box-shadow: @drop-shadow;
-    transition: @transition-time;
-}
-
-.submit-btn-style {
-    background-color: @primary-element-color;
-    color: @light-text;
-    min-width: 150px;
-}
-
-.topic-btn-style {
-    min-width: 150px;
-    margin: 5px 15px;
-}
-
-.get-involved-btn-style {
-    background-color: @secondary-element-color;
-    color: @light-text;
-    min-width: 150px;
-}
-
-.btn-styling:focus {
-    outline:0; 
-    transition: @transition-time;
-}
-
-.submit-btn-style:focus { 
-    box-shadow: inset 0 0 0 4px @primary-element-color-dark, @drop-shadow;
-}
-
-.topic-btn-style:focus { 
-    box-shadow: inset 0 0 0 4px @topic-button-color-hover, @drop-shadow;
-}
-
-.get-involved-btn-style:focus { 
-    box-shadow: inset 0 0 0 4px @secondary-element-color-dark, @drop-shadow;
-}
-
-.btn-styling:hover {
-    color: @light-text;
-    // transition: 0.5s; 
-    box-shadow: @drop-shadow-hover;
-    transition: @transition-time;
-}
-
-.submit-btn-style:hover {
-    background-image: @color-gradient;
-}
-
-.topic-btn-style:hover {
-    background-image: @color-gradient-2;
-}
-
-.get-involved-btn-style:hover {
-    background-image: @color-gradient-3;
-}
-
-.btn-styling:active {
-    color: @light-text;
-    -moz-box-shadow: @drop-shadow-active;
-    -webkit-box-shadow: @drop-shadow-active;
-    box-shadow: @drop-shadow-active;
-    transition: @transition-time;
-
-}
-
-.submit-btn-style:active {
-    background-image: @color-gradient;
-}
-
-
-.topic-btn-style:active {
-    background-image: @color-gradient-2;
-}
-
-
-
-// Input Styling
-
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: @light-text;
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    color: @light-text;
-  }
-  :-ms-input-placeholder { /* IE 10+ */
-    color: @light-text;
-  }
-  :-moz-placeholder { /* Firefox 18- */
-    color: @light-text;
-  }
-
-.input-styling {
-    background-color: @input-background;
-    color: @light-text;
+    font-size: 3em;
     font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: normal;
-    width: 98%;
-    height: 45px;
-    border: 0px;
-    border-radius:5px;
-    padding: 5px 20px;
-    box-shadow: @drop-shadow;
-
-}
-
-.input-styling:focus {
-    outline:0; 
-    transition: @transition-time;
-    box-shadow: inset 0 0 20px 4px @input-focus, @drop-shadow;
-}
-
-.input-styling:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px @primary-element-color inset, @drop-shadow;
-    box-shadow: 0 0 0px 30px @primary-element-color inset, @drop-shadow;
-    -webkit-text-fill-color: @light-text !important;
-}
-
-
-/* Bill Cards Styling */
-
-.bill-cards-styling {
-    box-shadow: @drop-shadow;
-    transition: @transition-time;
-}
-
-.bill-cards-styling:hover {
-    box-shadow: @drop-shadow-hover;
-    transition: @transition-time;
-}
-
-// .bill-cards-styling > .panel-body {
-//     padding: 1em 3em;
-// }
-
-/* Drag and Drop */
-
-.sidebar-dropzone {
-    height: 100%;
-}
-
-.drop-here-text {
-    font-family: @font-titles;
-    font-size: 4em;
-    font-weight: bolder;
 }
 
 .holder {
     width: 100%;
-    
+    height: 500px;
   }
-
-.dropzone {
-background-color: @light;
-padding: 10px;
-// width: 500px;
-width: 100%;
-min-height: 600px;
-height: 100%;
-border: dashed 10px transparent;
-// height: 500px;
-// position: fixed;
-// right: 0px;
-display: block;
-z-index: 1;
-border-radius:@card-round-edges;
-box-shadow: @drop-shadow;
-
-
-
-}
-
-.draggable {
-// display: inline-grid;
-// width: 150px;
-// width: 40%;
-height: 120px;
-background-color: @light;
-box-shadow: @drop-shadow;
-color: @dark-text;
-overflow: hidden;
-padding: 2% 2.0833%;
-// margin: 2% 2.0833%;
-// padding: 2% 4.166%;
-margin: 2% 4.166%;
-// padding:10px;
-// margin: 10px;
-border-left: 10px solid @secondary-element-color;
-border-radius:@card-round-edges;
-font-size: 1.2em;
-
-}
-
-.draggable:hover {
-    box-shadow: @drop-shadow-hover;
-}
-
-.draggable:active {
-    box-shadow: @drop-shadow-hover;
-    z-index: 100;
-}
-
-
-#billHolder {
-float: left;
-// width: 400px;
-width: 100%;
-
-
-}
-
-.drop-active {
-border-color: #aaa;
-}
-
-.drop-target {
-background-color: @primary-element-color;
-color: #FFF;
-// border-color: #fff;
-// border-style: solid;
-border-radius: @card-round-edges;
-}
-
-/* Accordion of bills for mobile */
-
-.accordion {
-    background-color: @light;
-    box-shadow: @drop-shadow;
-    color: @dark-text;
-    font-size: 1.5em;
-    border: none;
-    border-left: 10px solid @secondary-element-color;
-    cursor: pointer;
-    padding: 18px;
-    margin-bottom:10px;
-    width: 100%;
-    text-align: left;
-    outline: none;
-    // transition: 0.4s;
-}
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.accordion:hover {
-    background-color: @input-background;
-    box-shadow: none;
-}
-
-.active {
-    background-color: rgb(216, 216, 216);
-    box-shadow: none;
-    margin-bottom: 0;
-}
-
-
+  .dropzone {
+    background-color: #ccc;
+    padding: 10px;
+    width: 500px;
+    height: 90%;
+    border: dashed 4px transparent;
+    float: right;
+  }
   
-  /* Style the accordion panel. Note: hidden by default */
-.accordionPanel {
-    padding: 20px 18px 30px 18px;
-    display: none;
-    margin-bottom:10px;
-    background-color: white;
-    border-left: 10px solid @secondary-element-color;
-    font-size: 1.1em;
-    overflow: hidden;
-    box-shadow: @drop-shadow;
-}
-
-.accordion-panel-subheaders {
-    font-size: 1.3em;
-}
-
-
-/* Hide different pages div until activated */
-
-#page2 {
-display: none;
-}
-
-#page3 {
-display: none;
-}
-
-#table {
-    display: none;
-}
-
-#addressPopup {
-    display: none;
-}
-
-
-
-// Bill info styling
-
-.bill-title-style {
-    font-size: 2.3em;
-    line-height: 1.1em;
-    font-weight: bolder;
-    padding: 0 0 20px 0;
-}
-
-.bill-info-mini-panel {
-    border: 1px solid @primary-element-color;
-    border-radius: @card-round-edges;
-}
-
-
-.mini-panel-heading-style {
-    background-color: @primary-element-color;
-    color: @light-text;
-    padding: 5px; 
-    
-}
-
-.bill-detail-text-style {
-    font-size: 1.2em;
-}
-
-
-
-
-// Affixed Drag and Drop zone
-
-
-.affix-top,.affix{
-	position: static;
-}
-
-@media (max-width: 769px) {
-    header {
-        text-align: center;
-    }
-
-    .page-1-title {
-        margin-top: 5%;
-    }
-
-    h1 {
-       font-size: 3em;
-    }
-
-    .page-1-description {
-        font-size: 1em;
-    }
-
-    .nav-links {
-        padding-bottom: 1em;
-    }
-
-    #sidebar, #billHolder {
-        display: none;
-    }
-    // .dropzone {
-    //     display: none;
-    // }
-    #accordianBillHolder {
-        display: block;
-    }
-
-}
-
-
-@media (min-width: 770px) {
-
-
-    #sidebar, #billHolder{
-        display: none;
-    }
-
-    #accordianBillHolder {
-        display: block;
-    }
-    // .dropzone {
-    //     display: none;
-    // }
-    .nav-links {
-        text-align: right;
-    }
-
-}
-
-@media (min-width: 992px) {
-    #sidebar, #billHolder {
-        display: block;
-    }
-
-    #accordianBillHolder {
-        display: none;
-    }
-
-    #sidebar.affix-top {
-        position: static;
-          margin-top:0px;
-          margin-left: -40px;
-          width:500px;
-    }
-      
-    #sidebar.affix-bottom {
-        position: relative;
-    }
-
-    #sidebar.affix {
-        position: fixed;
-        top:20px;
-        margin-left: -40px;
-        width:500px;
-    }
-    .drop-here-text {
-        margin-top: 45%;
-    }
-
-    .nav-links {
-        text-align: center;
-    }
-}
-
-@media (min-width: 1200px) {
-    #sidebar, #billHolder {
-        display: block;
-    }
-
-    #accordianBillHolder {
-        display: none;
-    }
-
-    #sidebar.affix-top {
-        position: static;
-          margin-top:0px;
-          margin-left: -10px;
-          width:555px;
-    }
-      
-    #sidebar.affix-bottom {
-        position: relative;
-    }
-
-    #sidebar.affix {
-        position: fixed;
-        top:20px;
-        margin-left: -10px;
-        width:555px;
-    }
-    .drop-here-text {
-        margin-top: 40%;
-    }
-}
+  .draggable {
+    width: 200px;
+    height: 100px;
+    float:left;
+    background-color: #2196F3;
+    color: white;
+    padding:10px;
+    margin: 10px;
+  }
+  
+  .drop-active {
+    border-color: #aaa;
+  }
+  
+  .drop-target {
+    background-color: #000;
+    color: #FFF;
+    border-color: #fff;
+    border-style: solid;
+  }
+  .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #01d6c4; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    display: block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
