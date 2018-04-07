@@ -47,7 +47,7 @@ What tech is used for testing.
 
 ## License
 
-(https://github.com/scoslo5512/Project1/blob/geolocation-work/LICENSE "MIT LICENSE")
+[MIT License](https://github.com/scoslo5512/Project1/blob/geolocation-work/LICENSE)
 
 ## Next Steps
 
