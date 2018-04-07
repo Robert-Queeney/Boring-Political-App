@@ -30,7 +30,7 @@ This project lets the user search for a current issue that they want to learn mo
 - Mapquest Reverse Geocode
 
 ## Installation
-![alt text](https://lh3.googleusercontent.com/vhZ8wisLH65tJq6shejORwIHu4cgAcRYmrW_lPr9kvm2VDwHrC-hPp7N7XcIYeKq383tW64DeyiOPYdc-sldst0QgTEpV6DNEHV8zi31xgLRzoyO1bgnu8pUZ-LsDc3g0y5NyJJTMg=200x200)
+![alt text](https://lh3.googleusercontent.com/vhZ8wisLH65tJq6shejORwIHu4cgAcRYmrW_lPr9kvm2VDwHrC-hPp7N7XcIYeKq383tW64DeyiOPYdc-sldst0QgTEpV6DNEHV8zi31xgLRzoyO1bgnu8pUZ-LsDc3g0y5NyJJTMg=w2400 =200x200)
 
 ![alt text](https://lh3.googleusercontent.com/EDSDnCJhG6khm_NOKa_T5Bl47b5k7gyZ0yvRqQLxYlW1F2n5vkV9LMDzOd4uuhMqHgulB61mLzVZgb4Bdi7fjPM0YU2sQ-s_tXDz4q6hin75sbhsvZJDeShpRo-Jwx18YX1zHjlcUw=w2400;)
 
