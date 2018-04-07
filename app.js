@@ -474,4 +474,31 @@ $(document).ready(function() {
       });
     }
   });
+
 });
+
+
+// Sidebar Test
+
+const $body = $(document.body);
+// var navHeight = 50;
+
+$('#sidebar').affix({
+  offset: {
+    top: 85,
+    // bottom: navHeight
+  },
+});
+
+
+
+// $body.scrollspy({
+// 	target: '#rightCol',
+// 	// offset: navHeight
+// });
+
+
+
+// Accordian Bills for Mobile
+
+
