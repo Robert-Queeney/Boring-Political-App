@@ -35,7 +35,7 @@ h1 {
   padding: 0 20px;
 }
 .page-1-title {
-  margin-top: 15%;
+  margin-top: 5%;
 }
 .page-1-description {
   margin-bottom: 20px;
@@ -252,7 +252,7 @@ h1 {
 }
 /* Style the accordion panel. Note: hidden by default */
 .accordionPanel {
-  padding: 20px 18px 10px 18px;
+  padding: 20px 18px 30px 18px;
   display: none;
   margin-bottom: 10px;
   background-color: white;

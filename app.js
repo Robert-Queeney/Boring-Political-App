@@ -83,7 +83,9 @@ $(document).ready(function(){
         billHolder.append(`<div  value=${i} class="col-md-5 col-xs-11 draggable">${billInfoObject[`title${i}`]}</div>`);
         accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button> <div class="accordionPanel"> <p class="accordion-panel-subheaders">Summary:</p><p> ${billInfoObject[`summary${i}`]} <br><hr> <p class="accordion-panel-subheaders">Sponsor:</p> ${billInfoObject[`sponsor${i}`]}<br> <br><p class="accordion-panel-subheaders">Party:</p> ${billInfoObject[`party${i}`]} 
         <br><br> <p class="accordion-panel-subheaders">Latest Action:</p> ${billInfoObject[`latest_major_action${i}`]} <br><br> 
-        <p class="accordion-panel-subheaders">Latest Action Date:</p> ${billInfoObject[`date${i}`]} </p> <p class="accordion-panel-subheaders">URL:</p> <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a><br></div>`);
+        <p class="accordion-panel-subheaders">Latest Action Date:</p> ${billInfoObject[`date${i}`]} </p> <p class="accordion-panel-subheaders">URL:</p> <a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank"> Govtrack</a><br>
+        <div class="row">
+          <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
       };
 
       // Accordian Bill Functionality for Mobile
@@ -99,7 +101,7 @@ $(document).ready(function(){
       var j;
     
     
-      for (j = 0; j < 10; j++) {
+      for (j = 0; j < results.results[0].bills.length; j++) {
         console.log('loop');
           arr[j].addEventListener("click", function() {
             
