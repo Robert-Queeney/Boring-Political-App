@@ -474,9 +474,7 @@ $(document).ready(function() {
       });
     }
   });
-<<<<<<< HEAD
-});
-=======
+
 });
 
 
@@ -503,4 +501,3 @@ $('#sidebar').affix({
 
 // Accordian Bills for Mobile
 
->>>>>>> f7593445f88b49bef690360affb3137189072a2c
