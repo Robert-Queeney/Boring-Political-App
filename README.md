@@ -39,12 +39,6 @@ This project lets the user search for a current issue that they want to learn mo
 * 'git clone + URL'
 ![alt text](https://lh3.googleusercontent.com/7pbUSRtNFW88br-mFMZSH0uRVYR8ftJbhTvg8NqdggxJC6Rbvn-ep86q2EN1HXJhHJCOEtk25NapszE7hjPjs4Sbfpv001mGVsaYtjBOPld-_3wtY9Osb_bE_KZnfn2vZYndoM-IZQ=w2400)
 
-## Testing
-
-What tech is used for testing.
-
-`How to run the tests`
-
 ## License
 
 [MIT License](https://github.com/scoslo5512/Project1/blob/geolocation-work/LICENSE)
