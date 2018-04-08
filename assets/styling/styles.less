@@ -291,6 +291,11 @@ box-shadow: @drop-shadow;
 }
 
 .draggable {
+    cursor: move; /* fallback: no `url()` support or images disabled */
+  cursor: url(images/grab.cur); /* fallback: Internet Explorer */
+  cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
+  cursor:    -moz-grab; /* Firefox 1.5-26 */
+  cursor:         grab; /* W3C standards syntax, should come least */
 // display: inline-grid;
 // width: 150px;
 // width: 40%;
@@ -319,6 +324,10 @@ line-height: 1.2em;
 .draggable:active {
     box-shadow: @drop-shadow-hover;
     z-index: 100;
+    cursor: url(images/grabbing.cur);
+    cursor: -webkit-grabbing;
+    cursor:    -moz-grabbing;
+    cursor:         grabbing;
 }
 
 
