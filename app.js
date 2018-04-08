@@ -1,6 +1,7 @@
 'use strict';
 
 $(document).ready(function() {
+
   // Initialize Firebase
 
   const config = {
@@ -124,6 +125,12 @@ $(document).ready(function() {
           });
       };
     }).catch(function(error){
+      billHolder.empty();
+      accordianBillHolder.empty();
+      billHolder.append(`<p style="color:black; font-size:30px">Something went 
+      wrong with the API call. See console for error.</p>`);
+      accordianBillHolder.append(`<p style="color:black; font-size:30px">Something went 
+      wrong with the API call. See console for error.</p>`);
       console.error('Oh boy, its broken:', error);
     });
   };
@@ -162,7 +169,6 @@ $(document).ready(function() {
   };
 
   const onGeolocationSuccess = function(pos) {
-    reps.empty();
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -180,6 +186,7 @@ $(document).ready(function() {
         url: urlCiv,
         method: 'GET',
       }).then(function(response) {
+        reps.empty();
         for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -194,13 +201,21 @@ $(document).ready(function() {
           } else {
             body = 'House';
           }
-          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
+          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p>
+          <img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p>
+          <p>${repAddress}</p></div>`);
           reps.append(rep);
         }
       }).catch(function(error) {
+        reps.empty();
+        reps.append(`<p style="color:black; font-size:30px">Something went 
+        wrong with the API call. See console for error.</p>`);
         console.error('Oh boy, its broken:', error);
       });
     }).catch(function(error) {
+      reps.empty();
+      reps.append(`<p style="color:black; font-size:30px">Something went 
+      wrong with the API call. See console for error.</p>`);
       console.error('Oh boy, its broken:', error);
     });
   };
@@ -398,8 +413,8 @@ $(document).ready(function() {
     </br>
     </br>
     <div class="row">        
-
-      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div>
+      <div class="col-md-12 text-center"><button class="btn-styling get-involved-btn-style getInvolvedButton">
+      Get Involved</button></div>
     </div>`);
       // Remove draggable after drop
       $(event.relatedTarget).remove();
@@ -429,7 +444,8 @@ $(document).ready(function() {
       billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
       <div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
     };
-    billHolder.append(`<div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
+    billHolder.append(`<div class="col-sm-12 text-center">
+    <button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
   });
 
   // On click of "Get Involved" button, navigate to page 3 and call the geolocation
@@ -494,6 +510,9 @@ $(document).ready(function() {
           reps.append(rep);
         };
       }).catch(function(error){
+        reps.empty();
+        reps.append(`<p style="color:black; font-size:30px">Something went 
+        wrong with the API call. See console for error.</p>`);
         console.error('Oh boy, its broken:', error);
       });
     }
