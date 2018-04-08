@@ -89,7 +89,7 @@ $(document).ready(function() {
         <p class="accordion-panel-subheaders">Party:</p>${billInfoObject[`party${i}`]}<br><br>
         <p class="accordion-panel-subheaders">Latest Action:</p>${billInfoObject[`latest_major_action${i}`]}<br><br>
         <p class="accordion-panel-subheaders">Latest Action Date:</p>${billInfoObject[`date${i}`]}</p>
-        <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack</a>
+        <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack <i class="fas fa-external-link-alt"></i></a>
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
       };
@@ -379,7 +379,7 @@ $(document).ready(function() {
                   Latest Action: ${billInfoObject[`latest_major_action${billValue}`]}
                   </br>
                   </br>
-                  URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank">Govtrack</a>
+                  URL: <a href="${billInfoObject[`govtrack_url${billValue}`]}" target="_blank">Govtrack <i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
