@@ -32,6 +32,7 @@ $(document).ready(function() {
   const page1 = $('#page1');
   const page2 = $('#page2');
   const page3 = $('#page3');
+  let billIndex;
   const billInfoObject = {};
   let coords;
   let lat;
@@ -55,7 +56,6 @@ $(document).ready(function() {
   let inputAddressString;
   let rep;
   const reps = $('#reps');
-  const docBody = $(document.body);
   let inputA;
   let inputC;
   let inputS;
@@ -64,13 +64,18 @@ $(document).ready(function() {
   // Function Declarations
 
   const propublicaAPICall = function() {
+    billHolder.append('<div class="loader center-block"></div>');
+    accordianBillHolder.append('<div class="loader center-block"></div>');
     $.ajax({
       url: `https://api.propublica.org/congress/v1/bills/search.json?query=${issueSearch}`,
       type: 'GET',
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
-      for(let i = 0 ; i  < results.results[0].bills.length; i++ ){
+      billHolder.empty();
+      accordianBillHolder.empty();
+      billIndex = 0;
+      for (let i = 0 ; i  < results.results[0].bills.length; i++ ) {
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
         billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
         billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;  
@@ -81,8 +86,7 @@ $(document).ready(function() {
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
         billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
-        <div class="block-with-text">${billInfoObject[`title${i}`]}</div>
-        </div>`);
+        <div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
         accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button><div class="accordionPanel">
         <p class="accordion-panel-subheaders">Summary:</p><p>${billInfoObject[`summary${i}`]}<br><hr>
         <p class="accordion-panel-subheaders">Sponsor:</p>${billInfoObject[`sponsor${i}`]}<br><br>
@@ -92,9 +96,15 @@ $(document).ready(function() {
         <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack</a>
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
+        billIndex++;
       };
-
-      // Accordian Bill Functionality for Mobile
+      if (billIndex > 0) {
+        billHolder.append(`<div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
+      } else {
+        billHolder.append('<p style="color:black; font-size:30px">No Search Results Found</p>');
+        accordianBillHolder.append('<p style="color:black; font-size:30px">No Search Results Found</p>');
+      };
+        // Accordian Bill Functionality for Mobile
       acc = $(".accordion");
       arr = Array.prototype.slice.call(acc);
       for (let i = 0; i < results.results[0].bills.length; i++) {
@@ -125,7 +135,7 @@ $(document).ready(function() {
         snapshot.forEach(function(childSnapshot) {
           if (childSnapshot.val().query === issueSearch) {
             databaseHasTopic = true;
-          }
+          };
         });
         setTimeout(function() {
           if (!databaseHasTopic) {
@@ -133,25 +143,24 @@ $(document).ready(function() {
               query: issueSearch,
               dateAdded: firebase.database.ServerValue.TIMESTAMP,
             });
-          }
+          };
         }, 1000);
       });
       if (page !== page1) {
         billHolder.empty();
-
         accordianBillHolder.empty();
         dropZone.empty().append($('<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>'));
-      }
+      };
       if (page !== page2) {
         page.hide();
         page2.show();
-      }
+      };
       propublicaAPICall();
-    }
+    };
   };
 
   const onGeolocationSuccess = function(pos) {
-    $('.loader').hide();
+    reps.empty();
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -195,7 +204,7 @@ $(document).ready(function() {
   };
 
   const onGeolocationError = function() {
-    $('.loader').hide();
+    reps.empty();
     $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
     $('#addressPopup').show();
   };
@@ -403,11 +412,22 @@ $(document).ready(function() {
 
   // Dropzone affix
 
-  $('#sidebar').affix({
-    offset: {
-      top: 85,
-      bottom: 50
-    },
+  // $('#sidebar').affix({
+  //   offset: {
+  //     top: 85,
+  //     bottom: 85
+  //   },
+  // });
+
+  // On click of "Refresh" button, the bills will be reappended to the page 
+
+  $(document).on('click', '.refreshBills', function() {
+    billHolder.empty();
+    for (let i = 0; i < billIndex; i++) {
+      billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
+      <div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
+    };
+    billHolder.append(`<div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
   });
 
   // On click of "Get Involved" button, navigate to page 3 and call the geolocation
@@ -416,7 +436,7 @@ $(document).ready(function() {
   $(document).on('click', '.getInvolvedButton', function() {
     page2.hide();
     page3.show();
-    $('#electedOfficialsPanel').append('<div class="loader center-block"></div>');
+    reps.append('<div class="loader center-block"></div>');
     navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
   });
 
@@ -439,7 +459,7 @@ $(document).ready(function() {
     inputC = $('#inputCity1').val();
     inputS = $('#inputState1').val();
     if (inputA === '' || inputC === '' || inputS === '') {
-      inputRequired.append('<div style="color:black; font-size:30px">Input Required</div>');
+      inputRequired.append('<p style="color:black; font-size:30px">Input Required</p>');
     } else {
       inputRequired.empty();
       $('#inputAddress1').val('');
@@ -447,11 +467,13 @@ $(document).ready(function() {
       $('#inputState1').val('');
       $('#addressPopup').hide();
       $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
+      reps.append('<div class="loader center-block"></div>');
       inputAddressString = (`${inputA  }, ${  inputC  }, ${  inputS}`);
       $.ajax({
         url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=' + inputAddressString + '&roles=legislatorLowerBody&roles=legislatorUpperBody',
         method: 'GET',
       }).then(function(response) {
+        reps.empty();
         for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -474,31 +496,4 @@ $(document).ready(function() {
       });
     }
   });
-
 });
-
-
-// Sidebar Test
-
-const $body = $(document.body);
-// var navHeight = 50;
-
-$('#sidebar').affix({
-  offset: {
-    top: 85,
-    // bottom: navHeight
-  },
-});
-
-
-
-// $body.scrollspy({
-// 	target: '#rightCol',
-// 	// offset: navHeight
-// });
-
-
-
-// Accordian Bills for Mobile
-
-
