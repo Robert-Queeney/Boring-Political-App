@@ -1,6 +1,7 @@
 'use strict';
 
 $(document).ready(function() {
+
   // Initialize Firebase
 
   const config = {
@@ -122,6 +123,8 @@ $(document).ready(function() {
           });
       };
     }).catch(function(error){
+      billHolder.empty();
+      accordianBillHolder.empty();
       console.error('Oh boy, its broken:', error);
     });
   };
@@ -160,7 +163,6 @@ $(document).ready(function() {
   };
 
   const onGeolocationSuccess = function(pos) {
-    reps.empty();
     coords = pos.coords;
     lat = coords.latitude;
     long = coords.longitude;
@@ -178,6 +180,7 @@ $(document).ready(function() {
         url: urlCiv,
         method: 'GET',
       }).then(function(response) {
+        reps.empty();
         for (let i = 0; i < 3; i++) {
           repName = response.officials[i].name;
           repPhoto = response.officials[i].photoUrl;
@@ -196,9 +199,11 @@ $(document).ready(function() {
           reps.append(rep);
         }
       }).catch(function(error) {
+        reps.empty();
         console.error('Oh boy, its broken:', error);
       });
     }).catch(function(error) {
+      reps.empty();
       console.error('Oh boy, its broken:', error);
     });
   };
@@ -492,6 +497,7 @@ $(document).ready(function() {
           reps.append(rep);
         };
       }).catch(function(error){
+        reps.empty();
         console.error('Oh boy, its broken:', error);
       });
     }
