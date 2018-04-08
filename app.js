@@ -73,7 +73,6 @@ $(document).ready(function() {
       dataType: 'json',
       headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
     }).then(function(results){
-      console.log(results);
       billHolder.empty();
       accordianBillHolder.empty();
       billIndex = 0;
