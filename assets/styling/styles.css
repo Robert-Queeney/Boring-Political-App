@@ -337,7 +337,8 @@ h1 {
   font-size: 1.2em;
 }
 .affix-top,
-.affix {
+.affix,
+.affix-bottom {
   position: static;
 }
 .loader {
