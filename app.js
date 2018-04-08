@@ -27,6 +27,7 @@ $(document).ready(function() {
   const billHolder = $('#billHolder');
   const dropZone = $('#dropzone');
   const accordianBillHolder = $('#accordianBillHolder');
+  const billHolderHolder = $('#billHolderHolder');
   let acc;
   let arr;
   const page1 = $('#page1');
@@ -81,8 +82,7 @@ $(document).ready(function() {
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
         billInfoObject[`sponsor${i}`] = results.results[0].bills[i].sponsor_name;
         billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
-        <div class="block-with-text">${billInfoObject[`title${i}`]}</div>
-        </div>`);
+        <div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
         accordianBillHolder.append(`<button class="accordion">${billInfoObject[`title${i}`]}</button><div class="accordionPanel">
         <p class="accordion-panel-subheaders">Summary:</p><p>${billInfoObject[`summary${i}`]}<br><hr>
         <p class="accordion-panel-subheaders">Sponsor:</p>${billInfoObject[`sponsor${i}`]}<br><br>
@@ -93,7 +93,7 @@ $(document).ready(function() {
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
       };
-
+      billHolderHolder.append(`<div class="row"><div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div></div>`);
       // Accordian Bill Functionality for Mobile
       acc = $(".accordion");
       arr = Array.prototype.slice.call(acc);
@@ -125,7 +125,7 @@ $(document).ready(function() {
         snapshot.forEach(function(childSnapshot) {
           if (childSnapshot.val().query === issueSearch) {
             databaseHasTopic = true;
-          }
+          };
         });
         setTimeout(function() {
           if (!databaseHasTopic) {
@@ -133,21 +133,20 @@ $(document).ready(function() {
               query: issueSearch,
               dateAdded: firebase.database.ServerValue.TIMESTAMP,
             });
-          }
+          };
         }, 1000);
       });
       if (page !== page1) {
         billHolder.empty();
-
         accordianBillHolder.empty();
         dropZone.empty().append($('<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>'));
-      }
+      };
       if (page !== page2) {
         page.hide();
         page2.show();
-      }
+      };
       propublicaAPICall();
-    }
+    };
   };
 
   const onGeolocationSuccess = function(pos) {
