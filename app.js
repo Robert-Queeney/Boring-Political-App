@@ -1,7 +1,6 @@
 'use strict';
 
 $(document).ready(function() {
-
   // Initialize Firebase
 
   const config = {
@@ -71,16 +70,16 @@ $(document).ready(function() {
       url: `https://api.propublica.org/congress/v1/bills/search.json?query=${issueSearch}`,
       type: 'GET',
       dataType: 'json',
-      headers: {'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ'}
-    }).then(function(results){
+      headers: { 'X-API-Key': 'um0ROEiltrFHkDwAqWjHR1es1j2wmaz8KekzLuDZ' },
+    }).then(function(results) {
       billHolder.empty();
       accordianBillHolder.empty();
       billIndex = 0;
-      for (let i = 0 ; i  < results.results[0].bills.length; i++ ) {
-        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title; 
-        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id; 
-        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;  
-        billInfoObject[`summary${i}`] = results.results[0].bills[i].title;  
+      for (let i = 0; i < results.results[0].bills.length; i++) {
+        billInfoObject[`title${i}`] = results.results[0].bills[i].short_title;
+        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id;
+        billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;
+        billInfoObject[`summary${i}`] = results.results[0].bills[i].title;
         billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
         billInfoObject[`govtrack_url${i}`] = results.results[0].bills[i].govtrack_url;
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
@@ -99,31 +98,31 @@ $(document).ready(function() {
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
         billIndex++;
-      };
+      }
       if (billIndex > 0) {
-        billHolder.append(`<div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
+        billHolder.append('<div class="col-sm-12 text-center"><button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>');
       } else {
         billHolder.append('<p style="color:black; font-size:30px">No Search Results Found</p>');
         accordianBillHolder.append('<p style="color:black; font-size:30px">No Search Results Found</p>');
-      };
-        // Accordian Bill Functionality for Mobile
-      acc = $(".accordion");
+      }
+      // Accordian Bill Functionality for Mobile
+      acc = $('.accordion');
       arr = Array.prototype.slice.call(acc);
       for (let i = 0; i < results.results[0].bills.length; i++) {
-          arr[i].addEventListener("click", function() {
-              /* Toggle between adding and removing the "active" class,
+        arr[i].addEventListener('click', function() {
+          /* Toggle between adding and removing the "active" class,
               to highlight the button that controls the panel */
-              this.classList.toggle("active");
-              /* Toggle between hiding and showing the active panel */
-              let panel = this.nextElementSibling;
-              if (panel.style.display === "block") {
-                  panel.style.display = "none";
-              } else {
-                  panel.style.display = "block";
-              }
-          });
-      };
-    }).catch(function(error){
+          this.classList.toggle('active');
+          /* Toggle between hiding and showing the active panel */
+          const panel = this.nextElementSibling;
+          if (panel.style.display === 'block') {
+            panel.style.display = 'none';
+          } else {
+            panel.style.display = 'block';
+          }
+        });
+      }
+    }).catch(function(error) {
       billHolder.empty();
       accordianBillHolder.empty();
       billHolder.append(`<p style="color:black; font-size:30px">Something went 
@@ -143,7 +142,7 @@ $(document).ready(function() {
         snapshot.forEach(function(childSnapshot) {
           if (childSnapshot.val().query === issueSearch) {
             databaseHasTopic = true;
-          };
+          }
         });
         setTimeout(function() {
           if (!databaseHasTopic) {
@@ -151,20 +150,20 @@ $(document).ready(function() {
               query: issueSearch,
               dateAdded: firebase.database.ServerValue.TIMESTAMP,
             });
-          };
+          }
         }, 1000);
       });
       if (page !== page1) {
         billHolder.empty();
         accordianBillHolder.empty();
         dropZone.empty().append($('<div class="drop-here-text text-center">Drag &amp; Drop <br>Bills Here</div>'));
-      };
+      }
       if (page !== page2) {
         page.hide();
         page2.show();
-      };
+      }
       propublicaAPICall();
-    };
+    }
   };
 
   const onGeolocationSuccess = function(pos) {
@@ -194,7 +193,7 @@ $(document).ready(function() {
           repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
+          repAddress = `${repSteet}<br>${repCity}, ${repState}, ${repZip}`;
           if (i < 2) {
             body = 'Senate';
           } else {
@@ -283,7 +282,6 @@ $(document).ready(function() {
 
   // Code for dropzone
 
-  interact.dynamicDrop(true);
   // Target elements with the "draggable" class
   interact('.draggable')
     .draggable({
@@ -435,14 +433,14 @@ $(document).ready(function() {
   //   },
   // });
 
-  // On click of "Refresh" button, the bills will be reappended to the page 
+  // On click of "Refresh" button, the bills will be reappended to the page
 
   $(document).on('click', '.refreshBills', function() {
     billHolder.empty();
     for (let i = 0; i < billIndex; i++) {
       billHolder.append(`<div value=${i} class="col-md-5 col-xs-11 draggable">
       <div class="block-with-text">${billInfoObject[`title${i}`]}</div></div>`);
-    };
+    }
     billHolder.append(`<div class="col-sm-12 text-center">
     <button class="btn-styling get-involved-btn-style refreshBills">Refresh Bills</button></div>`);
   });
@@ -485,9 +483,9 @@ $(document).ready(function() {
       $('#addressPopup').hide();
       $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
       reps.append('<div class="loader center-block"></div>');
-      inputAddressString = (`${inputA  }, ${  inputC  }, ${  inputS}`);
+      inputAddressString = (`${inputA}, ${inputC}, ${inputS}`);
       $.ajax({
-        url: 'https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=' + inputAddressString + '&roles=legislatorLowerBody&roles=legislatorUpperBody',
+        url: `https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyC5mPRvRl9aDc6c0fbeQVooykzgH6CaIQU&address=${inputAddressString}&roles=legislatorLowerBody&roles=legislatorUpperBody`,
         method: 'GET',
       }).then(function(response) {
         reps.empty();
@@ -499,16 +497,16 @@ $(document).ready(function() {
           repCity = response.officials[i].address[0].city;
           repState = response.officials[i].address[0].state;
           repZip = response.officials[i].address[0].zip;
-          repAddress = `${repSteet  }<br>${  repCity  }, ${  repState  }, ${  repZip}`;
+          repAddress = `${repSteet}<br>${repCity}, ${repState}, ${repZip}`;
           if (i < 2) {
             body = 'Senate';
           } else {
             body = 'House';
-          };
+          }
           rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' alt='Congress Member Headshot' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
           reps.append(rep);
-        };
-      }).catch(function(error){
+        }
+      }).catch(function(error) {
         reps.empty();
         reps.append(`<p style="color:black; font-size:30px">Something went 
         wrong with the API call. See console for error.</p>`);
