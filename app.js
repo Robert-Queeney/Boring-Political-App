@@ -199,9 +199,9 @@ $(document).ready(function() {
           } else {
             body = 'House';
           }
-          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p>
-          <img src='${repPhoto}' style='height:200px'><p>${repName}</p><p>${repPhone}</p>
-          <p>${repAddress}</p></div>`);
+          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4 text-center"><div class="rep-card"><p style='font-weight:bold'>${body}</p>
+          <img src='${repPhoto}'><p>${repName}</p><p>${repPhone}</p>
+          <p>${repAddress}</p></div></div>`);
           reps.append(rep);
         }
       }).catch(function(error) {
@@ -503,7 +503,7 @@ $(document).ready(function() {
           } else {
             body = 'House';
           }
-          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4"><p style='font-weight:bold'>${body}</p><img src='${repPhoto}' alt='Congress Member Headshot' style='height:200px'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div>`);
+          rep = $(`<div class="col-xs-12 col-sm-6 col-md-4 text-center"><div class="rep-card"><p style='font-weight:bold'><h3>${body}</h3></p><img src='${repPhoto}' alt='Congress Member Headshot'><p>${repName}</p><p>${repPhone}</p><p>${repAddress}</p></div></div>`);
           reps.append(rep);
         }
       }).catch(function(error) {

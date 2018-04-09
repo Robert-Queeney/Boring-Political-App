@@ -342,6 +342,17 @@ h1 {
 .affix {
   position: static;
 }
+.rep-card {
+  background-color: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
+  min-height: 380px;
+  margin: 1% 4.166%;
+  padding: 2% 1%;
+}
+.rep-card img {
+  height: 200px;
+}
 .loader {
   border: 16px solid #f3f3f3;
   /* Light grey */
@@ -392,6 +403,9 @@ h1 {
   }
   .magnify-icon {
     display: block;
+  }
+  .rep-card {
+    margin: 1% 0;
   }
 }
 @media (min-width: 769px) {
