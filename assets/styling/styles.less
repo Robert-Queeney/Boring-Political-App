@@ -1,33 +1,33 @@
 // Variables
-@background-color: #f9f9f9;
-@primary-element-color: #2e71f2;
-@primary-element-color-dark: #0c32c9;
-@secondary-element-color: #01d6c4;
-@secondary-element-color-dark: #0db2c4;
-@tertiary-element-color: #9425e9;
-@light: #ffffff;
-@light-text: #ffffff;
-@dark-text: #4d4d4d;
-@input-background: #bbbbbb;
-@input-focus: #aeaeae;
+    // Colors
+    @background-color: #f9f9f9;
+    @primary-element-color: #2e71f2;
+    @primary-element-color-dark: #0c32c9;
+    @secondary-element-color: #01d6c4;
+    @secondary-element-color-dark: #0db2c4;
+    @tertiary-element-color: #9425e9;
+    @light: #ffffff;
+    @light-text: #ffffff;
+    @dark-text: #4d4d4d;
+    @input-background: #bbbbbb;
+    @input-focus: #aeaeae;
 
-@font-titles: 'Raleway', sans-serif;
-@font-text: 'Roboto', sans-serif;
+    // Fonts
+    @font-titles: 'Raleway', sans-serif;
+    @font-text: 'Roboto', sans-serif;
 
-// @drop-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-// @drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.13);
-@drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow-active: inset 0 10px 10px rgba(0,0,0,0.22);
-@drop-shadow-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-@inset-fade: inset 0 -20px 40px rgb(0, 204, 255);
-@topic-button-color: #ffffff;
-@topic-button-color-hover: @tertiary-element-color;
-@color-gradient: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
-@color-gradient-2: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
-@color-gradient-3: linear-gradient(45deg, @secondary-element-color-dark  0%, @secondary-element-color 100%);
-@transition-time: 0.5s;
-@card-round-edges: 3px;
+    // Shadows, Gradients and Transitions
+    @drop-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.13);
+    @drop-shadow-hover: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    @drop-shadow-active: inset 0 10px 10px rgba(0,0,0,0.22);
+    @drop-shadow-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    @topic-button-color: #ffffff;
+    @topic-button-color-hover: @tertiary-element-color;
+    @color-gradient: linear-gradient(45deg, @primary-element-color-dark  0%, @primary-element-color 100%);
+    @color-gradient-2: linear-gradient(45deg, #8725e9  0%, #bf25e9 100%);
+    @color-gradient-3: linear-gradient(45deg, @secondary-element-color-dark  0%, @secondary-element-color 100%);
+    @transition-time: 0.5s;
+    @card-round-edges: 3px;
 
 html,body {
 	height:100%;
@@ -70,12 +70,7 @@ h1 {
     margin-top: 3em;
     margin-bottom: .5em;
     padding: 0 20px;
-    // margin: auto auto;
 }
-
-// #page1 {
-//     margin: auto;
-// }
 
 .page-1-title {
     margin-top: 5%;
@@ -88,19 +83,12 @@ h1 {
 .panel-header-style {
     font-size: 1.5em;
     margin-top: 2em;
-    // font-style: italic;
     font-family: @font-titles;
-    // color: @primary-element-color;
-    // text-transform: uppercase;
 }
 
 .topic-btn-area hr {
     margin-bottom:0px;
 }
-
-// .topic-btn-area {
-//     margin-top: 50px;
-// }
 
 
 // Button Styling
@@ -161,7 +149,6 @@ h1 {
 
 .btn-styling:hover {
     color: @light-text;
-    // transition: 0.5s; 
     box-shadow: @drop-shadow-hover;
     transition: @transition-time;
 }
@@ -253,10 +240,6 @@ h1 {
     transition: @transition-time;
 }
 
-// .bill-cards-styling > .panel-body {
-//     padding: 1em 3em;
-// }
-
 /* Drag and Drop */
 
 .sidebar-dropzone {
@@ -272,19 +255,15 @@ h1 {
 .holder {
     width: 100%;
     
-  }
+}
 
 .dropzone {
 background-color: @light;
 padding: 10px;
-// width: 500px;
 width: 100%;
 min-height: 600px;
 height: 100%;
 border: dashed 10px transparent;
-// height: 500px;
-// position: fixed;
-// right: 0px;
 display: block;
 z-index: 1;
 border-radius:@card-round-edges;
@@ -300,20 +279,13 @@ box-shadow: @drop-shadow;
   cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
   cursor:    -moz-grab; /* Firefox 1.5-26 */
   cursor:         grab; /* W3C standards syntax, should come least */
-// display: inline-grid;
-// width: 150px;
-// width: 40%;
 height: 120px;
 background-color: @light;
 box-shadow: @drop-shadow;
 color: @dark-text;
 overflow: hidden;
 padding: 2% 2.0833%;
-// margin: 2% 2.0833%;
-// padding: 2% 4.166%;
 margin: 2% 4.166%;
-// padding:10px;
-// margin: 10px;
 border-left: 10px solid @secondary-element-color;
 border-radius:@card-round-edges;
 font-size: 1.2em;
@@ -337,7 +309,6 @@ line-height: 1.2em;
 
 #billHolder {
 float: left;
-// width: 400px;
 width: 100%;
 
 
@@ -349,9 +320,7 @@ border-color: #aaa;
 
 .drop-target {
 background-color: @primary-element-color;
-color: #FFF;
-// border-color: #fff;
-// border-style: solid;
+color: @light;
 border-radius: @card-round-edges;
 }
 
@@ -370,9 +339,8 @@ border-radius: @card-round-edges;
     width: 100%;
     text-align: left;
     outline: none;
-    // transition: 0.4s;
 }
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
 .accordion:hover {
     background-color: @input-background;
     box-shadow: none;
@@ -389,44 +357,30 @@ border-radius: @card-round-edges;
 
 /* styles for '...' */ 
 .block-with-text {
-    /* hide text if it more than N lines  */
     overflow: hidden;
-    /* for set '...' in absolute position */
     position: relative; 
-    /* use this value to count block height */
     line-height: 1.2em;
     /* max-height = line-height (1.2) * lines max number (3) */
     max-height: 6.0em; 
-    /* fix problem when last visible word doesn't adjoin right side  */
-    // text-align: justify;  
-    /* place for '...' */
     margin-right: 0em;
     padding-right: 1em;
 }
-  /* create the ... */
-  .block-with-text:before {
-    /* points in the end */
+/* creates the '...' at end of text block */
+.block-with-text:before {
     content: '...';
-    /* absolute position */
     position: absolute;
-    /* set position to right bottom corner of block */
     right: 0;
     bottom: 0;
 }
-  /* hide ... if we have text, which is less than or equal to max lines */
-  .block-with-text:after {
-    /* points in the end */
+// Hides text beyond the '...'
+.block-with-text:after {
     content: '';
-    /* absolute position */
     position: absolute;
-    /* set position to right bottom corner of text */
     right: 0;
-    /* set width and height */
     width: 1em;
     height: 1em;
     margin-top: 0.2em;
-    /* bg color = bg color under block */
-    background: white;
+    background: @light;
 }
 
 
@@ -505,6 +459,21 @@ display: none;
 }
 
 
+// Page 3 representatives
+
+.rep-card {
+    background-color: @light;
+    border-radius: @card-round-edges;
+    box-shadow: @drop-shadow;
+    min-height: 380px;
+    margin: 1% 4.166%;
+    padding: 2% 1%;
+}
+
+.rep-card img {
+    height: 200px;
+}
+
 // Page 3 loading animation
 
 .loader {
@@ -548,9 +517,7 @@ display: none;
     #sidebar, #billHolder {
         display: none;
     }
-    // .dropzone {
-    //     display: none;
-    // }
+
     #accordianBillHolder {
         display: block;
     }
@@ -566,11 +533,10 @@ display: none;
     .magnify-icon {
         display: block;
     }
-    // .submit-btn-style:after {
-    //     content: '';
-    // }
 
-
+    .rep-card {
+        margin: 1% 0;
+    }
 }
 
 
@@ -584,9 +550,7 @@ display: none;
     #accordianBillHolder {
         display: none;
     }
-    // .dropzone {
-    //     display: none;
-    // }
+
     .nav-links {
         text-align: right;
     }
