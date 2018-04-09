@@ -48,6 +48,9 @@ h1 {
 .topic-btn-area hr {
   margin-bottom: 0px;
 }
+.magnify-icon {
+  display: none;
+}
 .btn-default,
 .btn-primary,
 .btn-success,
@@ -373,7 +376,7 @@ h1 {
     transform: rotate(360deg);
   }
 }
-@media (max-width: 769px) {
+@media (max-width: 768px) {
   header {
     text-align: center;
   }
@@ -396,8 +399,17 @@ h1 {
   #accordianBillHolder {
     display: block;
   }
+  .submit-btn-style span {
+    display: none;
+  }
+  .submit-btn-style {
+    min-width: 70px;
+  }
+  .magnify-icon {
+    display: block;
+  }
 }
-@media (min-width: 770px) {
+@media (min-width: 769px) {
   #sidebar,
   #billHolder {
     display: block;
