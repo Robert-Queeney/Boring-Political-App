@@ -195,11 +195,16 @@ h1 {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
 }
 .draggable {
-  cursor: move; /* fallback: no `url()` support or images disabled */
-  cursor: url(images/grab.cur); /* fallback: Internet Explorer */
-  cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
-  cursor:    -moz-grab; /* Firefox 1.5-26 */
-  cursor:         grab; /* W3C standards syntax, should come least */
+  cursor: move;
+  /* fallback: no `url()` support or images disabled */
+  cursor: url(images/grab.cur);
+  /* fallback: Internet Explorer */
+  cursor: -webkit-grab;
+  /* Chrome 1-21, Safari 4+ */
+  cursor: -moz-grab;
+  /* Firefox 1.5-26 */
+  cursor: grab;
+  /* W3C standards syntax, should come least */
   height: 120px;
   background-color: #ffffff;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
@@ -219,9 +224,9 @@ h1 {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   z-index: 100;
   cursor: url(images/grabbing.cur);
-    cursor: -webkit-grabbing;
-    cursor:    -moz-grabbing;
-    cursor:         grabbing;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
 }
 #billHolder {
   float: left;
@@ -395,13 +400,16 @@ h1 {
 @media (min-width: 770px) {
   #sidebar,
   #billHolder {
-    display: none;
+    display: block;
   }
   #accordianBillHolder {
-    display: block;
+    display: none;
   }
   .nav-links {
     text-align: right;
+  }
+  .drop-here-text {
+    margin-top: 45%;
   }
 }
 @media (min-width: 992px) {
