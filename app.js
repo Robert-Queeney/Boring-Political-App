@@ -356,7 +356,7 @@ $(document).ready(function() {
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="bill-info-mini-panel text-center">
                 <div class="mini-panel-heading-style">Sponsor Party</div>
                 <div class="panel-body" id="billSponsorParty">
@@ -364,7 +364,7 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="bill-info-mini-panel text-center">
                 <div class="mini-panel-heading-style">Introduced</div>
                 <div class="panel-body" id="billIntroDate">
@@ -372,7 +372,7 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="bill-info-mini-panel text-center">
                 <div class="mini-panel-heading-style">Last Action</div>
                 <div class="panel-body" id="billLastActionDate">
