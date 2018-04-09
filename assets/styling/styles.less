@@ -105,6 +105,10 @@ h1 {
 
 // Button Styling
 
+.magnify-icon {
+    display: none;
+}
+
 .btn-default,.btn-primary,.btn-success,.btn-info,.btn-warning,.btn-danger,.btn-styling {
     border-radius:23px;
 }
@@ -520,7 +524,7 @@ display: none;
 }
 
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
     header {
         text-align: center;
     }
@@ -551,10 +555,26 @@ display: none;
         display: block;
     }
 
+    .submit-btn-style span {
+        display: none;
+    }
+
+    .submit-btn-style {
+        min-width: 70px;
+    }
+    
+    .magnify-icon {
+        display: block;
+    }
+    // .submit-btn-style:after {
+    //     content: '';
+    // }
+
+
 }
 
 
-@media (min-width: 770px) {
+@media (min-width: 769px) {
 
 
     #sidebar, #billHolder{
