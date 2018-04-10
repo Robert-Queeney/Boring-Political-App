@@ -424,15 +424,6 @@ $(document).ready(function() {
     },
   });
 
-  // Dropzone affix
-
-  // $('#sidebar').affix({
-  //   offset: {
-  //     top: 85,
-  //     bottom: 85
-  //   },
-  // });
-
   // On click of "Refresh" button, the bills will be reappended to the page
 
   $(document).on('click', '.refreshBills', function() {
