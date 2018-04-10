@@ -1,6 +1,7 @@
 'use strict';
 
 $(document).ready(function() {
+
   // Initialize Firebase
 
   const config = {
@@ -77,7 +78,6 @@ $(document).ready(function() {
       billIndex = 0;
       for (let i = 0; i < results.results[0].bills.length; i++) {
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title;
-        billInfoObject[`id${i}`] = results.results[0].bills[i].bill_id;
         billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;
         billInfoObject[`summary${i}`] = results.results[0].bills[i].title;
         billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
