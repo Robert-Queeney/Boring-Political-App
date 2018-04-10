@@ -23,6 +23,9 @@ $(document).ready(function() {
   const searchTopicInput1 = $('#searchTopicInput1');
   const searchTopicInput2 = $('#searchTopicInput2');
   const searchTopicInput3 = $('#searchTopicInput3');
+  const searchTopicButton1 = $('#searchTopicButton1');
+  const searchTopicButton2 = $('#searchTopicButton2');
+  const searchTopicButton3 = $('#searchTopicButton3');
   let issueSearch;
   let databaseHasTopic;
   const billHolder = $('#billHolder');
@@ -57,7 +60,13 @@ $(document).ready(function() {
   let inputAddressString;
   let rep;
   const reps = $('#reps');
+  const getInvolvedHeader = $('#getInvolvedHeader');
+  const addressPopup = $('#addressPopup');
+  const submitAddressButton = $('#submitAddressButton');
   let inputA;
+  const inputAddress = $('#inputAddress');
+  const inputCity = $('#inputCity');
+  const inputState = $('#inputState');
   let inputC;
   let inputS;
   let billValue;
@@ -80,7 +89,6 @@ $(document).ready(function() {
         billInfoObject[`title${i}`] = results.results[0].bills[i].short_title;
         billInfoObject[`party${i}`] = results.results[0].bills[i].sponsor_party;
         billInfoObject[`summary${i}`] = results.results[0].bills[i].title;
-        billInfoObject[`branch${i}`] = results.results[0].bills[i].sponsor_title;
         billInfoObject[`govtrack_url${i}`] = results.results[0].bills[i].govtrack_url;
         billInfoObject[`latest_major_action${i}`] = results.results[0].bills[i].latest_major_action;
         billInfoObject[`date${i}`] = results.results[0].bills[i].latest_major_action_date;
@@ -94,7 +102,7 @@ $(document).ready(function() {
         <p class="accordion-panel-subheaders">Party:</p>${billInfoObject[`party${i}`]}<br><br>
         <p class="accordion-panel-subheaders">Latest Action:</p>${billInfoObject[`latest_major_action${i}`]}<br><br>
         <p class="accordion-panel-subheaders">Latest Action Date:</p>${billInfoObject[`date${i}`]}</p>
-        <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack <i class="fas fa-external-link-alt"></i></a>
+        <p class="accordion-panel-subheaders">URL:</p><a href="${billInfoObject[`govtrack_url${i}`]}" target="_blank">Govtrack<i class="fas fa-external-link-alt"></i></a>
         <br><div class="row"><div class="col-md-12 text-center">
         <button class="btn-styling get-involved-btn-style getInvolvedButton">Get Involved</button></div></div>`);
         billIndex++;
@@ -220,8 +228,8 @@ $(document).ready(function() {
 
   const onGeolocationError = function() {
     reps.empty();
-    $('#getInvolvedHeader').text('Please Enter Your Address To Proceed');
-    $('#addressPopup').show();
+    getInvolvedHeader.text('Please Enter Your Address To Proceed');
+    addressPopup.show();
   };
 
   // Function Calls
@@ -253,7 +261,7 @@ $(document).ready(function() {
   // there AND hide 'Page 1' div AND display 'Page 2' div AND use the topic
   // in the Propublica API call
 
-  $('#searchTopicButton1').on('click', function(event) {
+  searchTopicButton1.on('click', function(event) {
     event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput1, page1);
   });
@@ -275,7 +283,7 @@ $(document).ready(function() {
   // there AND empty billsPanel of content AND use the topic in the Propublica
   // API call
 
-  $('#searchTopicButton2').on('click', function(event) {
+  searchTopicButton2.on('click', function(event) {
     event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput2, page2);
   });
@@ -424,7 +432,7 @@ $(document).ready(function() {
     },
   });
 
-  // On click of "Refresh" button, the bills will be reappended to the page
+  // On click of "Refresh" button, the bills reappend to the page
 
   $(document).on('click', '.refreshBills', function() {
     billHolder.empty();
@@ -451,7 +459,7 @@ $(document).ready(function() {
   // there AND hide 'Page 3' div AND display 'Page 2' div AND empty the
   // billsPanel of content AND use the topic in the Propublica API call
 
-  $('#searchTopicButton3').on('click', function(event) {
+  searchTopicButton3.on('click', function(event) {
     event.preventDefault();
     saveSearchAndGetBillInfo(searchTopicInput3, page3);
     reps.empty();
@@ -459,20 +467,20 @@ $(document).ready(function() {
 
   // Submit Address Button
 
-  $('#button11111').click(function () {
+  submitAddressButton.click(function () {
     event.preventDefault();
-    inputA = $('#inputAddress1').val();
-    inputC = $('#inputCity1').val();
-    inputS = $('#inputState1').val();
+    inputA = inputAddress.val();
+    inputC = inputCity.val();
+    inputS = inputState.val();
     if (inputA === '' || inputC === '' || inputS === '') {
       inputRequired.append('<p style="color:black; font-size:30px">Input Required</p>');
     } else {
       inputRequired.empty();
-      $('#inputAddress1').val('');
-      $('#inputCity1').val('');
-      $('#inputState1').val('');
-      $('#addressPopup').hide();
-      $('#getInvolvedHeader').text('Contact Your Legislative Representatives');
+      inputAddress.val('');
+      inputCity.val('');
+      inputState.val('');
+      addressPopup.hide();
+      getInvolvedHeader.text('Contact Your Legislative Representatives');
       reps.append('<div class="loader center-block"></div>');
       inputAddressString = (`${inputA}, ${inputC}, ${inputS}`);
       $.ajax({

@@ -16,15 +16,17 @@ This project lets the user search for a current issue that they want to learn mo
 
 ## Tech Used
 
-- Less.js
+- less.js
 - Bootstrap
 - Firebase
 - interact.js
+- jQuery
 
 ### API
+
 - ProPublica Congress
 - Google Civic Information
-- geolocation
+- Geolocation
 - Mapquest Reverse Geocode
 
 ## Installation
@@ -42,11 +44,13 @@ This project lets the user search for a current issue that they want to learn mo
 [MIT License](https://github.com/scoslo5512/Project1/blob/geolocation-work/LICENSE)
 
 ## Next Steps
+
 * When congressional people are shown - we would like to show how these people have previously voted on issues
 * Breaking data down to show more local representatives
 * Incorporate Tweets from politicians (able to obtain twitter handles from Google Civic API)
 
 ### Group Members' Responsibilities
+
 * Project Management & Information Architecture: Maddy
 * Interface/Experience Design: Majid
 * Web Content and Technology: Cavan
