@@ -7,10 +7,8 @@ This project lets the user search for a current issue that they want to learn mo
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Tech Used](#tech-used)
-- [Installation](#installation)
 - [API Reference](#api-reference)
-  - [Endpoint](#endpoint)
-- [Testing](#testing)
+- [Installation](#installation)
 - [License](#license)
 - [Next Steps](#next-steps)
 
