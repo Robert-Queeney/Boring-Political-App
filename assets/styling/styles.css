@@ -175,7 +175,7 @@ h1 {
 }
 /* Drag and Drop */
 .sidebar-dropzone {
-  height: 100%;
+  height: 100vh;
 }
 .drop-here-text {
   font-family: 'Raleway', sans-serif;
@@ -347,7 +347,7 @@ h1 {
   border-radius: 3px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
   min-height: 380px;
-  margin: 1% 4.166%;
+  margin: 3% 4.166%;
   padding: 2% 1%;
 }
 .rep-card img {
