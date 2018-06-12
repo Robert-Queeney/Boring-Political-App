@@ -2,11 +2,14 @@
   "name": "project1",
   "version": "1.0.0",
   "description": "### Problem/Description:  * Let users search by political issue of their choice * Site will display upcoming bills relevant to the issue search by the user * Bills will be displayed in a new page * If user wishes to 'get involved' they can click on a button * Button will trigger asking user for their location in order to display local politicians they can contact",
-  "main": "sample.js",
+  "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "eslint-config-airbnb": "^16.1.0",
+    "express": "^4.16.3",
     "interactjs": "^1.3.3",
-    "npm": "^5.8.0"
+    "npm": "^5.8.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -15,16 +18,16 @@
     "eslint-plugin-import": "^2.10.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/scoslo5512/Project1.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Our Awesome Group",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/scoslo5512/Project1/issues"
-  },
-  "homepage": "https://github.com/scoslo5512/Project1#readme"
+  }
 }
