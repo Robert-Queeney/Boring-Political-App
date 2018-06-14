@@ -71,3 +71,7 @@ This project lets the user search for a current issue that they want to learn mo
 * Web Content and Technology: Cavan
 * Web Development and Production: Robert and Dan
 * Quality Assurance and Editing: Group
+
+## Link to Deployed App
+Heroku version (from branch "heroku-ready"):
+https://boringpoliticalapp.herokuapp.com/
