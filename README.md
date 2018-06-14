@@ -64,7 +64,7 @@ This project lets the user search for a current issue that they want to learn mo
 * Incorporate Tweets from politicians (able to obtain twitter handles from Google Civic API)
 
 
-### Group Members' Responsibilities
+## Group Members' Responsibilities
 
 * Project Management & Information Architecture: Maddy
 * Interface/Experience Design: Majid
@@ -73,5 +73,5 @@ This project lets the user search for a current issue that they want to learn mo
 * Quality Assurance and Editing: Group
 
 ## Link to Deployed App
-Heroku version (from branch "heroku-ready"):
+Heroku version (from branch "heroku_ready"):
 https://boringpoliticalapp.herokuapp.com/
